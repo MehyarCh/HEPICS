@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Lastenheft latex files
+Lastenheft.aux
+Lastenheft.log
+Lastenheft.pdf
+Lastenheft.synctex.gz
+Lastenheft.toc
+

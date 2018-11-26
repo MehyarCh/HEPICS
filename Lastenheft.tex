@@ -9,162 +9,562 @@ bookmarks=true,%
 }
 \usepackage{graphicx}       % provides commands for including figures
 \usepackage{csquotes}       % provides \enquote{} macro for "quotes"
-\usepackage[nonumberlist]{glossaries}     % provides glossary commands
 \usepackage{enumitem}
 
-\makenoidxglossaries
-%
-% % Glossareinträge
-%
-\newglossaryentry{Dozent}
-{
-	name=Dozent,
-	plural=Dozenten,
-	description={Leiter eines oder mehrerer Seminartypen},
-}
 
-\newglossaryentry{Kunde}
-{
-	name=Kunde,
-	plural=Kunden,
-	description={(Zahlende) Teilnehmer einer oder mehrerer Seminarveranstaltung/en}
-}
-
-\newglossaryentry{Seminartyp}
-{
-	name=Seminartyp,
-	plural=Seminartypen,
-	description={Typ einer Lehrveranstaltung (z.B. \enquote{Schöner Malen -- Anfängerkurs})}
-}
-
-\newglossaryentry{Seminarveranstaltung}
-{
-	name=Seminarveranstaltung,
-	plural=Seminarveranstaltungen,
-	description={Tatsächlich stattfindende Lehrveranstaltung (z.B. \enquote{Schöner Malen -- Anfängerkurs, Sommer 2014})}
-}
-
-\newglossaryentry{Computer}
-{
-	name=Computer,
-	description={Gerät zur Verarbeitung zur Daten, das die Daten einlesen, verarbeiten, speichern und ausgeben kann}
-}
-
-\title{SWT1: Lastenheftvorlage}
-\author{John Doe, 1234567}
+\title{HePICS: Heterogenus Platform for Image Classification System}
 
 \begin{document}
 
+\pagenumbering{gobble}
+
+\thispagestyle{empty}
 \maketitle
+\pagebreak
 
-%
-% % Hinweise - sollen nicht im endgültigen Dokument erscheinen, daher vor der Abgabe löschen!
-%
-\section{Vorwort}
-Die Dokumentation der Pakete ist häufig lesenswert.
-Insbesondere bei den Paketen hyperref und scrguide (KOMA-Script).
-Wer TeXLivei per Kommandozeile benutzt kann einfach texdoc scrguide aufrufen.
-Windows-Benutzer, die noch nie mit Latex gearbeitet haben, können sich alternativ MikTex anschauen; Mac-Benutzer MacTex.
 
-Zum Erzeugen eines PDFs aus den LATEX-Sourcen empfehlen wir einen Wrapper wie latexmk\footnote{\url{https://www.ctan.org/tex-archive/support/latexmk}} oder einen Editor wie TeXStudio\footnote{\url{http://www.texstudio.org/}} zu verwenden.
-Dieser übernimmt beispielsweise das mehrfache Ausführen von pdflatex, wo es notwendig ist.
 
-Legen Sie für dieses Dokument ein neues Verzeichnis in Ihrem Git an, zum Beispiel \texttt{image.lastenheft} und speichern Sie alle benötigten Dateien darin.
-Speichern Sie keine von Latex generierten Dateien (außer dem PDF) im Git.
-Dies geschieht über die mitgelieferte \texttt{.gitignore}.
-Sie können aber auch Ihre persönliche \texttt{.gitignore} bei Bedarf erweitern.
 
-\section{Technisches Schreiben}
 
-Technisches Schreiben ist wichtig für alle Arten von technischen und wissenschaftlichen Dokumenten, also auch im PSE und in der Bachelorarbeit.
-Es bedeutet vor allem eine präzise Ausdrucksweise und widerspricht dabei einigen Regeln, die man im Deutschunterricht gelernt hat.
-Ein paar praktische Tipps (aus den PSE-Dokumenten von Prof. Snelting):
-\begin{itemize}[nosep]
-\item Vermeide Adjektive.
-      Oft (nicht immer) sind sie unnötig oder ein schlechter Ersatz für einen ungenauen Begriff.
-\item Nebensatzkonstruktionen vermeiden; Hauptsätze verwenden!
-\item Definiere Begriffe klar und verwende keine Synonyme.
-      Synonyme lassen offen, ob genau das gleiche gemeint ist oder nur etwas ähnliches.
-      Definiere spezielle Begriffe, z.B. \gls{Computer}, in einem Glossar und verweise im Dokument entsprechend darauf.
-\item Abkürzungen sollten bei der ersten Verwendung (EV) ausgeschrieben werden.
-      Nach der EV reicht dann die Kurzform.
-\item Versuche konkrete Zahlen und Namen anzugeben.
-      Vermeide ungenaue Ausflüchte wie: meistens, viele, oft, möglichst, üblich, jemand, manche.
-\item Viele kurze Sätze sind einfacher zu verstehen als wenige lange Sätze.
-\item Beispiele machen das Endprodukt greifbarer.
-\item Illustrationen minimalistisch halten (z.B. IKEA Bauanleitung).
-      Eine Information, ein Bild.
-      Lieber mehrere ähnliche Bilder als ein komplexes Bild.
-\item Vermeide Wiederholung, stattdessen Referenzen benutzen.
-      Wiederholungen haben oft subtile Unterschiede, was zu Unklarheit und Verwirrung führt.
-      Bei Änderungen wird oft vergessen, dass Wiederholungen auch angepasst werden müssen.
-\item Versionskontrolle ergibt auch für technische Texte Sinn und nicht nur für Code.
+\pagenumbering{roman}
+
+\tableofcontents
+\pagebreak
+
+
+
+
+
+\pagenumbering{arabic}
+
+\section {Introduction}
+
+This project consists in building an image classification system, which takes images as input and gives a prediction -in percentages- of what would be on these given images. For instance, the system may receive an image of a human face as input, after treating the data, the output is then represented in a small list of objects that may be on the picture, ordered by their probability percentages. In this case, the system should display a list, whose first element "human face" is, next to the probability which the system calculated for this result.
+
+The motivation behind this project is artificial neural networks. These are computing systems which were inspired by the biological neural network of an animal. Such systems gain knowledge in executing tasks -in our case image recognition- through a certain training. For an image recognition neural network to correctly perform its task, it is required to analyze examples of images that have been manually labeled. Other uses where artificial neural networks are deployed are predictions, function approximations, or real life patterns recognition...
+
+Nowadays, machine learning is gaining in importance as the goal of including machines in various activities -industries, services, economy- in order to reach high levels of efficiency is in need of artificial intelligence. Indeed, under the applications of artificial neural networks, we can mention autonomous driving, natural language processing, gesture recognition, and of course, face recognition, which is the main application of this project.
+
+It must not be forgotten to mention as well, that there exists different neural networks models, such as Back-Propagation, Boltzman Machines and Deep Neural Networks, with which we will deal in this project. In particular, we will deal with "AlexNet", which is a convolutional neural network consisting of 8 layers, 5 of which are convolutional while the others are fully-connected layers.
+
+On one hand, deploying deep neural networks not only means unlocking a massive parallelism potential for our system, but it also means that unsupervised learning is most definitely possible. On the other, we are in need of a huge data set for this unsupervised training. It is important to mention as well, that deep neural networks require intense computations, which manifests itself in high power consumption and learning and classification time.
+
+For the sake of decreasing the number of disadvantages of deep neural networks, the decision of using heterogeneous platforms such as CPUs, GPUs and FPGAs was made. These will provide the system with a good performance for a wide range of computations, as well as a decent usage of pipelines and parallelism, and of course, all with low power consumption.
+
+To take a taste at the fascinating world of machine learning and artificial neural networks, we invite you to try out our image recognition system, and maybe even have a little fun with it.
+
+\pagebreak
+
+
+
+
+
+\section{Target specifications}
+
+\subsection{Must-requirements}
+
+\begin{itemize}
+	\item The system must be able to classify images.
+	\item The system must allow the selection of one or more input images.
+	\item The system must show the result of the treatment.
+	\item The system must employ artificial neural networks.
+	\item The system must deploy the AlexNet deep neural network.
+	\item The system must know at least one set of weights.
+	\item The system must be able to execute intense calculations through heterogeneous platforms (CPU, GPU, FPGA, ASIC).
+	\item The system must support an FPGA through OpenCL.
+	\item The system must hide the OpenCL details behind an abstraction layer.
+	\item The system must offer three performance profiles : 
+	\begin{itemize}
+		\item High Performance
+		\item Low Power
+		\item Energy Efficency
+	\end{itemize}
+	\item The system must allow the control and the execution of commands through a GUI interface.
+	\item The system must be able to run the GUI on an Ubuntu system.
+	\item The system must exhibit a classification interface.
+	\item The system must be able to measure its performance.
+	\item The system must be able to measure its power consumption.
+	\item The system communicate with another system. It looks into a file to search for an image treatment request, and send back the results via Ethernet connection.
+	\item The system must include the aggregate feature. This feature fuses the results of different treatments of the same object in order to reach more precision.
+	\item The system must offer the possibility of entering up to 5 images in the aggregate feature.
 \end{itemize}
 
-%
-% % Hier beginnt die Gliederung des Lastenhefts
-%
-\section{Zielbestimmung}
-Die Firma Teachware soll durch das Produkt in die Lage versetzt werden, die von ihr veranstalteten Seminare rechnerunterstützt zu verwalten.
+\subsection{Can-Requirements}
 
-\section{Produkteinsatz}
-Das Produkt dient zur Kunden- und Seminarverwaltung der Firma Teachware. Außerdem sollen verschiedene Anfragen beantwortet werden können.
-
-Zielgruppe: die Mitarbeiter der Firma Teachware.
-
-Plattform: PC mit Windows XP oder Nachfolger-Betriebssystem
-
-\section{Funktionale Anforderungen}
-\begin{itemize}[nosep]
-\item[FA10] Ersterfassung, Änderung und Löschung von \glspl{Kunde} (Teilnehmer, Interessenten).
-\item[FA20] Benachrichtigung der Kunden (Anmeldebestätigung, Abmeldebestätigung, Änderungsmitteilungen, Rechnung, Werbung).
-\item[FA30] Ersterfassung, Änderung und Löschung von Seminarveranstaltungen und Seminartypen.
-\item[FA40] Ersterfassung, Änderung und Löschung von \glspl{Dozent} sowie Zuordnung zu \glspl{Seminarveranstaltung} und \glspl{Seminartyp}.
-\item[FA50] Ersterfassung, Änderung und Löschung von Seminarbuchungen.
-\item[FA60] Erstellung von Rechnungen.
-\item[FA70] Erstellung verschiedener Listen (Teilnehmerliste, Umsatzliste, Teilnehmerbescheinigungen).
-\item[FA80] Anfragen der folgenden Art sollen möglich sein:
-     Wann findet das nächste Seminar X statt? Welche Mitarbeiter der Firma Y haben das Seminar X besucht?
+\begin{itemize}
+	\item The system can offer the possibility of entering more than 5 images in the aggregate feature.
+	\item The system can deploy a GPU.
+	\item The system can deploy a DSP.
+	\item The system can deploy the GoogleNet neural network next to AlexNet. 
+	\item The system can allow the training of neural networks.
+	\item The system can display the topology of the neural network.
+	\item The system can write the results into a file in order to use it for another program.
+	\item The system can run batch processing.
+	\item The system can carry out transfer learning of the already implemented neural network.
+	\item The system can beautify the output result.
+	\item The system can generate weight files.
+	\item The system can load different weight files.
+	\item The system can pause, resume or cancel the classification process.
 \end{itemize}
 
-\section{Produktdaten}
-\begin{itemize}[nosep]
-\item[PD10] Es sind relevante Daten über die Kunden zu speichern.
-\item[PD20] Falls ein Kunde zu einer Firma gehört, dann sind relevante Daten über die Firma zu speichern.
-\item[PD30] Es sind relevante Daten über Seminarveranstaltungen, Seminartypen und Dozenten zu speichern.
-\item[PD40] Bucht ein Kunde eine Seminarveranstaltung, dann sind entsprechende Buchungsdaten zu speichern.
+\subsection{Criteria of demarcation}
+
+\begin{itemize}
+	\item The system cannot be a real-time application.
+	\item The system cannot run on mobile-plattforms.
 \end{itemize}
 
-\section{Nichtfunktionale Anforderungen}
-\begin{itemize}[nosep]
-\item[NF10] Die Funktion /FA80/ darf nicht länger als 15 Sekunden Interaktionszeit benötigen, alle anderen Reaktionszeiten müssen unter 2 Sekunden liegen.
-\item[NF20] Es müssen maximal 50.000 Teilnehmer und maximal 10.000 Seminare verwaltet werden können.
+\pagebreak
+
+
+
+
+
+
+\section{Product Use}
+
+\subsection{Field of application}
+ 
+This program is designed for image classification. The user or system can use this program to recognize pre-specified or learned objects. Because the system runs on heterogeneous platforms, the user is allowed to switch between various operation modes depending on power or performance preferences.
+
+Victims of strokes or memory problems have a hard time recognizing even the most simple objects we deal with everyday. Building on this system, it would be possible to help these people to rebuild their memories or label the objects presented on the images. It can also help the visually disabled have a better idea about their environment through processing images they choose.
+Another application of this system is the optimization of the traffic lights through equipping them with a functionality that would set the traffic free for other sides, if the current side is empty.
+
+We can think about a use in the tourism field as well, as tourists may want to have a better idea about buildings or statues of the city they are visiting, which they can do through our system.
+
+\subsection{Target Group}
+
+\begin{itemize}
+	\item people with impaired vision
+	\item tourists
+	\item developers of other systems
+	\item users who need to classify images
+	\item systems which process images or solve problem in computer vision
 \end{itemize}
 
-\section{Systemmodelle}
-
-\subsection{Szenarien}
-
-\subsection{Anwendungsfälle}
-\subsubsection{Seminarorganisation}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{szenario_seminarorganisation.pdf}
-\end{center}
-
-Akteure: Kundensachbearbeiter, Seminarsachbearbeiter.
-
-Anwendungsfälle: Kundenverwaltung, Rechnungsstellung, Anfragebearbeitung, Dozentenverwaltung, Listenverwaltung, Seminarverwaltung.
-
-Textuelle Beschreibung: (folgt)
+\pagebreak
 
 
 
-%
-% % Automatisch generiertes Glossar (Latex zwei mal ausführen um Glossar anzuzeigen)
-%
-%\glsaddall % das sorgt dafür, dass alles Glossareinträge gedruckt werden, nicht nur die verwendeten. Das sollte nicht nötig sein!
-\printnoidxglossaries
-Siehe \url{https://en.wikibooks.org/wiki/LaTeX/Glossary}.
+\subsection{Operation Condition}
+
+The following conditions must be met:
+
+\begin{itemize}
+	\item Hardware and software as follows must be available: 
+	\begin{itemize}
+		\item Host PC with Ubuntu 16.04
+		\item FPGA
+	\end{itemize}
+	\item System and possible user-system must be installed.
+	\item Images must be accessible to file system.
+	\item Host PC must be powered.
+	\item FPGA must be powered.
+	\item Images must be JPG.
+	\item FPGA have to be connected to Host PC.
+	\item There must be enough storage for the program.
+	\item There must be enough storage to store results. 
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+\section{Product Environment}
+
+\subsection{Software}
+
+\begin{itemize}
+	\item Ubuntu 16.04 - operating system of Host PC
+	\item QT - to create classic and embedded GUI
+	\item OpenCL - framework for writing programs that execute across heterogeneous platforms
+\end{itemize}
+
+\subsection{Hardware}
+
+\begin{itemize}
+	\item Desktop PC
+	\item DE1SoC (SOC that includes FPGA)
+\end{itemize}
+ 
+\pagebreak
+
+
+
+
+
+\section{Product Functions} \label {pfunc}
+
+\subsection{Basic Functions} \label {bfunc}
+
+\begin{itemize}
+	\item[/F010/] Show welcome window.
+	\item[/F020/] Show main window. 
+	\item[/F030/] Choose input image (at most 5 images of an object).
+	\item[/F040/] Remove single image from the selection.
+	\item[/F050/] Show thumbnails of the selected images.
+	\item[/F060/] Reset the selection of the images.
+	\item[/F070/] Choose operation mode: 
+	\begin{itemize}
+		\item High Performance
+		\item Low Power Consumption
+		\item High Energy Efficiency
+	\end{itemize}
+	\item[/F080/] Change the operation mode before starting processing.
+	\item[/F090/] Block parts of GUI.
+	\item[/F100/] Start processing.
+	\item[/F110/] Pause processing.
+	\item[/F120/] Resume processing.
+	\item[/F130/] Cancel processing.
+	\item[/F140/] Switch between start button and cancel button.
+	\item[/F150/] Switch between pause button and resume button.
+	\item[/F160/] Run calculation through FPGA.
+	\item[/F170/] Aggregate results of multiple images.
+	\item[/F180/] Show output results (names and precentages of top 4).
+	\item[/F190/] Terminate program.
+	\item[/F200/] Start a new classification.
+	\item[/F210/] Poll the request file from another system.
+	\item[/F220/] Send back the results via ethernet.
+\end{itemize}
+
+\subsection{Optional Functions} \label {ofunc}
+
+\begin{itemize}
+	\item[/F230/] Run calculation through GPU.
+	\item[/F240/] Run calculation through ASIC.
+	\item[/F250/] Choose the neural network topology.
+	\item[/F260/] Show the neural network topology.
+	\item[/F270/] Deploy training of an arbitrary neural network.
+	\item[/F280/] Transfer learning of the already implemented neural network.
+	\item[/F290/] Show a progress bar while classifying.
+	\item[/F300/] Show output results in clear form (with a histogram).
+	\item[/F310/] Write output results into a new file.
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+\section{Product-Data}
+
+\subsection{System-Data}
+
+\begin{itemize}
+	\item[/D10/] Classification results with percentage bars.
+	\item[/D20/] The nodes' weight files.
+	\item[/D30/] The neural network's topology.
+\end{itemize}
+
+\subsection{User-Data}
+
+\begin{itemize}
+	\item[/D40/] The input images are saved.
+	\item[/D50/] The results are saved.
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+\section{System Model}
+
+Programming with less complexity makes delightful code that is less buggy and easier to maintain because it is reusable without modification. In order to achieve this goal we use in this context the MVC architecture which consists of three parts: Model, View and Controller.
+
+\subsection{Model}
+
+The model represents the domain. The model does not depend on the controller or the view. It contains the pretrained neural network model AlexNet as well as the classification algorithm to be used on images.The neural network itself is composed of a set of weights and topology. The toplogy sepecifies how the layers interact with each other. On the other hand the weights define when the neurons are activated. The layers are invoked by the scheduler which is responsible for resolving dependencies between them.
+
+\subsection{View}
+
+The view displays the model data. The model data is in this case the input images,  the output results and the chosen operation mode as well as the current state of the process (e.g. in pause, running, waiting for input). Besides it sends user actions (e.g. button clicks, inputs) to the controller. It represents the graphical user interface which allows the user to interact with the system (See Graphical User Interface)
+
+\subsection{Controller}
+
+The controller interprets user actions such as button clicks. It depends on the view and the model and controls the interactions between them.
+
+\pagebreak
+
+
+
+
+
+\subsection{Use Cases}
+
+\subsubsection {Use Case: Send input image} \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: External system
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] External systems human user: Wants external system to provide its service fast, accurate and energy efficient.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] External system and image classification system are running.
+		\item[] The external system must be connected to the image classification system.
+		\item[] The external system must be able to write the request file.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The image classification system has access to the images to be classified.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User runs external system.
+		\item[2.] External system sends image file to filesystem of image classification system.
+		\item[3.] External system repeats 2 until done.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] A shut down signal is sent.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
+
+
+\subsubsection {Use Case: Give classification request}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: External system
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] External systems human user: Wants external system to provide its service fast, accurate and energy efficient.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] Input images were sent as described in use case \ref {uc:sip} and are accessible.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The request was accepted.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] Input images were sent.
+		\item[2.] External system writes command to request file.
+		\item[3.] Image classification system reads request file.
+		\item[4.] Image classification system accepts the request.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] A shut down signal is sent.
+		\end{itemize}
+		\item[3a.] The request is invalid:
+		\begin{itemize} [nosep]
+			\item[1.] An error signal is sent.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
+
+
+
+
+\section{Product Performance}
+
+\begin{itemize}
+	\item[/P010/] The user clicks on a start button in order to start the program.
+	\item[/P020/] The user chooses the operation mode with one click.
+	\item[/P030/] The user switches between operation modes in one click.
+	\item[/P040/] The user uploads an image in a maximum of three clicks.
+	\item[/P050/] The user removes an image in one button.
+	\item[/P060/] The user resets the selection in one button.
+	\item[/P070/] The system shows a progress bar while classifying.
+	\item[/P080/] The user pauses the process in one click.
+	\item[/P090/] The user resumes the process in one click.
+	\item[/P100/] The user cancels the process in a maximum of three buttons.
+	\item[/P110/] The user exits the program in a maximum of three buttons.
+	\item[/P120/] The user starts a new classification in a maximum of three buttons.
+	\item[/P130/] Low Power Consumption Mode should consume the least amount of power.
+	\item[/P140/] High Performance Mode should execute the fastest.
+	\item[/P150/] High Energy Efficiency Mode is the most power consumption and time efficient of the three modes.
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+
+\section {Graphical User Interface}
+
+The GUI, which represents the front-end, is the communication channel between the user and the back-end (the internal system). It will guide users through the variety of operations which can be performed by the System.
+
+\subsection {Welcome-Window}
+
+After the program starts, a welcome window with information on the Software will be displayed. This information consists of a short description of the  system and the current version of the software.(See figure x.xx)
+
+\subsection {Main-Window}
+
+After clicking on Start-button in the welcome window, another window will pop up. It is called main window.The main window contains multiple sections: 
+
+\subsubsection {Choose-Operation-Section}
+
+ The user has to choose a running mode:
+
+\begin{enumerate}
+	\item High Performance
+	\item Low Power Consumption
+	\item High Energy Efficiency
+\end{enumerate}
+
+\subsubsection {Result-Section}
+
+The result section contains results of aggregation. The results are represented in form of text. The results are the probabilities of the top detected objects in percentages.
+
+\subsubsection {Progress-Bar}
+
+The progress bar shows the state of the current running process.
+
+\subsubsection {Image-Section}
+
+The image section consists of multiple buttons which can be used to add images. Thumbnails are generated afterwards and will be displayed on the buttons. An image can be removed through clicking on the remove-button. All images can also be removed at once if the user clicks on the reset-button.
+
+\subsubsection {Control-Section}
+
+By using the control section the user is able to start and cancel the process. Once the classification starts, the start button becomes a cancel button. While running the user can pause the classification by clicking on the pause button. In this case the pause button becomes a resume button.
+
+\pagebreak
+
+
+
+
+
+\section {Test Cases}
+
+All functions are tested by the following test cases. The basic tests test the basic functions. The extended tests test the optional functions. The actions described here are atomic from a users point of view.
+
+\subsection {Basic tests}
+
+\begin{itemize}
+	\item[/T010/] Start application. (/F010/, /F090/, \ref{bfunc})
+	\item[/T020/] Press start on welcome screen. (/F020/, \ref{bfunc})
+	\item[/T030/] Start file open dialog for image. (/F030/, \ref{bfunc})
+	\item[/T040/] Choose image file. (/F030/, /F050/, \ref{bfunc})
+	\item[/T050/] Choose a file, whose format is not supported. (/F030/, \ref{bfunc})
+	\item[/T060/] Choose multiple input image files. (/F030/, \ref{bfunc})
+	\item[/T070/] Abort image file selection. (/F030/, \ref{bfunc})
+	\item[/T080/] Remove a selected image. (/F040, \ref{bfunc}/)
+	\item[/T090/] Reset the selection of images. (/F060/, \ref{bfunc})
+	\item[/T100/] Choose operation mode high performance. (/F070/, /F080/, \ref{bfunc})
+	\item[/T110/] Choose operation mode low power consumption. (/F070/, /F080/, \ref{bfunc})
+	\item[/T120/] Choose operation mode high energy efficiency. (/F070/, /F080/, \ref{bfunc})
+	\item[/T130/] Start processing. (/F100/, /F090/, /F140/, /F160/, \ref{bfunc})
+	\item[/T140/] Pause processing. (/F110/, /F150/, \ref{bfunc})
+	\item[/T150/] Resume processing. (/F120/, /F150/, \ref{bfunc})
+	\item[/T160/] Cancel processing. (/F130/, /F140/, \ref{bfunc})
+	\item[/T170/] Finish processing. (/F090/, /F140/, /F170/, /F180/, \ref{bfunc})
+	\item[/T180/] Close program. (/F190/, \ref{bfunc})
+	\item[/T190/] Start new classification. (/F200/, \ref{bfunc})
+	\item[/T200/] Receive a classification request in the request file. (/F210/, /F220/, \ref{bfunc})
+\end{itemize}
+
+\pagebreak
+
+
+
+\subsection {Extended tests}
+
+\begin{itemize}
+	\item[/T210/] Start processing. (/F230/, /F240/, /F290/)
+	\item[/T220/] Finish processing. (/F300/, /F310/)
+	\item[/T230/] Start file open dialog for topology. (/F250/)
+	\item[/T240/] Choose topology. (/F250/)
+	\item[/T250/] When choosing a topology choose a non topology file. (/F250/)
+	\item[/T260/] Press show topology button. (/F260/)
+	\item[/T270/] Start file open dialog for weights. (/F270/)
+	\item[/T280/] Choose weights. (/F270/)
+	\item[/T290/] When choosing weights choose a non weights file. (/F270/)
+	\item[/T300/] Choose weights for another topology (/F270/)
+	\item[/T310/] Choose AlexNet (/F270/)
+	\item[/T320/] Choose GoogleNet (/F270/)
+	\item[/T330/] Run transfer learning (/F280/)
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+\section{Test Scenarios}
+
+The test scenarios consist of the test cases listed above.
+
+\pagebreak
+
+
+
+
+
+\section{Development Environment}
+
+\subsection {Software}
+
+\begin{itemize}
+	\item Operating system
+	\begin{itemize}
+		\item Ubuntu 16.04
+	\end{itemize}
+	\item Development tools
+	\begin{itemize}
+		\item Eclipse
+		\item Eclipse CDT
+		\item Gcov
+		\item Boost
+		\item Qt
+		\item Qt Designer
+		\item Altera SDK for OpenCL
+	\end{itemize}
+	\item Version-control
+	\begin{itemize}
+		\item Git
+	\end{itemize}
+	\item Documentation
+	\begin{itemize}
+		\item Markdown
+		\item Latex
+	\end{itemize}
+\end{itemize}
+
+\subsection {Hardware}
+
+\begin{itemize}
+	\item Desktop PC (x64 based)
+	\item DE1SoC (SOC that includes an FPGA)
+\end{itemize}
+
+\pagebreak
+
+
+
+
+
+\section{Glossary}
+
+
 
 
 
