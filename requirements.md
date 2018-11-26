@@ -308,7 +308,35 @@ The sent input image is correctly classified. The results are saved into a file.
 8. Technology and Data variations
 - Results are saved into a text-file.
 
+### Use Case: Select operation mode ###
 
+Primary Actor: User
+
+Stakeholders and Interests:
+*	User: 	Wants fast and accurate selection of the operation mode. 
+		Wants fast update of the mode when changing selection.
+
+Preconditions:
+*	The Classification system is started.
+*	The user skipped the Welcome-Window and is in the Main-Window.
+	
+Posconditions:
+*	The system is aware of the chosen mode.
+
+Main Success Scenario:
+1. User starts the classification process
+2. Operation-Mode- and Imge-Section in the GUI are disabled
+3. Progress bar is showing the stand of the process
+4. The Process terminates in the predicted way wich corresponds to the mode.
+
+Extensions:
+
+*a. At any time system fails 
+*	1. User choose the operation mode again
+*	2. User load images again
+*	3. User restart the system*
+* 3.a Progress bar does not show the right progress indication anymore
+*	1. System continue its execution without taking that in accournt
 
 # Product Performance #
 * /P010/ The user clicks on a start button in order to start the program.
