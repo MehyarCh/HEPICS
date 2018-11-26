@@ -397,9 +397,10 @@ Main Success Scenario:
  
 Extensions:
 
- *a. The user wants a new file containing the results.
+*a. The user wants a new file containing the results.
  
-    1. The system creates a new text file including the results of classification.
+   1. The system creates a new text file including the results of classification.
+
 
 # Product Performance #
 * /P010/ The user clicks on a start button in order to start the program.
