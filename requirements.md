@@ -320,7 +320,7 @@ Preconditions:
 *	The Classification system is started.
 *	The user skipped the Welcome-Window and is in the Main-Window.
 	
-Post conditions:
+Posconditions:
 *	The system is aware of the chosen mode.
 
 Main Success Scenario:
@@ -334,9 +334,48 @@ Extensions:
 *a. At any time system fails 
 *	1. User choose the operation mode again
 *	2. User load images again
-*	3. User restart the system*
+*	3. User restart the process
 * 3.a Progress bar does not show the right progress indication anymore
 *	1. System continue its execution without taking that in accournt
+
+### Classify image ###
+
+Primary Actor: User, External System
+
+Stakeholders and Interest:
+	User: Wants images to be classified accurately and fast.
+	External System: Wants images to be classified accurately
+
+Preconditions:
+*	Input images were sent by the external system or the user loaded the images.
+*	The operation mode was selected.
+*	The weight file to be used is already available to the system.
+
+Posconditions:
+	The classification process is terminated successfully
+	
+Main Success Scenario:
+1. Classification process terminates.
+2. Results are displayed on the main window.
+3. Results are saved in a file (for external systems).
+4. send the file with results to the external system.
+
+Extensions:
+
+1.a Classification process fails to terminate.
+*	1. User choose the operation mode again.
+*	2. User load images again.
+*	3. User restart the process.
+2.a Program fails to display results.
+*	1. User choose the operation mode again.
+*	2. User load images again.
+*	3. User restart the process.
+4.a File was not sent due to bad connection.
+*	1. Check connection with the external system.
+*	2. Reset Connection.
+*	3. Send the file again.
+4.b File was not sent because the file was not saved ata all.
+*	Restart process again.
 
 ### Use Case: Select mutiple images ###
 
