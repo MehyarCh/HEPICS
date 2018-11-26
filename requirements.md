@@ -320,7 +320,7 @@ Preconditions:
 *	The Classification system is started.
 *	The user skipped the Welcome-Window and is in the Main-Window.
 	
-Posconditions:
+Post conditions:
 *	The system is aware of the chosen mode.
 
 Main Success Scenario:
@@ -337,6 +337,69 @@ Extensions:
 *	3. User restart the system*
 * 3.a Progress bar does not show the right progress indication anymore
 *	1. System continue its execution without taking that in accournt
+
+### Use Case: Select mutiple images ###
+
+Primary Actor: Actor
+
+Stakeholders and Interest: 
+        User: Wants to classify objects more accurately by providing multiple images.
+
+Preconditions: 
+        Image classification system is running. 
+	The user prepared multiple images of the same object he wants to classify.
+
+Post conditions: 
+        Up to 5 images files of the same object are accesible to the system.
+
+Main Success Scenario:
+
+ 1. User choose one image of a target object.
+ 2. User repeats step 1. up to four times.
+ 
+Extensions:
+
+*a. The extension name of file isn't supported.
+   
+   1. An error signal is displayed on the screen.
+   
+*2a. One of image is removed.
+
+   1. The system updates the state and is ready for the next selection.
+   
+*2a. The selection is reseted.
+
+   1. The system initializes the selection state.
+
+*2a. Choose another image after 5 images have been selected.
+   
+   1. The file isn't accepted by the system.
+   
+   
+### Use Case: View Results ###
+
+Primary Actor: Actor
+
+Stakeholders and Interest: 
+        User: Wants to get results of the classification.
+
+Preconditions: 
+        The processing of classification was finished successfully. 
+	The system aggregated the results of mutiple images. 
+
+Post conditions: 
+        The results are displayed successfully. 
+	The new file with results is accessible to the user.
+
+Main Success Scenario:
+
+ 1. User views results on the screen, which displays a histogram with the names and percentages of top 4 object classes.
+ 
+Extensions:
+
+ *a. The user wants a new file containing the results.
+ 
+    1. The system creates a new text file including the results of classification.
 
 # Product Performance #
 * /P010/ The user clicks on a start button in order to start the program.
