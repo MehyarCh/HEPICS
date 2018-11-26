@@ -233,6 +233,82 @@ Extensions:
 
 1. A shut down signal is sent.
 
+### Use Case : Select single image ###
+1. Preface elements
+Scope : Image Classification System  ; Level : User Goal.
+Primary Actor : User.
+
+2. Stakeholders and Interest List
+User : wants the classification of an image through selecting one single image as an input, and needs the result showed in a clear form, without any errors.
+
+3. Preconditions
+The system is started, the welcome screen is showed, the main window loads correctly.
+
+4. Post conditions (Success Guarantees)
+The input image is correctly selected. The thumbnail of the image is showed on the screen with the possibility of removing it. The start button is active and the classification can be started.
+
+5. Main Success Scenario
+  1. User starts the program.
+  2. Welcome screen is displayed.
+  3. User clicks on the "start" button.
+  4. Main window is displayed.
+  5. User clicks on a "add image..." button.
+  6. User selects an image.
+  7. System loads image file.
+  8. Selected image's thumbnail is displayed and start button is activated.
+
+6. Extensions (a.k.a alternative flows)
+  * a. At any time system fails :
+    1. System signals error to the user, records the error and enters a clean state. 
+    2. System reloads the main window.
+  6a. Invalid input image :
+    1. System signals the invalid input and rejects it.
+    2. User selects a new input image, or cancels the selection.
+    
+7. Technology and Data variations
+- Only image files are accepted as input.
+
+### Use Case : Get Result ###
+1. Preface elements
+Scope : Image classification system; Level : User Goal
+Primary Actor : External system.
+
+2. Stakeholders and Interest List
+External system : wants the classification of an image through sending one single request, and needs the result in a clear form, without any errors. Receives then the results through ethernet.
+User of the external system : sends a request through the external system and awaits for the correct and clear results of his request. 
+
+3. Preconditions
+A classification request is given by the external system through sending an input image. It is then detected by the image classification system which loads the image and starts classifying it. The classification should run smoothly and be finished.
+
+4. Post conditions (Success Guarantees)
+The sent input image is correctly classified. The results are saved into a file. The file is sent to the external system.
+
+5. Main Success Scenario
+1. User sends an input image through the external system.
+2. Image classification system detects the classification request.
+3. System loads the input image.
+4. System starts the classification.
+5. System shows results.
+6. System saves results into a file.
+7. External system reads file.
+
+6. Extensions (a.k.a alternative flows)
+* a. At any time system fails :
+   1. System restarts, signals error to the external system, records the error, and enters a clean state.
+   2. System loads in input image and restarts classification.
+2a. Invalid input image :
+  1. System signals the invalid input and rejects it.
+6a. Saving failed :
+  1. System signals fail.
+  2. System retries saving file.
+  
+7. Special requirements
+- Ethernet connection between the system and the external system to allow file sharing.
+- System runs per default on high-efficiency mode.
+8. Technology and Data variations
+- Results are saved into a text-file.
+
+
 
 # Product Performance #
 * /P010/ The user clicks on a start button in order to start the program.
