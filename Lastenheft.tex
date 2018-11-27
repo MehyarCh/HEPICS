@@ -556,6 +556,9 @@ The controller interprets user actions such as button clicks. It depends on the 
 		\item[3.] System saves results in a file (for external systems).
 		\item[4.] System sends the file with results to the external system.
 	\end{itemize}
+
+\pagebreak
+
 	\item Extensions
 	\begin{itemize} [nosep]
 		\item[*a.] Classification process fails to terminate.
@@ -620,6 +623,9 @@ The controller interprets user actions such as button clicks. It depends on the 
 		\item[6.] System saves results into a file.
 		\item[7.] System sends file to the external system.
 	\end{itemize}
+
+\pagebreak
+
 	\item Extensions
 	\begin{itemize} [nosep]
 		\item[*a.] At any time, image classification system is shut down:
@@ -955,7 +961,7 @@ The test scenarios consist of the test cases listed above.
 
 \subsection {Scenario: Select mutiple images}
 
-\begin{itemize}
+\begin{enumerate}
 	\item /T010/ Start application. 
 	\item /T020/ Press start on welcome screen.
 	\item /T030/ Start file open dialog for image.
@@ -970,7 +976,7 @@ The test scenarios consist of the test cases listed above.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
 	\item /T180/ Close pragram.
-\end{itemize}
+\end{enumerate}
 
 \pagebreak
 
@@ -978,7 +984,7 @@ The test scenarios consist of the test cases listed above.
 
 \subsection {Scenario: View Results}
 
-\begin{itemize}
+\begin{enumerate}
 	\item /T010/ Start application.  
 	\item /T020/ Press start on welcome screen.
 	\item /T030/ Start file open dialog for image.
@@ -988,13 +994,13 @@ The test scenarios consist of the test cases listed above.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
 	\item /T180/ Close program.
-\end{itemize}
+\end{enumerate}
 
 \pagebreak
 
 \subsection {Scenario: Give Classification Results}
 
-\begin{itemize}
+\begin{enumerate}
 	\item /T010/ Start application. 
 	\item /T020/ Press start on welcome screen.
 	\item /T200/ Receive a classification request in the request file.
@@ -1002,16 +1008,62 @@ The test scenarios consist of the test cases listed above.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
 	\item /T180/ /T190/ Start new classification
-\end{itemize}
+\end{enumerate}
 
 \subsection {Scenario: Send input image}
 
-\begin{itemize}
+\begin{enumerate}
 	\item /T010/ Start application. 
 	\item /T020/ Press start on welcome screen.
 	\item /T200/ Receive a classification request in the request file.
-\end{itemize}
+\end{enumerate}
 
+\pagebreak
+
+
+\subsection {Scenario: Select operation mode}
+
+\begin{enumerate}
+	\item /T010/ Start Application.
+	\item /T020/ Press Start on Welcome screen.
+	\item Choose one of the following
+	\begin{enumerate}
+		\item /T100/ Choose operation mode high performance.
+		\item /T110/ Choose operation mode low power consumption.
+		\item /T120/ Choose operation mode high energy efficiency.
+	\end{enumerate}
+	\item Choose one of the following
+	\begin{enumerate}
+		\item /T060/ Choose multiple input image files.
+		\item /T040/ Choose image file.
+	\end{enumerate}
+	\item /T130/ Start processing.
+\end{enumerate}
+
+\pagebreak
+
+
+
+\subsection {Scenario: Classify Image}
+
+\begin{enumerate}
+	\item /T010/ Start Application.
+	\item /T020/ Press Start on Welcome screen.
+	\item Choose one of the following
+	\begin{enumerate}
+		\item /T100/ Choose operation mode high performance.
+		\item /T110/ Choose operation mode low power consumption.
+		\item /T120/ Choose operation mode high energy efficiency.
+	\end{enumerate}
+	\item /T040/ Choose image file.
+	\item /T140/ Pause processing.
+	\item /T150/ Resume processing.
+	\item Choose one of the following
+	\begin{enumerate}
+		\item /T170/Finish processing.
+		\item /T160/ Cancel processing.
+	\end{enumerate}
+\end{enumerate}
 
 \pagebreak
 
