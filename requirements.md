@@ -477,7 +477,7 @@ After clicking on Start-button in the welcome window, another window will pop up
 * 3- High Energy Efficiency
 * See figure (x.xx)
 
-![](images/operation_mode_window.png)
+![](images/ChooseOperationMode.png)
 
 ### Result-Section ###
 The result section contains results of aggregation. The results are represented in form of text. The results are the probabilities of the top detected objects in percentages.  
