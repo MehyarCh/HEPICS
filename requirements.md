@@ -560,25 +560,34 @@ All functions are tested by the following test cases. The basic tests test the b
 
 The test scenarios consist of the test cases listed above.
 
- ### Scenario: Select operation mode ###
+ ### Select operation mode ###
  
- 1. Start Application.
- 2. Press Start on Welcome screen.
- 3. Click on a radio button to choose an operation mode.
- 4. Repeat selection 3. as many time as the user wants.
- 5. Load images.
- 6. Start new classification.
+1. /T010/ Start Application.
+2. /T020/ Press Start on Welcome screen.
+3.
+*	a. /T100/ Choose operation mode high performance.
+*	b. /T110/ Choose operation mode low power consumption.
+*	c. /T120/ Choose operation mode high energy efficiency.
+4. 
+*	a. /T060/ Choose multiple input image files.
+*	b. /T040/ Choose image file.
+5. /T130/ Start processing.
  
- ### Scenario: Classify Image ###
+ ### Classify Image ###
  
- 1. Start Application.
- 2. Press Start on Welcome screen.
- 3. Click on a radio button to choose an operation mode.
- 4. Load images.
- 5. Repeat 3. and 4. as many time as the user wants.
- 6. Click Start button.
- 6. Start new classification.
- 7. Display Results.
+1. /T010/ Start Application.
+2. /T020/ Press Start on Welcome screen.
+3.
+*	a. /T100/ Choose operation mode high performance.
+*	b. /T110/ Choose operation mode low power consumption.
+*	c. /T120/ Choose operation mode high energy efficiency.
+4. /T040/ Choose image file.
+5. /T130/ Start processing.
+*	a. 	/T140/ Pause processing.
+*		/T150/ Resume processing.
+6.
+*	a. /T170/Finish processing.
+*	b. /T160/ Cancel processing.
 
 
 
