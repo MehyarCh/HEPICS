@@ -560,9 +560,25 @@ All functions are tested by the following test cases. The basic tests test the b
 
 The test scenarios consist of the test cases listed above.
 
-## Classify an Image  ##
-
-The user runs the application and classifies an image.
+ ### Scenario: Select operation mode ###
+ 
+ 1. Start Application.
+ 2. Press Start on Welcome screen.
+ 3. Click on a radio button to choose an operation mode.
+ 4. Repeat selection 3. as many time as the user wants.
+ 5. Load images.
+ 6. Start new classification.
+ 
+ ### Scenario: Classify Image ###
+ 
+ 1. Start Application.
+ 2. Press Start on Welcome screen.
+ 3. Click on a radio button to choose an operation mode.
+ 4. Load images.
+ 5. Repeat 3. and 4. as many time as the user wants.
+ 6. Click Start button.
+ 6. Start new classification.
+ 7. Display Results.
 
 
 
