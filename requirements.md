@@ -602,21 +602,69 @@ The test scenarios consist of the test cases listed above.
 
 # Glossar #
 
-* Neuronale Netze
-* Alex Net 
-* FPGA GUI
+* Neural Network
+
+Artificial neural networks (ANN) are computing systems vaguely inspired by the biological neural networks that constitute animal brains. The neural network itself is a framework for many different machine learning algorithms to work together and process complex data inputs.
+
+* AlexNet
+
+AlexNet is the name of a convolutional neural network, designed by Alex Krizhevsky, and published with Ilya Sutskever and Krizhevsky's PhD advisor Geoffrey Hinton, who was originally resistant to the idea of his student.
+
+* GoogLeNet
+
+GoogLeNet uses a CNN inspired by LeNet but implemented a novel element which is dubbed an inception module. It used batch normalization, image distortions and RMSprop. This module is based on several very small convolutions in order to drastically reduce the number of parameters. Their architecture consisted of a 22 layer deep CNN but reduced the number of parameters from 60 million (AlexNet) to 4 million.
+
+
 * GPU
-* DSP
-* Google Net
-* Beschleunigungshardware
-* High Performance
-* Low Power
-* Energy Efficency
+
+GPU (graphics processing unit) is a specialized electronic circuit designed to rapidly manipulate and alter memory to accelerate the creation of images in a frame buffer intended for output to a display device. GPUs are used in embedded systems, mobile phones, personal computers, workstations, and game consoles.
+
+* FPGA 
+
+FPGA (field-programmable gate array) is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term "field-programmable".
+
+* ASIC
+
+ASIC ( application-Specific Integrated Circuit ) is an integrated circuit (IC) customized for a particular use, rather than intended for general-purpose use. For example, a chip designed to run in a digital voice recorder or a high-efficiency Bitcoin miner is an ASIC. Application-specific standard products (ASSPs) are intermediate between ASICs and industry standard integrated circuits like the 7400 series or the 4000 series.
+
+* OpenCL
+
+OpenCL (Open Computing Language) is a framework for writing programs that execute across heterogeneous platforms consisting of central processing units (CPUs), graphics processing units (GPUs), digital signal processors (DSPs), field-programmable gate arrays (FPGAs) and other processors or hardware accelerators.
+
+
+* Hardware Acceleration
+
+In computing, hardware acceleration is the use of computer hardware specially made to perform some functions more efficiently than is possible in software running on a general-purpose CPU. An operation can be computed faster in application-specific hardware designed or programmed to compute the operation than specified in software and performed on a general-purpose computer processor.
+ 
+* High Performance 
+
+Computer performance is the amount of work accomplished by a computer system. Depending on the context, high performance means high processing speed in this project.
+
+* Power Consumption	
+
+Power Consumption in this project is a form of energy consumption that uses electric energy. Electric energy consumption is the actual energy demand made on existing electricity supply.
+
+* Energy Efficiency
+
+Energy Efficiency means a ratio of the measured performance to electrical power consumed. 
+
+* GUI
+
+GUI (graphical user interface ) is a form of user interface that allows users to interact with electronic devices through graphical icons and visual indicators such as secondary notation, instead of text-based user interfaces, typed command labels or text navigation.
+
 * Ubuntu
+
+Ubuntu is a free and open-source operating system and Linux distribution based on Debian.
+
 * QT
-* Workstation
-* Echtzeitanwendung
-* Moblile Plattformen
+
+Qt is a cross-platform application framework and widget toolkit for creating classic and embedded graphical user interfaces.
+
+* Real-time
+
+In computer science, real-time computing (RTC), or reactive computing describes hardware and software systems subject to a "real-time constraint", for example from event to system response. Real-time programs must guarantee response within specified time constraints, often referred to as "deadlines".
+
+
 * Thumbnail
 
-
+Thumbnails are reduced-size versions of pictures or videos, used to help in recognizing and organizing them, serving the same role for images as a normal text index does for words.
