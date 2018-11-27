@@ -554,7 +554,50 @@ subsubsection {Use Case: View Results } \label {uc:sip}
 	\end{itemize}
 \end{enumerate}
 
+\pagebreak
 
+subsubsection {Use Case: Aggregate results } \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User: wants the result of the classification of multiple images he selects. This result is an aggregation of the results of each image.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The selection of up to 5 images runs correctly. The classification of each image is correctly executed.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The results of each image are aggregated creating a new result. This new result is displayed on the main window.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts program.
+		\item[2.] User adds one image.
+		\item[3.] User adds more images.
+		\item[4.] System starts the classification.
+		\item[5.] System finishes the classification.
+		\item[6.] System starts the aggregation.
+		\item[7.] System shows the aggregation results.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, system fails :
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, restarts, records the error, and enters a clean state.
+			\item[2.] System loads in input images and restarts classification.
+		\end{itemize}
+		\item[2-3a] Invalid input image :
+		\begin{itemize} [nosep]
+			\item System signals the invalid input and rejects it.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
 
 
 
