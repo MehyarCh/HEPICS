@@ -562,32 +562,32 @@ The test scenarios consist of the test cases listed above.
 
  ### Select operation mode ###
  
- 1. /T010/ Start Application.
- 2. /T020/ Press Start on Welcome screen.
- 3.
-	a. /T100/ Choose operation mode high performance.
-	b. /T110/ Choose operation mode low power consumption.
-	c. /T120/ Choose operation mode high energy efficiency.
+1. /T010/ Start Application.
+2. /T020/ Press Start on Welcome screen.
+3.
+*	a. /T100/ Choose operation mode high performance.
+*	b. /T110/ Choose operation mode low power consumption.
+*	c. /T120/ Choose operation mode high energy efficiency.
 4. 
-	a. /T060/ Choose multiple input image files.
-	b. /T040/ Choose image file.
+*	a. /T060/ Choose multiple input image files.
+*	b. /T040/ Choose image file.
 5. /T130/ Start processing.
  
  ### Classify Image ###
  
- 1. /T010/ Start Application.
- 2. /T020/ Press Start on Welcome screen.
- 3.
-	a. /T100/ Choose operation mode high performance.
-	b. /T110/ Choose operation mode low power consumption.
-	c. /T120/ Choose operation mode high energy efficiency.
- 4. /T040/ Choose image file.
- 5. /T130/ Start processing.
-	a. 	/T140/ Pause processing.
-		/T150/ Resume processing.
- 6.
-	a. /T170/Finish processing.
-	b. /T160/ Cancel processing.
+1. /T010/ Start Application.
+2. /T020/ Press Start on Welcome screen.
+3.
+*	a. /T100/ Choose operation mode high performance.
+*	b. /T110/ Choose operation mode low power consumption.
+*	c. /T120/ Choose operation mode high energy efficiency.
+4. /T040/ Choose image file.
+5. /T130/ Start processing.
+*	a. 	/T140/ Pause processing.
+*		/T150/ Resume processing.
+6.
+*	a. /T170/Finish processing.
+*	b. /T160/ Cancel processing.
 
 
 
