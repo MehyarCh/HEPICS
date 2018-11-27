@@ -589,7 +589,11 @@ The test scenarios consist of the test cases listed above.
 *	a. /T170/Finish processing.
 *	b. /T160/ Cancel processing.
 
+### Give Classification Request ###
 
+ 1. /T010/ Start application.  
+ 2. /T020/ Press start on welcome screen.
+ 3. /T200/ Receive a classification request in the request file.
 
 # Development Environment #
 ## Software ##
