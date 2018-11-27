@@ -480,6 +480,51 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
+\subsubsection {Use Case: Select operation mode}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User: Wants fast and accurate selection of the operation mode. Wants fast update of the mode when changing selection.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The Classification system is started.
+		\item[] Main window is displayed
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		The system is aware of the chosen mode.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts the application.
+		\item[2.] Welcome window is displayed.
+		\item[3.] User clicks on start.
+		\item[4.] Main window is displayed.
+		\item[5.] User selects operation mode by clicking on it.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] User chooses the operation mode again.
+			\item[2.] User selects images again.
+			\item[3.] User restarts the process.
+		\end{itemize}
+		\item[5a.] User cannot switch to another operation mode
+		\begin{itemize} [nosep]
+			\item[1.] System restarts.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
 
 
 \subsubsection {Use Case: Classify Image} \label {uc:sip}
