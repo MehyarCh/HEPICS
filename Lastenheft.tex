@@ -480,6 +480,51 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
+\subsubsection {Use Case: Select operation mode}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User: Wants fast and accurate selection of the operation mode. Wants fast update of the mode when changing selection.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The Classification system is started.
+		\item[] Main window is displayed
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		The system is aware of the chosen mode.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts the application.
+		\item[2.] Welcome window is displayed.
+		\item[3.] User clicks on start.
+		\item[4.] Main window is displayed.
+		\item[5.] User selects operation mode by clicking on it.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] User chooses the operation mode again.
+			\item[2.] User selects images again.
+			\item[3.] User restarts the process.
+		\end{itemize}
+		\item[5a.] User cannot switch to another operation mode
+		\begin{itemize} [nosep]
+			\item[1.] System restarts.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
 
 
 \subsubsection {Use Case: Classify Image} \label {uc:sip}
@@ -540,7 +585,72 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
+\subsubsection {Use Case: Get Results} \label {uc:sip}
 
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: External system
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] External system : wants the classification of an image through sending one single request, and needs the result in a clear form, without any errors. Receives then the results through ethernet. 
+		\item[] User of the external system : sends a request through the external system and awaits for the correct and clear results of his request.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] External system gives request through sending an input image.
+		\item[] System detects request.
+		\item[] System loads the image and starts classifying it.
+		\item[] The classification should run smoothly and be finished.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The sent input image is correctly classified. 
+		\item[] The results are saved into a file. 
+		\item[] The file is sent to the external system.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User sends an input image through the external system.
+		\item[2.] Image classification system detects the classification request.
+		\item[3.] System loads the input image.
+		\item[4.] System starts the classification.
+		\item[5.] System shows results.
+		\item[6.] System saves results into a file.
+		\item[7.] System sends file to the external system.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] System restarts, signals error to the external system, records the error, and enters a clean state.
+			\item[2.] System loads in input image and restarts classification
+		\end{itemize}
+		\item[2a] Invalid input image :
+		\begin{itemize} [nosep]
+			\item[1.] System signals the invalid input and rejects it.
+		\end{itemize}
+		\item[6a] Saving failed : :
+		\begin{itemize} [nosep]
+			\item[1.] System signals fail.
+			\item[1.] System retries saving file.
+		\end{itemize}				
+	\end{itemize}
+	\item Special Requirements
+	\begin{itemize} [nosep]
+		\item Ethernet connection between the system and the external system to allow file sharing.
+		\item System runs per default on high-efficiency mode.
+	\end{itemize}
+	\item Technology and Data variations
+	\begin{itemize} [nosep]
+		\item Results are saved into a text file.
+	\end{itemize}
+		\end{itemize}
+	
+\end{enumerate}
+
+\pagebreak
 
 \subsubsection {Use Case: View Results }
 
