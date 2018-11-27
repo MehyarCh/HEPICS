@@ -1,17 +1,11 @@
-Scenario 1: Classify one image
+Scenario 1: Give Results
 
- 1. /T010/ Start program.  
+ 1. /T010/ Start application.  
  2. /T020/ Press start on welcome screen.
- 3. /T030/ Look into request file.
- 4. /T040/ Detect a classification request.
+ 3. /T200/ Receive a classification request in the request file.
+ 4. /T120/ Choose operation mode high energy efficiency.
  5. /T080/ Load input image.
- 6. /T050/ Choose a file, whose extension name is not supported. 
- 7. /T040/ Choose image file.
- 8. /T110/ Choose operation mode low power consumption.
- 9. /T130/ Start processing.
-10. /T140/ Pause processing.
-11. /T150/ Resume processing.
-12. /T170/ Finish processing.
-13. /T190/ Start new classification.
-14. Repeat step 7. to  step 9. 
-15. /T160/ Close program.
+ 6. /T130/ Start processing. 
+ 7. /T170/ Finish processing.
+ 8. /T***/ Write results into file.
+ 9. /T190/ Start new classification.
