@@ -491,6 +491,8 @@ The image section consists of multiple buttons which can be used to add images. 
 ### Control-Section ###
 By using the control section the user is able to start and cancel the process. Once the classification starts, the start button becomes a cancel button. While running the user can pause the classification by clicking on the pause button. In this case the pause button becomes a resume button.
 
+![](images/MainWindow.png)
+
 # Quality Specification #
 * The FPGA should accelerate or save power.
 * The test coverage should be as high as possible.
