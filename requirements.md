@@ -470,6 +470,8 @@ After the program starts, a welcome window with information on the Software will
 ## Main-Window ##
 After clicking on Start-button in the welcome window, another window will pop up. It is called main window.The main window contains multiple sections: 
 
+![](images/MainWindow.png)
+
 ### Choose-Operation-Section ###
  The user has to choose a running mode:
 * 1- High Performance
@@ -482,16 +484,23 @@ After clicking on Start-button in the welcome window, another window will pop up
 ### Result-Section ###
 The result section contains results of aggregation. The results are represented in form of text. The results are the probabilities of the top detected objects in percentages.  
 
+![](images/ResultSection.png)
+
 ### Progress-Bar ###
 The progress bar shows the state of the current running process.
+
+![](images/ProgressBar.png)
 
 ### Image-Section ###
 The image section consists of multiple buttons which can be used to add images. Thumbnails are generated afterwards and will be displayed on the buttons. An image can be removed through clicking on the remove-button. All images can also be removed at once if the user clicks on the reset-button.
 
+![](images/ImageSection.png)
+
 ### Control-Section ###
 By using the control section the user is able to start and cancel the process. Once the classification starts, the start button becomes a cancel button. While running the user can pause the classification by clicking on the pause button. In this case the pause button becomes a resume button.
 
-![](images/MainWindow.png)
+![](images/ControlSection.png)
+
 
 # Quality Specification #
 * The FPGA should accelerate or save power.
