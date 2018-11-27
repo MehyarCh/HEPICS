@@ -482,38 +482,58 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 
 
-\subsubsection {Use Case: Send input image} \label {uc:sip}
+\subsubsection {Use Case: Classify Image} \label {uc:sip}
 
 \begin{enumerate}
 	\item Preface
 	\begin{itemize} [nosep]
-		\item[] Primary Actor: External system
+		\item[] Primary Actor: User, External system
 	\end{itemize}
 	\item Stakeholders and Interest
 	\begin{itemize} [nosep]
-		\item[] External systems human user: Wants external system to provide its service fast, accurate and energy efficient.
+		\item[] User: Wants images to be classified accurately and fast.
+		\item[] External System: Wants images to be classified accurately
 	\end{itemize}
 	\item Preconditions
 	\begin{itemize} [nosep]
-		\item[] External system and image classification system are running.
-		\item[] The external system must be connected to the image classification system.
-		\item[] The external system must be able to write the request file.
+		\item[] Input images were sent by the external system or the user loaded the images.
+		\item[] The operation mode was selected.
+		\item[] The weight file to be used is already available to the system.
 	\end{itemize}
 	\item Post conditions
 	\begin{itemize} [nosep]
-		\item[] The image classification system has access to the images to be classified.
+		\item[] The classification process is successfully terminated.
 	\end{itemize}
 	\item Main Success Scenario
 	\begin{itemize} [nosep]
-		\item[1.] User runs external system.
-		\item[2.] External system sends image file to filesystem of image classification system.
-		\item[3.] External system repeats 2 until done.
+		\item[1.] Classification process terminates.
+		\item[2.] System displays results on the main window.
+		\item[3.] System saves results in a file (for external systems).
+		\item[4.] System sends the file with results to the external system.
 	\end{itemize}
 	\item Extensions
 	\begin{itemize} [nosep]
-		\item[*a.] At any time, image classification system is shut down:
+		\item[*a.] Classification process fails to terminate.
 		\begin{itemize} [nosep]
-			\item[1.] A shut down signal is sent.
+			\item[1.] User chooses the operation mode again.
+			\item[2.] User selects images again.
+			\item[3.] User restarts the process.
+		\end{itemize}
+		\item[2a.] Program fails to display results.
+		\begin{itemize} [nosep]
+			\item[1.] User chooses the operation mode again.
+			\item[2.] User selects images again.
+			\item[3.] User restarts the process.
+		\end{itemize}
+		\item[4a.] File was not sent due to bad connection.
+		\begin{itemize} [nosep]
+			\item[1.] Check connection with the external system.
+			\item[1.] Reset Connection.
+			\item[1.] Send the file again.
+		\end{itemize}
+		\item[4b.] File was not sent because the file was not saved ata all.
+		\begin{itemize} [nosep]
+			\item[1.] Restart process again.
 		\end{itemize}
 	\end{itemize}
 \end{enumerate}
