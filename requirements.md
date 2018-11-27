@@ -162,7 +162,7 @@ The following conditions must be met:
  * /D50/ The results are saved.
 
 # System Model #
-![](images/MVC%20(3).jpg)
+![](images/MVC.jpg)
 
 Programming with less complexity makes delightful code that is less buggy and easier to maintain because it is reusable without modification. In order to achieve this goal we use in this context the MVC architecture which consists of three parts: Model, View and Controller.
 
@@ -465,7 +465,7 @@ The GUI, which represents the front-end, is the communication channel between th
 ## Welcome-Window ##
 After the program starts, a welcome window with information on the Software will be displayed. This information consists of a short description of the  system and the current version of the software.(See figure x.xx)
 
-![](images/Main_Window.png)
+![](images/WelcomeWindow.png)
 
 ## Main-Window ##
 After clicking on Start-button in the welcome window, another window will pop up. It is called main window.The main window contains multiple sections: 
