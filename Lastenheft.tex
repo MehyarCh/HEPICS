@@ -476,6 +476,128 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
+\subsubsection {Use Case: Send input image} \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: External system
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] External systems human user: Wants external system to provide its service fast, accurate and energy efficient.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] External system and image classification system are running.
+		\item[] The external system must be connected to the image classification system.
+		\item[] The external system must be able to write the request file.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The image classification system has access to the images to be classified.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User runs external system.
+		\item[2.] External system sends image file to filesystem of image classification system.
+		\item[3.] External system repeats 2 until done.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, image classification system is shut down:
+		\begin{itemize} [nosep]
+			\item[1.] A shut down signal is sent.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
+subsubsection {Use Case: View Results } \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User : wants to get results of the classification.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The processing of classification was finished successfully. The system aggregated the results of mutiple images.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The results are displayed successfully. The new file with results is accessible to the user.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User selects image.
+		\item[2.] System starts classification.
+		\item[3.] System finishes classification.
+		\item[4.] User views results on the main window. 
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, system fails :
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, records the error and enters a clean state.
+			\item[2.] System reloads the main window.
+		\end{itemize}
+		\item[4a] The user wants a new file containing the results.
+		\begin{itemize} [nosep]
+			\item[1.] System saves results into a file.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+
+subsubsection {Use Case: Aggregate results } \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User: wants the result of the classification of multiple images he selects. This result is an aggregation of the results of each image.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The selection of up to 5 images runs correctly. The classification of each image is correctly executed.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The results of each image are aggregated creating a new result. This new result is displayed on the main window.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts program.
+		\item[2.] User adds one image.
+		\item[3.] User adds more images.
+		\item[4.] System starts the classification.
+		\item[5.] System finishes the classification.
+		\item[6.] System starts the aggregation.
+		\item[7.] System shows the aggregation results.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, system fails :
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, restarts, records the error, and enters a clean state.
+			\item[2.] System loads in input images and restarts classification.
+		\end{itemize}
+		\item[2-3a] Invalid input image :
+		\begin{itemize} [nosep]
+			\item System signals the invalid input and rejects it.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
 
 
 
