@@ -290,6 +290,106 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \subsection{Use Cases}
 
+
+\subsubsection {Use Case: Select single image} \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User : wants the classification of an image through selecting one single image as an input, and needs the result showed in a clear form, without any errors.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] The system is started, the welcome screen is showed, the main window loads correctly.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] The input image is correctly selected. The thumbnail of the image is showed on the screen with the possibility of removing it. The start button is active and the classification can be started.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts the program.
+		\item[2.] Welcome screen is displayed.
+		\item[3.] User clicks on the "start" button.
+		\item[4.] Main window is displayed.
+		\item[5.] User clicks on a "add image..." button.
+		\item[6.] User selects an image.
+		\item[7.] System loads image file.
+		\item[8.] Selected image's thumbnail is displayed and start button is activated.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a.] At any time, system fails :
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, records the error and enters a clean state.
+			\item[2.] System reloads the main window. 6a. Invalid input image
+			\item[3.] System signals the invalid input and rejects it
+			\item[4.] User selects a new input image, or cancels the selection.
+		\end{itemize}
+	\end{itemize}
+	\item Technology and Data variations
+	\begin{itemize} [nosep]
+	\item Only image files are accepted as input.
+	\end{itemize}
+\end{enumerate}
+
+\subsubsection {Use Case: Select multiple images} \label {uc:sip}
+
+\begin{enumerate}
+	\item Preface
+	\begin{itemize} [nosep]
+		\item[] Primary Actor: User
+	\end{itemize}
+	\item Stakeholders and Interest
+	\begin{itemize} [nosep]
+		\item[] User: Wants to classify objects more accurately by providing multiple images.showed in a clear form, without any errors.
+	\end{itemize}
+	\item Preconditions
+	\begin{itemize} [nosep]
+		\item[] Image classification system is running. The user prepared multiple images of the same object he wants to classify.
+	\end{itemize}
+	\item Post conditions
+	\begin{itemize} [nosep]
+		\item[] Up to 5 images files of the same object are accesible to the system.
+	\end{itemize}
+	\item Main Success Scenario
+	\begin{itemize} [nosep]
+		\item[1.] User starts the program.
+		\item[2.] Welcome screen is displayed.
+		\item[3.] User clicks on the "start" button.
+		\item[4.] Main window is displayed.
+		\item[5.] User clicks on a "add image..." button.
+		\item[6.] User selects an image.
+		\item[7.] Selected image's thumbnail is displayed and start button is activated.
+		\item[8.] User repeats step 5-6 up to four times.
+	\end{itemize}
+	\item Extensions
+	\begin{itemize} [nosep]
+		\item[*a] The selection is reset.
+			\begin{itemize} [nosep]
+				\item[1.] The system initializes the selection state.
+			\end{itemize}
+		\item[6a.] The extension name of file isn't supported.:
+		\begin{itemize} [nosep]
+			\item[1.] System signals error and displays it on the screen.
+		\end{itemize}
+		\item[7a] One of the images is removed.
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, records the error and enters a clean state.
+		\end{itemize}		
+		\item[8a] User chooses another image after 5 images have been selected.
+		\begin{itemize} [nosep]
+			\item[1.] System signals error to the user, records the error and enters a clean state.
+		\end{itemize}		
+\end{enumerate}
+
+\pagebreak
+
+
 \subsubsection {Use Case: Send input image} \label {uc:sip}
 
 \begin{enumerate}
