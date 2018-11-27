@@ -3,7 +3,6 @@ Scenario 1: Give Classification Results
  1. /T010/ Start application.  
  2. /T020/ Press start on welcome screen.
  3. /T200/ Receive a classification request in the request file.
- 4. /T***/ Load input image.
  5. /T120/ Choose operation mode high energy efficiency.
  6. /T130/ Start processing. 
  7. /T170/ Finish processing.
@@ -16,4 +15,3 @@ Scenario 1: Give Classification Results
  1. /T010/ Start application.  
  2. /T020/ Press start on welcome screen.
  3. /T200/ Receive a classification request in the request file.
- 4. /T***/ Load input image.
