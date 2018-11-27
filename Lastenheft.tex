@@ -268,15 +268,19 @@ The following conditions must be met:
 
 \section{System Model}
 
-\begin{center}
-\includegraphics[width=1.0\textwidth]{images/MVC.jpg}
-\end{center}
-
 Programming with less complexity makes delightful code that is less buggy and easier to maintain because it is reusable without modification. In order to achieve this goal we use in this context the MVC architecture which consists of three parts: Model, View and Controller.
+
+\begin{center}
+\includegraphics[width=1.0\textwidth]{images/MVC.png}
+\end{center}
 
 \subsection{Model}
 
 The model represents the domain. The model does not depend on the controller or the view. It contains the pretrained neural network model AlexNet as well as the classification algorithm to be used on images.The neural network itself is composed of a set of weights and topology. The toplogy sepecifies how the layers interact with each other. On the other hand the weights define when the neurons are activated. The layers are invoked by the scheduler which is responsible for resolving dependencies between them.
+
+\pagebreak
+
+
 
 \subsection{View}
 
@@ -295,7 +299,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 \subsection{Use Cases}
 
 
-\subsubsection {Use Case: Select single image} \label {uc:sip}
+\subsubsection {Use Case: Select single image}
 
 \begin{enumerate}
 	\item Preface
@@ -335,13 +339,13 @@ The controller interprets user actions such as button clicks. It depends on the 
 			\item[4.] User selects a new input image, or cancels the selection.
 		\end{itemize}
 	\end{itemize}
-	\item Technology and Data variations
-	\begin{itemize} [nosep]
-	\item Only image files are accepted as input.
-	\end{itemize}
 \end{enumerate}
 
-\subsubsection {Use Case: Select multiple images} \label {uc:sip}
+\pagebreak
+
+
+
+\subsubsection {Use Case: Select multiple images}
 
 \begin{enumerate}
 	\item Preface
@@ -476,6 +480,8 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
+
+
 \subsubsection {Use Case: Send input image} \label {uc:sip}
 
 \begin{enumerate}
@@ -514,7 +520,9 @@ The controller interprets user actions such as button clicks. It depends on the 
 
 \pagebreak
 
-subsubsection {Use Case: View Results } \label {uc:sip}
+
+
+\subsubsection {Use Case: View Results }
 
 \begin{enumerate}
 	\item Preface
@@ -556,7 +564,9 @@ subsubsection {Use Case: View Results } \label {uc:sip}
 
 \pagebreak
 
-subsubsection {Use Case: Aggregate results } \label {uc:sip}
+
+
+\subsubsection {Use Case: Aggregate results }
 
 \begin{enumerate}
 	\item Preface
@@ -601,6 +611,47 @@ subsubsection {Use Case: Aggregate results } \label {uc:sip}
 
 
 
+\subsection {Use Case Diagrams}
+
+The section contains the use case diagrams. They show how the use cases are related to each other.
+
+\subsubsection {Simple Usage}
+
+The diagram shows a simple classification of a single image. 
+
+\begin{center}
+\includegraphics[width=1.0\textwidth]{UseCases/NormalUsageUCD.JPG}
+\end{center}
+
+\pagebreak
+
+
+
+\subsubsection {Aggregated Results Usage}
+
+The diagram shows a classification that aggregates the results of multiple images. 
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{UseCases/AggregateUCD.jpg}
+\end{center}
+
+\pagebreak
+
+
+
+\subsubsection {Usage by an External System}
+
+The diagram shows how an external system runs a classification. 
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{UseCases/ExtenalSystemUCD.jpg}
+\end{center}
+
+\pagebreak
+
+
+
+
 
 \section{Product Performance}
 
@@ -626,33 +677,6 @@ subsubsection {Use Case: Aggregate results } \label {uc:sip}
 
 
 
-\subsection {Use Case Diagrams}
-
-The section contains the use case diagrams. They show how the use cases are related to each other.
-
-\subsubsection {Simple Usage}
-
-The diagram shows a simple classification of a single image. 
-
-\begin{center}
-\includegraphics[width=1.0\textwidth]{UseCases/NormalUsageUCD.JPG}
-\end{center}
-
-\subsubsection {Aggregated Results Usage}
-
-The diagram shows a classification that aggregates the results of multiple images. 
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{UseCases/AggregateUCD.jpg}
-\end{center}
-
-\subsubsection {Usage by an External System}
-
-The diagram shows how an external system runs a classification. 
-
-\begin{center}
-\includegraphics[width=0.8\textwidth]{UseCases/ExtenalSystemUCD.jpg}
-\end{center}
 
 
 \section {Graphical User Interface}
@@ -753,7 +777,7 @@ All functions are tested by the following test cases. The basic tests test the b
 	\item[/T050/] Choose a file, whose format is not supported. (/F030/, \ref{bfunc})
 	\item[/T060/] Choose multiple input image files. (/F030/, \ref{bfunc})
 	\item[/T070/] Abort image file selection. (/F030/, \ref{bfunc})
-	\item[/T080/] Remove a selected image. (/F040, \ref{bfunc}/)
+	\item[/T080/] Remove a selected image. (/F040/, \ref{bfunc})
 	\item[/T090/] Reset the selection of images. (/F060/, \ref{bfunc})
 	\item[/T100/] Choose operation mode high performance. (/F070/, /F080/, \ref{bfunc})
 	\item[/T110/] Choose operation mode low power consumption. (/F070/, /F080/, \ref{bfunc})
@@ -775,19 +799,19 @@ All functions are tested by the following test cases. The basic tests test the b
 \subsection {Extended tests}
 
 \begin{itemize}
-	\item[/T210/] Start processing. (/F230/, /F240/, /F290/)
-	\item[/T220/] Finish processing. (/F300/, /F310/)
-	\item[/T230/] Start file open dialog for topology. (/F250/)
-	\item[/T240/] Choose topology. (/F250/)
-	\item[/T250/] When choosing a topology choose a non topology file. (/F250/)
-	\item[/T260/] Press show topology button. (/F260/)
-	\item[/T270/] Start file open dialog for weights. (/F270/)
-	\item[/T280/] Choose weights. (/F270/)
-	\item[/T290/] When choosing weights choose a non weights file. (/F270/)
-	\item[/T300/] Choose weights for another topology (/F270/)
-	\item[/T310/] Choose AlexNet (/F270/)
-	\item[/T320/] Choose GoogleNet (/F270/)
-	\item[/T330/] Run transfer learning (/F280/)
+	\item[/T210/] Start processing. (/F230/, /F240/, /F290/, \ref{ofunc})
+	\item[/T220/] Finish processing. (/F300/, /F310/, \ref{ofunc})
+	\item[/T230/] Start file open dialog for topology. (/F250/, \ref{ofunc})
+	\item[/T240/] Choose topology. (/F250/, \ref{ofunc})
+	\item[/T250/] When choosing a topology choose a non topology file. (/F250/, \ref{ofunc})
+	\item[/T260/] Press show topology button. (/F260/, \ref{ofunc})
+	\item[/T270/] Start file open dialog for weights. (/F270/, \ref{ofunc})
+	\item[/T280/] Choose weights. (/F270/, \ref{ofunc})
+	\item[/T290/] When choosing weights choose a non weights file. (/F270/, \ref{ofunc})
+	\item[/T300/] Choose weights for another topology (/F270/, \ref{ofunc})
+	\item[/T310/] Choose AlexNet (/F270/, \ref{ofunc})
+	\item[/T320/] Choose GoogleNet (/F270/, \ref{ofunc})
+	\item[/T330/] Run transfer learning (/F280/, \ref{ofunc})
 \end{itemize}
 
 \pagebreak
