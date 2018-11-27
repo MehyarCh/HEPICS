@@ -162,7 +162,7 @@ The following conditions must be met:
  * /D50/ The results are saved.
 
 # System Model #
-![](images/MVC.jpg)
+![](images/MVC.png)
 
 Programming with less complexity makes delightful code that is less buggy and easier to maintain because it is reusable without modification. In order to achieve this goal we use in this context the MVC architecture which consists of three parts: Model, View and Controller.
 
