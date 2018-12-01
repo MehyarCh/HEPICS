@@ -39,7 +39,7 @@ The motivation behind this project is artificial neural networks. These are comp
 
 Nowadays, machine learning is gaining in importance as the goal of including machines in various activities -industries, services, economy- in order to reach high levels of efficiency is in need of artificial intelligence. Indeed, under the applications of artificial neural networks, we can mention autonomous driving, natural language processing, gesture recognition, and of course, face recognition, which is the main application of this project.
 
-It must not be forgotten to mention as well, that there exists different neural networks models, such as Back-Propagation, Boltzman Machines and Deep Neural Networks, with which we will deal in this project. In particular, we will deal with "AlexNet", which is a convolutional neural network consisting of 8 layers, 5 of which are convolutional while the others are fully-connected layers.
+It must not be forgotten to mention as well, that there exists different neural networks models, such as Back-Propagation, Boltzmann Machines and Deep Neural Networks, with which we will deal in this project. In particular, we will deal with "AlexNet", which is a convolutional neural network consisting of 8 layers, 5 of which are convolutional while the others are fully-connected layers.
 
 On one hand, deploying deep neural networks not only means unlocking a massive parallelism potential for our system, but it also means that unsupervised learning is most definitely possible. On the other, we are in need of a huge data set for this unsupervised training. It is important to mention as well, that deep neural networks require intense computations, which manifests itself in high power consumption and learning and classification time.
 
@@ -216,11 +216,11 @@ The following conditions must be met:
 	\item[/F150/] Switch between pause button and resume button.
 	\item[/F160/] Run calculation through FPGA.
 	\item[/F170/] Aggregate results of multiple images.
-	\item[/F180/] Show output results (names and precentages of top 4).
+	\item[/F180/] Show output results (names and percentages of top 4).
 	\item[/F190/] Terminate program.
 	\item[/F200/] Start a new classification.
 	\item[/F210/] Poll the request file from another system.
-	\item[/F220/] Send back the results via ethernet.
+	\item[/F220/] Send back the results via Ethernet.
 \end{itemize}
 
 \subsection{Optional Functions} \label {ofunc}
@@ -276,7 +276,7 @@ Programming with less complexity makes delightful code that is less buggy and ea
 
 \subsection{Model}
 
-The model represents the domain. The model does not depend on the controller or the view. It contains the pretrained neural network model AlexNet as well as the classification algorithm to be used on images.The neural network itself is composed of a set of weights and topology. The toplogy sepecifies how the layers interact with each other. On the other hand the weights define when the neurons are activated. The layers are invoked by the scheduler which is responsible for resolving dependencies between them.
+The model represents the domain. The model does not depend on the controller or the view. It contains the pretrained neural network model AlexNet as well as the classification algorithm to be used on images.The neural network itself is composed of a set of weights and topology. The topology sepecifies how the layers interact with each other. On the other hand the weights define when the neurons are activated. The layers are invoked by the scheduler which is responsible for resolving dependencies between them.
 
 \pagebreak
 
@@ -362,7 +362,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 	\end{itemize}
 	\item Post conditions
 	\begin{itemize} [nosep]
-		\item[] Up to 5 images files of the same object are accesible to the system.
+		\item[] Up to 5 images files of the same object are accessible to the system.
 	\end{itemize}
 	\item Main Success Scenario
 	\begin{itemize} [nosep]
@@ -579,7 +579,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 			\item[1.] Reset Connection.
 			\item[1.] Send the file again.
 		\end{itemize}
-		\item[4b.] File was not sent because the file was not saved ata all.
+		\item[4b.] File was not sent because the file was not saved at all.
 		\begin{itemize} [nosep]
 			\item[1.] Restart process again.
 		\end{itemize}
@@ -597,7 +597,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 	\end{itemize}
 	\item Stakeholders and Interest
 	\begin{itemize} [nosep]
-		\item[] External system : wants the classification of an image through sending one single request, and needs the result in a clear form, without any errors. Receives then the results through ethernet. 
+		\item[] External system : wants the classification of an image through sending one single request, and needs the result in a clear form, without any errors. Receives then the results through Ethernet. 
 		\item[] User of the external system : sends a request through the external system and awaits for the correct and clear results of his request.
 	\end{itemize}
 	\item Preconditions
@@ -670,7 +670,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 	\end{itemize}
 	\item Preconditions
 	\begin{itemize} [nosep]
-		\item[] The processing of classification was finished successfully. The system aggregated the results of mutiple images.
+		\item[] The processing of classification was finished successfully. The system aggregated the results of multiple images.
 	\end{itemize}
 	\item Post conditions
 	\begin{itemize} [nosep]
@@ -959,7 +959,7 @@ All functions are tested by the following test cases. The basic tests test the b
 
 The test scenarios consist of the test cases listed above.
 
-\subsection {Scenario: Select mutiple images}
+\subsection {Scenario: Select multiple images}
 
 \begin{enumerate}
 	\item /T010/ Start application. 
@@ -975,7 +975,7 @@ The test scenarios consist of the test cases listed above.
 	\item /T100/ Choose operation mode high performance.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
-	\item /T180/ Close pragram.
+	\item /T180/ Close program.
 \end{enumerate}
 
 \pagebreak
