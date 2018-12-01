@@ -197,10 +197,17 @@ The following conditions must be met:
 \begin{itemize}
 	\item[/F010/] Show welcome window.
 	\item[/F020/] Show main window. 
-	\item[/F030/] Choose input image (at most 5 images of an object).
+	\item[/F030/] Choose input image(s).
 	\item[/F040/] Remove single image from the selection.
-	\item[/F050/] Show thumbnails of the selected images.
+	\item[/F050/] Show thumbnail of the selected image.
 	\item[/F060/] Reset the selection of the images.
+	\item[/F065/] Choose platform:
+	\begin{itemize}
+		\item CPU
+		\item FPGA
+		\item GPU
+		\item ASIC
+	\end{itemize}
 	\item[/F070/] Choose operation mode: 
 	\begin{itemize}
 		\item High Performance
@@ -222,6 +229,7 @@ The following conditions must be met:
 	\item[/F200/] Start a new classification.
 	\item[/F210/] Poll the request file from another system.
 	\item[/F220/] Send back the results via Ethernet.
+
 \end{itemize}
 
 \subsection{Optional Functions} \label {ofunc}
@@ -363,7 +371,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 	\end{itemize}
 	\item Post conditions
 	\begin{itemize} [nosep]
-		\item[] Up to 5 images files of the same object are accessible to the system.
+		\item[] Images are accessible to the system.
 	\end{itemize}
 	\item Main Success Scenario
 	\begin{itemize} [nosep]
@@ -374,7 +382,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 		\item[5.] User clicks on a "add image..." button.
 		\item[6.] User selects an image.
 		\item[7.] Selected image's thumbnail is displayed and start button is activated.
-		\item[8.] User repeats step 5-6 up to four times.
+		\item[8.] User repeats step 5-6.
 	\end{itemize}
 	\item Extensions
 	\begin{itemize} [nosep]
@@ -387,10 +395,6 @@ The controller interprets user actions such as button clicks. It depends on the 
 			\item[1.] System signals error and displays it on the screen.
 		\end{itemize}
 		\item[7a] One of the images is removed.
-		\begin{itemize} [nosep]
-			\item[1.] System signals error to the user, records the error and enters a clean state.
-		\end{itemize}		
-		\item[8a] User chooses another image after 5 images have been selected.
 		\begin{itemize} [nosep]
 			\item[1.] System signals error to the user, records the error and enters a clean state.
 		\end{itemize}		
@@ -507,7 +511,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 		\item[2.] Welcome window is displayed.
 		\item[3.] User clicks on start.
 		\item[4.] Main window is displayed.
-		\item[5.] User selects operation mode by clicking on it.
+		\item[5.] User selects operation mode by selecting it in the dropdown menu.
 	\end{itemize}
 	\item Extensions
 	\begin{itemize} [nosep]
@@ -638,7 +642,7 @@ The controller interprets user actions such as button clicks. It depends on the 
 		\begin{itemize} [nosep]
 			\item[1.] System signals the invalid input and rejects it.
 		\end{itemize}
-		\item[6a] Saving failed : :
+		\item[6a] Saving failed : 
 		\begin{itemize} [nosep]
 			\item[1.] System signals fail.
 			\item[1.] System retries saving file.
@@ -679,10 +683,11 @@ The controller interprets user actions such as button clicks. It depends on the 
 	\end{itemize}
 	\item Main Success Scenario
 	\begin{itemize} [nosep]
-		\item[1.] User selects image.
+		\item[1.] User selects image(s).
 		\item[2.] System starts classification.
 		\item[3.] System finishes classification.
 		\item[4.] User views results on the main window. 
+		\item[5.] User selects image to view specific results. 
 	\end{itemize}
 	\item Extensions
 	\begin{itemize} [nosep]
@@ -793,10 +798,10 @@ The diagram shows how an external system runs a classification.
 
 \begin{itemize}
 	\item[/P010/] The user clicks on a start button in order to start the program.
-	\item[/P020/] The user chooses the operation mode with one click.
-	\item[/P030/] The user switches between operation modes in one click.
+	\item[/P020/] The user chooses the operation mode with two clicks.
+	\item[/P030/] The user switches between operation modes in two clicks.
 	\item[/P040/] The user uploads an image in a maximum of three clicks.
-	\item[/P050/] The user removes an image in one button.
+	\item[/P050/] The user removes an image in three clicks.
 	\item[/P060/] The user resets the selection in one button.
 	\item[/P070/] The system shows a progress bar while classifying.
 	\item[/P080/] The user pauses the process in one click.
@@ -970,9 +975,8 @@ The test scenarios consist of the test cases listed above.
 	\item /T050/ Choose a file, whose format is not supported.
 	\item /T040/ Choose image file.
 	\item /T080/ Remove a selected image.
-	\item Repeat step 4. up to 4 times.
 	\item /T090/ Reset the selection of images. 
-	\item Repeat step 4. five times.
+	\item /T060/ Choose multiple input image files.
 	\item /T100/ Choose operation mode high performance.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
@@ -990,7 +994,6 @@ The test scenarios consist of the test cases listed above.
 	\item /T020/ Press start on welcome screen.
 	\item /T030/ Start file open dialog for image.
 	\item /T040/ Choose image file.
-	\item Repeat step 4. four times.
 	\item /T110/ Choose operation mode low power consumption.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
@@ -1008,7 +1011,7 @@ The test scenarios consist of the test cases listed above.
 	\item /T120/ Choose operation mode high energy efficiency.
 	\item /T130/ Start processing.
 	\item /T170/ Finish processing.
-	\item /T180/ /T190/ Start new classification
+	\item /T190/ Start new classification
 \end{enumerate}
 
 \subsection {Scenario: Send input image}
