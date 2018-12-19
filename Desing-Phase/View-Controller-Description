@@ -1,0 +1,13 @@
+* HepicsGui: represents the main entry point to execute the software. It contains the main Method.
+* WelcomeWindow: This class is used to display informations about the developed software.
+* MainWindow: is the main class that runs the classification system. It is also responsable for setting up the GUI.
+* Section: creates a label for each part of the GUI. Suclasses define sections (e.g. buttons, check boxes) and handle 
+their actions.
+* ImageSection: allows the user to add and delete input images.
+* Plattform_Mode_Section: allows the user to choose operation mode and a platform to run the classification or aggregation on it.
+* ControlSection: allows the user to start, pause, resume and cancel the classification process.
+* Observer: defines an updating interface for objects that should be notified of changes in a subject.
+* ObserverManager: provides an interface for attaching and detaching Observer objects. It notifies concrete observers whenever 
+corresponding data changes.
+ * ResultObserver, StateObserver: implement the Observer updating interface to keep its state consistent with concrete subjects 
+ and maintain reference to those subjects.
