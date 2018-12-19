@@ -33,7 +33,7 @@ bookmarks=true,%
 
 \section {Functionality Description}
 
-In the part of model, the classes realize the management of all the data and logic. They load the path of images and access their features. The results of classification are stored in the type of string to be shown in various forms. The logic of classification is determined by the neural network being used. Its topology defines how different layers interact with each other. With the assistance of all the layers, the forward propagation functionality can be implemented, which is the core of algorithms for image classification with pre-trained model.
+In model part, the classes realize the management of all the data and logic. They load the path of images and access their features. The results of classification are stored in the type of string to be shown in various forms. The logic of classification is determined by the neural network being used. Its topology defines how different layers interact with each other. With the assistance of all the layers, the forward propagation functionality can be implemented, which is the core of algorithms for image classification with pre-trained model.
 
 The view realizes the user interfaces. The welcome window and the main window, which contains three different sections, guide the user to upload their input files, select available platforms and operating mode, let them control the process and show the prediction results. 
 
@@ -104,20 +104,20 @@ Layer : is what a neural network is made of. It is a set of nodes placed on each
 
 InputLayer Class: This class is the first layer of a neural network (the input layer), it is followed by one or more hidden layers.  It has an Attribut shape wich will be used for the first layer.
 
-Abstract ConvolutionalLayer Class: In this class convolutional layer the input keeps its original shape in order to exploit this correlation between the pixels. 
+Abstract ConvolutionalLayer Class: In this class convolutional layer the input keeps its original shape in order to exploit this correlation between the pixels. A filter will be used in this context in order to convolve input and a stride controls how the filter convolves around the input volume
 
-CPUConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the CPU’s implementation by using the CpuWorker Class
+CPUConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class. It uses the CpuWorker in order to do computation.
 
-FPGAConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the FPGA’s implementation by using the FpgaWorker class
+FPGAConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class. It uses the FpgaWorker in order to do computation.
 
-MaxPoolLayer Class: These layer take the output feature maps from the convolutional layers, and its Max function is to reduce the size of the input feature maps to reduce the amount of parameters in the network.
+MaxPoolLayer Class: These layer take the output feature, maps from the convolutional layers, and its Max function is to reduce the size of the input feature maps to reduce the amount of parameters in the network.
 The pooling layer works in a similar way to the convolutional layer since it operates on a subregion on the input feature maps and performs a filter operation.
 
 ResponseNormalizationLayer Class: The Class Response Normalization is kept separate from the others since it may require multiple memory access patterns.
 
 DenseLayer Class:  this layer can use convolutional blocks for calculations, both of them have access to these blocks.
 
-TrainableLayer Class: this class to train the numeral network using a weight matrix
+TrainableLayer Class: this class trains the neural network using a weight matrix
 
 ActivationFunction Class:  Activation function is introduced, its purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
 
@@ -129,6 +129,7 @@ Sofmax Class: is an activation function
 
 ReLU Class:  is an activation function
 
+LayerType : is an enumeration class of the possible layer types.
 
 
 
@@ -168,117 +169,6 @@ FileLoadWorker: A class implementing the worker for loading files.
 CpuWorker: A class implementing the worker for CPU usage.
 
 FpgaWorker: A class implementing the worker for FPGA usage.
-
-
-
-
-
-
-
-
-InputLayer Class: This class is the first layer of a neural network (the input layer), it is followed by one or more hidden layers.  It has an Attribut shape wich will be used for the first layer.
-
-Abstract ConvolutionalLayer Class: In this class convolutional layer the input keeps its original shape in order to exploit this correlation between the pixels. 
-
-CPUConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the CPU’s implementation by using the CpuWorker Class
-
-FPGAConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the FPGA’s implementation by using the FpgaWorker class
-
-MaxPoolLayer Class: These layer take the output feature maps from the convolutional layers, and its Max function is to reduce the size of the input feature maps to reduce the amount of parameters in the network.
-The pooling layer works in a similar way to the convolutional layer since it operates on a subregion on the input feature maps and performs a filter operation.
-
-ResponseNormalizationLayer Class: The Class Response Normalization is kept separate from the others since it may require multiple memory access patterns.
-
-DenseLayer Class:  this layer can use convolutional blocks for calculations, both of them have access to these blocks.
-
-TrainableLayer Class: this class to train the numeral network using a weight matrix
-
-ActivationFunction Class:  Activation function is introduced, its purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
-
-Sigmoid Class: sigmoid is an activation function.  Same as the linear classifier this network also has ten outputs since it is the same classification problem, however the hidden layer has 25 neurons.
-
-Tanh Class: is an activation function
-
-Sofmax Class: is an activation function
-
-ReLU Class:  is an activation function
-
-
-
-
-
-
-
-
-
-InputLayer Class: This class is the first layer of a neural network (the input layer), it is followed by one or more hidden layers.  It has an Attribut shape wich will be used for the first layer.
-
-Abstract ConvolutionalLayer Class: In this class convolutional layer the input keeps its original shape in order to exploit this correlation between the pixels. 
-
-CPUConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the CPU’s implementation by using the CpuWorker Class
-
-FPGAConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the FPGA’s implementation by using the FpgaWorker class
-
-MaxPoolLayer Class: These layer take the output feature maps from the convolutional layers, and its Max function is to reduce the size of the input feature maps to reduce the amount of parameters in the network.
-The pooling layer works in a similar way to the convolutional layer since it operates on a subregion on the input feature maps and performs a filter operation.
-
-ResponseNormalizationLayer Class: The Class Response Normalization is kept separate from the others since it may require multiple memory access patterns.
-
-DenseLayer Class:  this layer can use convolutional blocks for calculations, both of them have access to these blocks.
-
-TrainableLayer Class: this class to train the numeral network using a weight matrix
-
-ActivationFunction Class:  Activation function is introduced, its purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
-
-Sigmoid Class: sigmoid is an activation function.  Same as the linear classifier this network also has ten outputs since it is the same classification problem, however the hidden layer has 25 neurons.
-
-Tanh Class: is an activation function
-
-Sofmax Class: is an activation function
-
-ReLU Class:  is an activation function
-
-
-
-
-
-
-
-
-
-
-InputLayer Class: This class is the first layer of a neural network (the input layer), it is followed by one or more hidden layers.  It has an Attribut shape wich will be used for the first layer.
-
-Abstract ConvolutionalLayer Class: In this class convolutional layer the input keeps its original shape in order to exploit this correlation between the pixels. 
-
-CPUConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the CPU’s implementation by using the CpuWorker Class
-
-FPGAConvolutionalLayer Class: this class inherits from the Abstract ConvolutionalLayer Class using the FPGA’s implementation by using the FpgaWorker class
-
-MaxPoolLayer Class: These layer take the output feature maps from the convolutional layers, and its Max function is to reduce the size of the input feature maps to reduce the amount of parameters in the network.
-The pooling layer works in a similar way to the convolutional layer since it operates on a subregion on the input feature maps and performs a filter operation.
-
-ResponseNormalizationLayer Class: The Class Response Normalization is kept separate from the others since it may require multiple memory access patterns.
-
-DenseLayer Class:  this layer can use convolutional blocks for calculations, both of them have access to these blocks.
-
-TrainableLayer Class: this class to train the numeral network using a weight matrix
-
-ActivationFunction Class:  Activation function is introduced, its purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
-
-Sigmoid Class: sigmoid is an activation function.  Same as the linear classifier this network also has ten outputs since it is the same classification problem, however the hidden layer has 25 neurons.
-
-Tanh Class: is an activation function
-
-Sofmax Class: is an activation function
-
-ReLU Class:  is an activation function
-
-
-
-
-
-LayerType : is an enumeration class of the possible layer types.
 
 
 
