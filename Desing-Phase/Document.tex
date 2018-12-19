@@ -121,13 +121,14 @@ TrainableLayer Class: this class trains the neural network using a weight matrix
 
 ActivationFunction Class:  Activation function is introduced, its purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
 
-Sigmoid Class: sigmoid is an activation function.  Same as the linear classifier this network also has ten outputs since it is the same classification problem, however the hidden layer has 25 neurons.
+Sigmoid Class:  g(z) = 1 / (1 + e^{-z}). It’s used on the output layer so that we can easily interpret the output as probabilities since it has restricted output between 0 and 1.
+sigmoid is an activation function.  Same as the linear classifier this network also has ten outputs since it is the same classification problem, however the hidden layer has 25 neurons.
 
-Tanh Class: is an activation function
+Tanh Class: g(z) = (e^z -e^{-z}) / (e^z + e^{-z}). It’s superior to sigmoid function in which the mean of its output is very close to zero, which in other words center the output of the activation units around zero and make the range of values very small which means faster.
 
-Sofmax Class: is an activation function
+Sofmax Class: It generates a value between 0–1 for each node (the sum of all these softmax values is equal to 1). We can interpret the softmax values for a given image as relative measurements of how likely it is that the image falls into each target class.
 
-ReLU Class:  is an activation function
+ReLU Class:  g(z) = max{0, z}. The models that are close to linear are easy to optimize. Since ReLU shares a lot of the properties of linear functions, it tends to work well on most of the problems.
 
 LayerType : is an enumeration class of the possible layer types.
 
