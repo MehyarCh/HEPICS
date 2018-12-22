@@ -20,7 +20,7 @@ TrainableLayer Class: This class modifies the layer whose trainable parameters (
 The weight attribute specifies the weights of this layer and use_bias specifies whether the layer uses a bias vector.
 The getWeight method returns the weights of the layer as a matrix and setWeight method sets the weights of the layer from a matrix (with the same shapes as the output of getWeight).
 
-All the layer implements the forward propagation method in order to use the pre-trained parameters to get the output. 
+All the layers implement the forward propagation method in order to use the pre-trained parameters to get the output. 
 
 ActivationFunction Class: This abstract class encapsulates the activation function whose purpose is to allow small changes in the weights or bias to only cause a small change on the output, this property is helpful when training a network.
 The name attribute specifies the name of the activation function.
