@@ -33,9 +33,9 @@ bookmarks=true,%
 
 \section {Functionality Description}
 
-In model part, the classes realize the management of all the data and logic. They load the path of images and access their features. The results of classification are stored in the type of string to be shown in various forms. The logic of classification is determined by the neural network being used. Its topology defines how different layers interact with each other. With the assistance of all the layers, the forward propagation functionality can be implemented, which is the core of algorithms for image classification with pre-trained model.
+In the model part, classes realize the management of all the data and logic. They load pathes of input images and access their features. The classification results are stored in the type of string to be shown in various forms. The logic of classification is determined by the neural network being used. Its topology defines how different layers interact with each other. With the assistance of all the layers, the forward propagation functionality can be implemented, which is the core of algorithms for image classification with pre-trained model.
 
-The view realizes the user interfaces. The welcome window and the main window, which contains three different sections, guide the user to upload their input files, select available platforms and operating mode, let them control the process and show the prediction results. 
+The view realizes the user interfaces. The welcome window and the main window, which contains three different sections, guide the user to upload his input files, select available platforms and operating mode, let him control the process and show the prediction results. 
 
 The controller accepts user inputs handled by the components of the views and converts them to the commands. The classifier controls the progress of processing and assigns the scheduler to dispatch work to workers in heterogeneous platforms. In addition, the poller checks the requests from external systems regularly. After receiving the correct request with the image path, the classifier starts the process of classification.
 
@@ -43,14 +43,14 @@ The controller accepts user inputs handled by the components of the views and co
 
 \section {Class Diagram Description}
 
-In this diagram seveal design patterns were used.
+In this diagram several design patterns were used.
 In order to decouple  major components and allow parallel development we use the Model-View-Controller as a global architecture.
 The class diagram consists of several common patterns to reduce complexity and dependencies between classes.
 We use the template Method as pattern for sections to define the skeleton of the algorithm in an operation.
-However the results and states are updated using an observer which define a one-to-many dependency between objects.
+However the results and states are updated using an observer which defines a one-to-many dependency between objects.
 Different Modes as well as Worker are represented by simple is-relationships.
 Another interesting pattern to be used by layers is the strategy-pattern. In this context we define a family of algorithm, encapsulate
-each one and make them interchangeable.This approach also lets the algoritm vary independently from the layer that use it.
+each one and make them interchangeable. This approach also lets the algorithm vary independently from the layer that uses it.
 
 \pagebreak
 
@@ -82,7 +82,7 @@ each one and make them interchangeable.This approach also lets the algoritm vary
 \begin{itemize}
 	\item ResultObserver, StateObserver: implement the Observer updating interface to keep its state consistent with concrete subjects and maintain reference to those subjects. These observers might be considered respectively as result section and state section:
 	\begin{itemize}
-		\item The result section contains results of aggregation. The results are represented in form of text. The results are the probabilities of   the top detected objects in percentages.
+		\item The result section contains results of aggregation. The results are represented in form of text. The results are the probabilities of the top detected objects in percentages.
 		\item The state section is mainly the progress bar which shows the state of the current running process.
 	\end{itemize}
 	\item Class-Image: is an abstract class which represents the modelisation of an image in the programming language. Its attributes are length, width, channel, and id, which means each uploaded or created image is unique. This class is only a representation of an image object, it can be replaced by an existing library.
@@ -99,7 +99,7 @@ each one and make them interchangeable.This approach also lets the algoritm vary
 			\item getLength(): returns the length of the image	
 			\item setLength(length:int): sets the value of the image's length	
 			\item getWidth(): returns the width of the image
-			\item setWidth(width:int): sets the valye of the image's width
+			\item setWidth(width:int): sets the value of the image's width
 			\item getChannel(): returns the number of channels the image has
 			\item setChannel(channel:int): sets the number of channels of the image
 			\item resize(length : int, width : int): changes the size of the image to the new dimensions
@@ -150,7 +150,7 @@ each one and make them interchangeable.This approach also lets the algoritm vary
 
 
 \begin{itemize}
-	\item Class-ImageManager : is responsible of providing the input image to the system and its preprocessing, which means, converting it into a matrix, or an RGB image, depending on what the process needs.
+	\item Class-ImageManager : is responsible for providing the input image to the system and its preprocessing, which means, converting it into a matrix, or an RGB image, depending on what the process needs.
 	\begin{itemize}
 		\item Attributes:
 		\begin{itemize}
@@ -176,7 +176,7 @@ each one and make them interchangeable.This approach also lets the algoritm vary
 
 
 \begin{itemize}
-	\item Class-DataSaver : is practically the data holder. It saves the input images loaded during the time the system has been running in a hashmap. Can also write the results in a text file, and aggregate the results of the given inputs. Aggregating results means in this case calculating the average
+	\item Class-DataSaver : is practically the data holder. It saves the input images loaded during the time the system has been running in a hashmap. Can also write the results in a text file, and aggregate the results of the given inputs. Aggregating results means in this case calculating the average of multiple results for the corresponding input images. The goal behind it is to achieve higher precision in the classification through selecting more than one image of the same object for the classification.
 	\begin{itemize}
 		\item Attributes:
 		\begin{itemize}
@@ -346,26 +346,10 @@ each one and make them interchangeable.This approach also lets the algoritm vary
 		\item DenseLayer
 		\item FullyConnectedLayer
 	\end{itemize}
-	\item Image : is an abstract class which represents the modelisation of an image in the programming language. Its attributes are length, width, channel, and id, which means each uploaded or created image is unique. This class is only a representation of an image object, it can be replaced by an existing library.
-	\item InputImage : represents an input image. Has an extra attribute isClassified, which tells if the image has already been classified. In this case, it is not necessary to redo the classification. It is also possible to create a thumbnail out of this image.
-	\item ResultImage : represents the image that is displayed which contains the results of the classification. It has an extra attribute called result, which is a string containing the results. These results can also be displayed in other ways if it is wished to extend the functionality of the system (histograms, pie charts)
-	\item ImageManager : is responsible of providing the input image to the system and its preprocessing, which means, converting it into a matrix, or an RGB image, depending on what the process needs.
-	\item DataSaver : saves the input images loaded during all the time the system has been running in a hashmap. Can also write the results in a text file, and aggregate the results of the given inputs.
-\end{itemize}
-
-
 
 \pagebreak
 
-
-
 \begin{itemize}
-	\item ClassificationAssistant : is practically the classifier's secretary. It makes sure that the classifier gets all what it needs to run the classification. It loads weights, sets the input image in the wished form, and loads all the neural networks needed specifications, as well as the classification's class names.
-	\item NeuralNetwork : is the modelisation of a neural network. A neurel network has a name, a topology and a set of layers.
-	\item Shape : contains constants which define the form and general composition of a layer.
-	\item Topology : is the visual representation of the neural network, meaning the layers and the relations or interactions between them.
-	\item TopologyDisplayer : is a tool which is responsible of drawing the representation of the topology and generating an image.
-	\item Layer : is what a neural network is made of. It is a set of nodes placed on each other which each treat the input image depending on their type and activation function.
 	\item InputLayer Class: This class inherits the abstract Layer class. It is the first layer of a neural network model, which contains the input shape of an input image as its attribute.
 	\item Abstract ConvolutionalLayer Class: This class modifies the convolutional layers, which applies a specified number of convolution filters to the image. For each subregion, the layer performs a set of mathematical operations to produce a single value in the output feature map. 
 The filters attribute specifies the number of filters to apply, kernel\_size specifies the dimensions of the filters and strides specifies the strides of the convolution along the height and width.
@@ -381,7 +365,7 @@ The filters attribute specifies the number of filters to apply, kernel\_size spe
 
 \begin{itemize}
 	\item MaxPoolLayer Class: This class modifies the maxpool layer, which downsample the image data extracted by the convolutional layers to reduce the dimensionality of the feature map in order to decrease processing time. It uses max pooling as its pooling algorithms, which extracts subregions of the feature map (e.g., 2x2-pixel tiles), keeps their maximum value, and discards all other values.
-The pool\_size attribute specifies the size of the max pooling filter as [height, width]. If both dimensions have the same value, you can instead specify a single integer and the strides specifies the size of the stride.
+The pool_size attribute specifies the size of the max pooling filter as [height, width]. If both dimensions have the same value, you can instead specify a single integer and the strides specifies the size of the stride.
 	\item ResponseNormalizationLayer Class: This class modifies the response normalization layer, which normalizes the activations of the previous layer at each batch, i.e. applies a transformation that maintains the mean activation close to 0 and the activation standard deviation close to 1. The axis attribute specifies the axis that should be normalized (typically the features axis).
 	\item DenseLayer Class: This class modifies the dense layer, which performs classification on the features extracted by the convolutional layers and downsampled by the pooling layers. In a dense layer, every node in the layer is connected to every node in the preceding layer.
 The units attribute specifies the number of neurons in the dense layer.
@@ -404,7 +388,7 @@ The activate method specifies the function that would be applied.
 	\item Softmax Class: This class encapsulates an activation function called Softmax. Its method activate generates a value between 0–1 for each node (the sum of all these softmax values is equal to 1). We can interpret the softmax values for a given image as relative measurements of how likely it is that the image falls into each target class.
 	\item ReLU Class:  g(z) = max{0, z}. The models that are close to linear are easy to optimize. Since ReLU shares a lot of the properties of linear functions, it tends to work well on most of the problems.
 	\item FileLoader: A dialog used to open files.
-	\item LayerType: Defines a constatnt for every type of layer.
+	\item LayerType: Defines a constant for every type of layer.
 \end{itemize}
 
 
