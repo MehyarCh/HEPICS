@@ -41,11 +41,15 @@ The controller accepts user inputs handled by the components of the views and co
 
 
 
+\pagebreak
+
+
 \section {Class Diagram Description}
 
 In this diagram several design patterns were used.\\
 In order to decouple  major components and allow parallel development we use the Model-View-Controller as a global architecture.
 The class diagram consists of several common patterns to reduce complexity and dependencies between classes.
+
 	\subsection{Template Method}
 	We use the template Method as pattern for sections to define the skeleton of the algorithm in an operation.
 		\subsubsection{Participated Classes and Interfaces}
@@ -55,6 +59,7 @@ The class diagram consists of several common patterns to reduce complexity and d
 			\item Plattform\_Mode\_Section
 			\item ImageSection
 		\end{itemize}
+
 	\subsection{Observer Pattern}
 	However the results and states are updated using an observer which defines a one-to-many dependency between objects.
 			\subsubsection{Participated Classes and Interfaces}
@@ -64,9 +69,11 @@ The class diagram consists of several common patterns to reduce complexity and d
 			\item ResultObserver
 			\item StateObserver
 		\end{itemize}
+
 	\subsection{Strategy Pattern}
-	Another interesting pattern to be used by layers is the strategy-pattern. In this context we define a family of algorithm, 			encapsulate each one and make them interchangeable. This approach also lets the algorithm vary independently from the 			layer that uses it.
-			\subsubsection{Participated Classes and Interfaces}
+	Another interesting pattern to be used by layers is the strategy-pattern. In this context we define a family of algorithm, encapsulate each one and make them interchangeable. This approach also lets the algorithm vary independently from the layer that uses it.
+
+	\subsubsection{Participated Classes and Interfaces}
 		\begin{itemize}
 			\item ActivationFunction
 			\item Sigmoid
