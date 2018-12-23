@@ -346,6 +346,7 @@ each one and make them interchangeable. This approach also lets the algorithm va
 		\item DenseLayer
 		\item FullyConnectedLayer
 	\end{itemize}
+\end{itemize}
 
 \pagebreak
 
@@ -365,7 +366,7 @@ The filters attribute specifies the number of filters to apply, kernel\_size spe
 
 \begin{itemize}
 	\item MaxPoolLayer Class: This class modifies the maxpool layer, which downsample the image data extracted by the convolutional layers to reduce the dimensionality of the feature map in order to decrease processing time. It uses max pooling as its pooling algorithms, which extracts subregions of the feature map (e.g., 2x2-pixel tiles), keeps their maximum value, and discards all other values.
-The pool_size attribute specifies the size of the max pooling filter as [height, width]. If both dimensions have the same value, you can instead specify a single integer and the strides specifies the size of the stride.
+The pool\_size attribute specifies the size of the max pooling filter as [height, width]. If both dimensions have the same value, you can instead specify a single integer and the strides specifies the size of the stride.
 	\item ResponseNormalizationLayer Class: This class modifies the response normalization layer, which normalizes the activations of the previous layer at each batch, i.e. applies a transformation that maintains the mean activation close to 0 and the activation standard deviation close to 1. The axis attribute specifies the axis that should be normalized (typically the features axis).
 	\item DenseLayer Class: This class modifies the dense layer, which performs classification on the features extracted by the convolutional layers and downsampled by the pooling layers. In a dense layer, every node in the layer is connected to every node in the preceding layer.
 The units attribute specifies the number of neurons in the dense layer.
