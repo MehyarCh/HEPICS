@@ -346,11 +346,6 @@ each one and make them interchangeable. This approach also lets the algorithm va
 		\item DenseLayer
 		\item FullyConnectedLayer
 	\end{itemize}
-\end{itemize}
-
-\pagebreak
-
-\begin{itemize}
 	\item InputLayer Class: This class inherits the abstract Layer class. It is the first layer of a neural network model, which contains the input shape of an input image as its attribute.
 	\item Abstract ConvolutionalLayer Class: This class modifies the convolutional layers, which applies a specified number of convolution filters to the image. For each subregion, the layer performs a set of mathematical operations to produce a single value in the output feature map. 
 The filters attribute specifies the number of filters to apply, kernel\_size specifies the dimensions of the filters and strides specifies the strides of the convolution along the height and width.
@@ -524,7 +519,7 @@ The activate method specifies the function that would be applied.
 \subsection {Overview Sequence Diagram}
 
 \begin{center}
-\includegraphics[width=1.0\textwidth]{seq.Diag.png}
+\includegraphics[width=1.0\textwidth]{seq-Diag.png}
 \end{center}
 
 \pagebreak
