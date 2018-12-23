@@ -415,17 +415,113 @@ The activate method specifies the function that would be applied.
 
 \begin{itemize}
 	\item Mode: An interface for classification modes. It has methods for different workers.
+	\begin{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item nextFileLoadWorkUnit(): returns the next work unit for a file loading worker
+			\item nextCpuWorkUnit(): returns the next work unit for a cpu worker
+			\item nextFpgaWorkUnit(): returns the next work unit for a fpga worker
+		\end{itemize}
+	\end{itemize}
 	\item HighPerformanceMode: A class that implements the methods of interface Mode. Its methods are optimized for high performance.
 	\item LowPowerMode: A class that implements the methods of interface Mode. Its methods are optimized for low power.
 	\item EnergyEfficiencyMode: A class that implements the methods of interface Mode. Its methods are optimized for energy efficiency.
 	\item WorkUnit: An interface for units of work.
+	\begin{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item run(): runs the unit of work
+		\end{itemize}
+	\end{itemize}
 	\item ImageLoadWorkUnit: Implements a unit of work for loading images.
 	\item LayerWorkUnit: Implements a unit of work for calculating a Layer of the neuronal network.
 	\item Scheduler: The Scheduler uses the mode to decide which work unit to use next. The mode is set by the respective methods. The Scheduler also holds the RessourceManager. It is able to control the execution and report about its progress.
+\end{itemize}
+
+
+
+\pagebreak
+
+
+
+\begin{itemize}
 	\item RessourceManager: Manages ressources for classification. The only ressource at the moment is a counter for files.
+	\begin{itemize}
+		\item Attributes:
+		\begin{itemize}
+			\item fileTokens: a counter for file tokens
+		\end{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item takeFileToken(): decrements the file token counter and blocks if the counter is 0 (like a semaphore)
+			\item returnFileToken(): increments the file token counter
+		\end{itemize}
+	\end{itemize}
 	\item Classifer: Controls the classification. Holds the Workers. It creates and deletes workers based on which platforms are enabled.
+	\begin{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item start(): takes the file list and starts the classification
+			\item pause(): pauses the classification when running
+			\item resume(): resumes the classification when paused
+			\item stop(): stops the classification
+			\item getProgress(): returns the progress of the classification
+			\item enableCpu(): when enabling/disabling the cpu platform cpu  workers are added/removed
+			\item enableFpga(): when enabling/disabling the fpga platform fpga  workers are added/removed
+			\item enableGpu(): when enabling/disabling the gpu platform gpu  workers are added/removed
+			\item addWorker(): adds a new worker to the list
+			\item deleteWorker():  deletes a worker to the list
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+
+\pagebreak
+
+
+
+\begin{itemize}
 	\item Poller: A class for polling a file. The file gets requests for classification. The class extracts the requests.
+	\begin{itemize}
+		\item Attributes:
+		\begin{itemize}
+			\item inputPath: the path to the request file
+			\item hasRequest: a boolean that saves if a request has been polled
+			\item priority: the priority of the next request
+		\end{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item poll(): polls the request file
+			\item getHasRequest(): gets if a request has been polled
+			\item setHasRequest(): sets if a request has been polled
+			\item getPath(): gets the path to the request file
+			\item setPath(): sets the path to the request file
+			\item getPriority(): gets the priority of the request
+			\item setPriority(): sets the priority of the request
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+
+
+\pagebreak
+
+
+
+\begin{itemize}
 	\item Worker: The abstraction of a worker. Uses a thread for execution.
+	\begin{itemize}
+		\item Attributes:
+		\begin{itemize}
+			\item t: the thread used for execution
+		\end{itemize}
+		\item Methods:
+		\begin{itemize}
+			\item run(): the main loop of the thread
+			\item runWorkUnit(): runs the work unit
+		\end{itemize}
+	\end{itemize}
 	\item GpuWorker: A class implementing the worker for GPU usage.
 	\item FileLoadWorker: A class implementing the worker for loading files.
 	\item CpuWorker: A class implementing the worker for CPU usage.
