@@ -5,7 +5,7 @@
  *      Author: ibrahim
  */
 
-#include "Convolutional_layer.h"
+#include "Convolutional_layer.h"c
 
 Convolutional_layer::Convolutional_layer(int w, int h, int c, int n, int size, int stride) {
 	int i;

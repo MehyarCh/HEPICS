@@ -27,7 +27,7 @@ public:
 
 	/* Handling image */
 	Image make_random_image(int h, int w, int c);
-	// Image mahe_random_kernel(int size, int c);
+	// Image make_random_kernel(int size, int c);
 	Image copy_image(Image p);
 	Image load_image(char* filename);
 	Image get_image_layer(Image m, int l);
@@ -37,9 +37,12 @@ public:
 	double get_pixel_extend(Image m, int x, int y, int c);
 	void set_pixel(Image m, int x, int y, int c, double val);
 	void set_pixel_extend(Image m, int x, int y, int c, double val);
+	void add_pixel(Image m, int x, int y, int c, double val);
+	void add_pixel_extend(Image m, int x, int y, int c, double val);
 
 	// Convolving
-	// void two_d_convolve(Image m, int mc, Image kernel, int kc, int stride, Image out, int oc);
+	void two_d_convolve(Image m, int mc, Image kernel, int kc, int stride, Image out, int oc);
+	void convolve(Image m, Image kernel, int stride, int chnnel, Image out);
 
 };
 
