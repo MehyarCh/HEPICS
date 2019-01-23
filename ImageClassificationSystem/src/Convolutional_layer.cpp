@@ -9,7 +9,6 @@
 
 Convolutional_layer::Convolutional_layer(int w, int h, int c, int n, int size, int stride) {
 	int i;
-	this->size = 0; // NOT INITIALIZED YET, PLACEHOLDER FOR THE COMPILER
 	this->n = n;
 	this->stride = stride;
 	this->kernels = calloc(n, sizeof(Image));
@@ -22,7 +21,7 @@ Convolutional_layer::Convolutional_layer(int w, int h, int c, int n, int size, i
 	}
 
 	this->output = NULL; // new Image((h - 1) / stride + 1), (w - 1) / stride + 1, n);
-	this->upsampled = NULL; // new Image(h, w, n);
+	this->upsampled = new Image(h, w, c); // new Image(h, w, n);
 }
 
 Convolutional_layer::~Convolutional_layer() {

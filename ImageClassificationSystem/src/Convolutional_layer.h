@@ -5,15 +5,16 @@
  *      Author: ibrahim
  */
 
-#include <stdlib.h>
 
 #ifndef CONVOLUTIONAL_LAYER_H_
 #define CONVOLUTIONAL_LAYER_H_
 
+#include <stdlib.h>
+#include "Image.h"
+
 class Convolutional_layer {
 private:
 	int n; // number of convolutional layers
-	int size;
 	int stride;
 	Image* kernels; // or filters
 	Image* kernel_updates;
@@ -22,6 +23,7 @@ private:
 public:
 	Convolutional_layer(int w, int h, int c, int n, int size, int stride);
 	virtual ~Convolutional_layer();
+	void run_convolutional_layer(const Image input, const Convolutional_layer layer);
 
 
 };
