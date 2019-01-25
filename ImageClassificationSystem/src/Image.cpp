@@ -19,14 +19,22 @@ Image::~Image() {
 	free(data);
 }
 
+void Image::zero_image(Image m) {
+	memset(m.data, 0, m.height * m.width * m.channels * sizeof(double));
+}
+
+void Image::zero_channel(Image m, int c) {
+	memset(&(m.data[c * m.height * m.width]), 0, m.height * m.width * sizeof(double));
+}
+
 double Image::get_pixel(Image m, int x, int y, int c) {
 	assert(x < m.height && y < m.width && c < m.channels); /* terminate program execution */
 	return m.data[c * m.height * m.width + y]; // randomly chosen for test
 }
 
-double Image::get_pixel_extend(Image m, int x, int y, int c) {
-	if ( x < 0 || x >= m.height || y < 0 || y > m.width || c < 0 || c >= m.channels) return 0;
-	return m.data[c * m.height * m.width + y]; // randomly chosen for test
+double Image::get_pixel_extend(int x, int y, int c) {
+	if ( x < 0 || x >= this->height || y < 0 || y > this->width || c < 0 || c >= this->channels) return 0;
+	return this->data[c * this->height * this->width + y]; // randomly chosen for test
 }
 
 void Image::set_pixel(Image m, int x, int y, int c, double val) {
@@ -49,17 +57,26 @@ void Image::add_pixel_extend(Image m, int x, int y, int c, double val) {
 	add_pixel(m,x, y, c, val);
 }
 
-void Image::two_d_convolve(Image m, int mc, Image kernel, int kc, int stride, Image out, int oc) {
+void Image::two_d_convolve(int mc, Image kernel, int kc, int stride, Image out, int oc) {
 	int x,y,i,j;
-	for (x = 0; x < m.height; x += stride) {
-		for (y = 0; y < m.width; y += stride) {
+	for (x = 0; x < this->height; x += stride) {
+		for (y = 0; y < this->width; y += stride) {
 			double sum = 0;
 			for (i = 0; i < kernel.width; ++i) {
 				for (j = 0; j < kernel.width; ++j) {
-					sum += get_pixel(kernel, i, j, kc) * get_pixel_extend(m, x + i - kernel.height / 2, y + j - kernel.width / 2, mc); // Interesting formel, but WHY ?
+					sum += get_pixel(kernel, i, j, kc) * this->get_pixel_extend(x + i - kernel.height / 2, y + j - kernel.width / 2, mc); // Interesting formel, but WHY ?
 				}
 			}
 			add_pixel(out, x / stride, y / stride, oc, sum);
 		}
+	}
+}
+
+void Image::convolve(Image kernel, int stride, int channel, Image out) {
+	assert(this->channels == kernel.channels);
+	int i;
+	zero_channel(out, channel);
+	for (i = 0; i < this->channels; ++i) {
+		two_d_convolve(i, kernel, i, stride, out, channel);
 	}
 }

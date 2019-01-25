@@ -5,7 +5,7 @@
  *      Author: ibrahim
  */
 
-#include "Convolutional_layer.h"c
+#include "Convolutional_layer.h"
 
 Convolutional_layer::Convolutional_layer(int w, int h, int c, int n, int size, int stride) {
 	int i;
@@ -20,7 +20,7 @@ Convolutional_layer::Convolutional_layer(int w, int h, int c, int n, int size, i
 		this->kernel_updates[i] = NULL; // make_random_kernel(size, c);
 	}
 
-	this->output = NULL; // new Image((h - 1) / stride + 1), (w - 1) / stride + 1, n);
+	this->output = new Image((h - 1) / stride + 1, (w - 1) / stride +1, n);
 	this->upsampled = new Image(h, w, c); // new Image(h, w, n);
 }
 
@@ -28,3 +28,16 @@ Convolutional_layer::~Convolutional_layer() {
 	// TODO Auto-generated destructor stub
 }
 
+double convolution_activation(double x) {
+	return x * (x > 0); // RELU function but NOT SURE
+}
+
+void Convolutional_layer::run_convolutional_layer(const Image input, const Convolutional_layer layer) {
+	int i;
+	for (i = 0; i < layer.n; ++i) {
+		input.convolve(*(layer.kernels[i]), layer.stride, i, layer.output); // Some sort of shit here: layer.kernels[i] has type "Image"
+	}
+	for (i =0; i < input.height * input.width * input.channels; ++i) {
+		input.data[i] = convolution_activation(input.data[i]);
+	}
+}

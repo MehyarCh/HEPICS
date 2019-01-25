@@ -16,8 +16,8 @@ class Convolutional_layer {
 private:
 	int n; // number of convolutional layers
 	int stride;
-	Image* kernels; // or filters
-	Image* kernel_updates;
+	Image *kernels; // or filters
+	Image *kernel_updates;
 	Image output;
 	Image upsampled; // inputs
 public:
