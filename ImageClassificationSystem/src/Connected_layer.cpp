@@ -35,14 +35,14 @@ double connected_activation(double x) {
 	return x * (x > 0);
 }
 
-void Connected_layer::run_connected_layer(double *input, Connected_layer layer) {
+void Connected_layer::run_connected_layer(double *input) {
     int i, j;
-    for(i = 0; i < layer.outputs; ++i){
-        layer.output[i] = layer.biases[i];
-        for(j = 0; j < layer.inputs; ++j){
-            layer.output[i] += input[j] * layer.weights[i * layer.outputs + j];
+    for(i = 0; i < this->outputs; ++i){
+        this->output[i] = this->biases[i];
+        for(j = 0; j < this->inputs; ++j){
+            this->output[i] += input[j] * this->weights[i * this->outputs + j];
         }
-        layer.output[i] = connected_activation(layer.output[i]);
+        this->output[i] = connected_activation(this->output[i]);
 }
 }
 

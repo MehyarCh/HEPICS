@@ -18,11 +18,11 @@ private:
 	double *biases;
 	double *weight_updates;
 	double *bias_updates;
-	double *output;
+	double *output; // outputs by connected layers are not images
 public:
 	Connected_layer(int inputs, int outputs);
 	virtual ~Connected_layer();
-	void run_connected_layer(double *input, Connected_layer layer);
+	void run_connected_layer(double *input);
 };
 
 #endif /* CONNECTED_LAYER_H_ */
