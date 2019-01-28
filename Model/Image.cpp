@@ -6,45 +6,40 @@
  */
 
 #include "Image.h"
-#include <QImage>
+//#include <QImage>
+static int id=0;
 
-class Image{
-private:
-	int length;
-	int width;
-	static int id=0;
-public:
-	int getLength() const {
-		return length;
-	}
+Image::Image(int length, int width) {
+	// TODO Auto-generated constructor stub
+	this->length = length;
+	this->width = width;
+	id=id+1;
+}
 
-	void setLength(int length) {
-		this->length = length;
-	}
+Image::~Image() {
+	// TODO Auto-generated destructor stub
+}
 
-	int getWidth() const {
-		return width;
-	}
+int Image::getLength(){
+	return this->length;
+}
 
-	void setWidth(int width) {
-		this->width = width;
-	}
+void Image::setLength(int length) {
+	this->length = length;
+}
 
-	int getId() const {
-		return id;
-	}
+int Image::getWidth(){
+	return width;
+}
 
-	Image::Image(int length, int width) {
-		// TODO Auto-generated constructor stub
-		this->length = length;
-		this->width = width;
-		id=id+1;
-	}
+void Image::setWidth(int width) {
+	this->width = width;
+}
 
-	Image::~Image() {
-		// TODO Auto-generated destructor stub
-	}
+int Image::getId(){
+	return id;
+}
 
 
-};
+
 

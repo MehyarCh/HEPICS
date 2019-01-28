@@ -7,66 +7,62 @@
 
 #include "NeuralNetwork.h"
 #include "Layer.h"
-#include "Topology.h"
+#include <QImage>
 #include <string>
 #include <vector>
 #include <iostream>
 using namespace std;
-class NeuralNetwork{
-private:
-	string name;
-	Topology topology;
-	int numberOfLayers;
-	vector<Layer> layers;
-	static int index;
 
-public:
-	NeuralNetwork::NeuralNetwork(string name, int numberOfLayers) {
-		this->name=name;
-		this->numberOfLayers=numberOfLayers;
-		index=0;
-	}
+NeuralNetwork::NeuralNetwork(string name, int numberOfLayers) {
+	this->name=name;
+	this->numberOfLayers=numberOfLayers;
+	this->index=0;
+}
 
-	NeuralNetwork::~NeuralNetwork() {
-		// TODO Auto-generated destructor stub
-	}
+NeuralNetwork::~NeuralNetwork() {
+	// TODO Auto-generated destructor stub
+}
 
-	const string& getName() const {
-		return name;
-	}
+string NeuralNetwork::getName(){
+	return name;
+}
 
-	void setName(const string& name) {
-		this->name = name;
-	}
-	void addLayer(Layer layer){
-		layers[index]=layer;
-		++index;
-		if(index==numberOfLayers){
-			cout << "All layers are set" << std::endl;
-		}
-	}
+void NeuralNetwork::setName(string name) {
+	this->name = name;
+}
 
-	int getNumberOfLayers() const {
-		return numberOfLayers;
+void NeuralNetwork::addLayer(Layer layer){
+	layers[index]=layer;
+	++index;
+	if(index==numberOfLayers){
+		cout << "All layers are set" << std::endl;
 	}
+}
 
-	void setNumberOfLayers(int numberOfLayers) {
-		this->numberOfLayers = numberOfLayers;
-	}
+int NeuralNetwork::getNumberOfLayers() {
+	return numberOfLayers;
+}
 
-	const Topology& getTopology() const {
-		return topology;
-	}
+void NeuralNetwork::setNumberOfLayers(int numberOfLayers) {
+	this->numberOfLayers = numberOfLayers;
+}
 
-	void setTopology(const Topology& topology) {
-		this->topology = topology;
-	}
+void NeuralNetwork::displayTopology() {
 
-	Layer getLayerAt(int i){
-		return layers[i];
-	}
-	void setLayerAt(int i, Layer layer){
-		layers[i]=layer;
-	}
-};
+}
+
+void NeuralNetwork::setTopology(QImage topology) {
+	this->topology = topology;
+}
+
+QImage NeuralNetwork::getTopology(){
+	return this->topology;
+}
+
+Layer NeuralNetwork::getLayerAt(int i){
+	return layers[i];
+}
+void NeuralNetwork::setLayerAt(int i, Layer layer){
+	layers[i]=layer;
+}
 
