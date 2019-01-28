@@ -22,7 +22,7 @@ private:
 public:
 	Convolutional_layer(int w, int h, int c, int n, int size, int stride);
 	virtual ~Convolutional_layer();
-	void run_convolutional_layer(const Image input, const Convolutional_layer layer);
+	void run_convolutional_layer(const Image input);
 
 
 };

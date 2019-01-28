@@ -32,10 +32,10 @@ double convolution_activation(double x) {
 	return x * (x > 0);
 }
 
-void Convolutional_layer::run_convolutional_layer(Image input, const Convolutional_layer layer) {
+void Convolutional_layer::run_convolutional_layer(Image input) {
 	int i;
-	for (i = 0; i < layer.n; ++i) {
-		input.convolve(layer.kernels[i], layer.stride, i, layer.output); // Very strange here: dereferencing layer.kernels[i] which has type "Image"
+	for (i = 0; i < this->n; ++i) {
+		input.convolve(this->kernels[i], this->stride, i, this->output); // Very strange here: dereferencing layer.kernels[i] which has type "Image"
 	}
 	for (i =0; i < input.height * input.width * input.channels; ++i) {
 		input.data[i] = convolution_activation(input.data[i]);
