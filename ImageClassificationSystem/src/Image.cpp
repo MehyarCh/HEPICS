@@ -29,9 +29,9 @@ void Image::zero_channel(Image m, int c) {
 	memset(&(m.data[c * m.height * m.width]), 0, m.height * m.width * sizeof(double));
 }
 
-double Image::get_pixel(Image m, int x, int y, int c) {
-	assert(x < m.height && y < m.width && c < m.channels); /* terminate program execution */
-	return m.data[c * m.height * m.width + y]; // randomly chosen for test
+double Image::get_pixel(int x, int y, int c) {
+	assert(x < height && y < width && c < channels); /* terminate program execution */
+	return data[c * height * width + y]; // randomly chosen for test
 }
 
 double Image::get_pixel_extend(int x, int y, int c) {
@@ -39,9 +39,9 @@ double Image::get_pixel_extend(int x, int y, int c) {
 	return this->data[c * this->height * this->width + y]; // randomly chosen for test
 }
 
-void Image::set_pixel(Image m, int x, int y, int c, double val) {
-	assert(x < m.height && y < m.width && c < m.channels); /* terminate program execution */
-	m.data[c * m.height * m.width + y] = val;
+void Image::set_pixel(int x, int y, int c, double val) {
+	assert(x < height && y < width && c < channels); /* terminate program execution */
+	data[c * height * width + y] = val;
 }
 
 void Image::set_pixel_extend(Image m, int x, int y, int c, double val) {
@@ -66,7 +66,7 @@ void Image::two_d_convolve(int mc, Image kernel, int kc, int stride, Image out, 
 			double sum = 0;
 			for (i = 0; i < kernel.height; ++i) {
 				for (j = 0; j < kernel.width; ++j) {
-					sum += get_pixel(kernel, i, j, kc) * this->get_pixel_extend(x + i - kernel.height / 2, y + j - kernel.width / 2, mc); // Interesting formel, but WHY ?
+					sum += kernel.get_pixel(i, j, kc) * this->get_pixel_extend(x + i - kernel.height / 2, y + j - kernel.width / 2, mc); // Interesting formel, but WHY ?
 				}
 			}
 			add_pixel(out, x / stride, y / stride, oc, sum);

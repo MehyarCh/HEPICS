@@ -38,9 +38,9 @@ public:
 	Image get_image_layer(Image m, int l); // get input image of layer l
 
 	/* Handling pixels */
-	double get_pixel(Image m, int x, int y, int c);
+	double get_pixel(int x, int y, int c);
 	double get_pixel_extend(int x, int y, int c);
-	void set_pixel(Image m, int x, int y, int c, double val);
+	void set_pixel(int x, int y, int c, double val);
 	void set_pixel_extend(Image m, int x, int y, int c, double val);
 	void add_pixel(Image m, int x, int y, int c, double val);
 	void add_pixel_extend(Image m, int x, int y, int c, double val);
