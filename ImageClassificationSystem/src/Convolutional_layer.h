@@ -9,7 +9,6 @@
 #ifndef CONVOLUTIONAL_LAYER_H_
 #define CONVOLUTIONAL_LAYER_H_
 
-#include <stdlib.h>
 #include "Image.h"
 
 class Convolutional_layer {

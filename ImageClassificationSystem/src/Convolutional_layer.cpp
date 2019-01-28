@@ -29,13 +29,13 @@ Convolutional_layer::~Convolutional_layer() {
 }
 
 double convolution_activation(double x) {
-	return x * (x > 0); // RELU function but NOT SURE
+	return x * (x > 0);
 }
 
-void Convolutional_layer::run_convolutional_layer(const Image input, const Convolutional_layer layer) {
+void Convolutional_layer::run_convolutional_layer(Image input, const Convolutional_layer layer) {
 	int i;
 	for (i = 0; i < layer.n; ++i) {
-		input.convolve(*(layer.kernels[i]), layer.stride, i, layer.output); // Some sort of shit here: layer.kernels[i] has type "Image"
+		input.convolve(layer.kernels[i], layer.stride, i, layer.output); // Very strange here: dereferencing layer.kernels[i] which has type "Image"
 	}
 	for (i =0; i < input.height * input.width * input.channels; ++i) {
 		input.data[i] = convolution_activation(input.data[i]);

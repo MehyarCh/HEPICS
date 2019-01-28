@@ -16,7 +16,9 @@ Image::Image(int h, int w, int c) {
 }
 
 Image::~Image() {
-	free(data);
+	if (data) {
+		free(data);
+	}
 }
 
 void Image::zero_image(Image m) {
@@ -62,7 +64,7 @@ void Image::two_d_convolve(int mc, Image kernel, int kc, int stride, Image out, 
 	for (x = 0; x < this->height; x += stride) {
 		for (y = 0; y < this->width; y += stride) {
 			double sum = 0;
-			for (i = 0; i < kernel.width; ++i) {
+			for (i = 0; i < kernel.height; ++i) {
 				for (j = 0; j < kernel.width; ++j) {
 					sum += get_pixel(kernel, i, j, kc) * this->get_pixel_extend(x + i - kernel.height / 2, y + j - kernel.width / 2, mc); // Interesting formel, but WHY ?
 				}
