@@ -28,7 +28,7 @@ public:
 	Network();
 	virtual ~Network();
 
-	void run_network(Image input, Network net);
+	void run_network(Image *input, Network net);
 	Image get_network_image(Network net);
 };
 

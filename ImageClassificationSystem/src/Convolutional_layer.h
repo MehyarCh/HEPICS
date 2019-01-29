@@ -12,17 +12,17 @@
 #include "Image.h"
 
 class Convolutional_layer {
-private:
+public:
 	int n; // number of convolutional layers
 	int stride;
 	Image *kernels; // or filters
 	Image *kernel_updates;
-	Image output;
-	Image upsampled; // inputs
-public:
+	Image *output;
+	Image *upsampled; // inputs
+
 	Convolutional_layer(int w, int h, int c, int n, int size, int stride);
 	virtual ~Convolutional_layer();
-	void run_convolutional_layer(const Image input);
+	void run_convolutional_layer(Image *input);
 
 
 };

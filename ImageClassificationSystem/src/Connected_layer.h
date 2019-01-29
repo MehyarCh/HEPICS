@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 class Connected_layer {
-private:
+public:
 	int inputs;
 	int outputs;
 	double *weights;
@@ -19,7 +19,7 @@ private:
 	double *weight_updates;
 	double *bias_updates;
 	double *output; // outputs by connected layers are not images
-public:
+
 	Connected_layer(int inputs, int outputs);
 	virtual ~Connected_layer();
 	void run_connected_layer(double *input);

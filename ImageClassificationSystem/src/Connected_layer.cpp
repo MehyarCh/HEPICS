@@ -9,21 +9,20 @@
 
 Connected_layer::Connected_layer(int inputs, int outputs) {
 	int i;
-	Connected_layer layer;
 	this->inputs = inputs;
 	this->outputs = outputs;
 
-	this->output = calloc(outputs, sizeof(double*));
+	this->output = (double *) calloc(outputs, sizeof(double));
 
-	this->weight_updates = calloc(inputs * outputs, sizeof(double));
-	this->weights = calloc(inputs * outputs, sizeof(double));
+	this->weight_updates = (double *) calloc(inputs * outputs, sizeof(double));
+	this->weights = (double *) calloc(inputs * outputs, sizeof(double));
 
 	for (i = 0; i < inputs * outputs; ++i) {
 		this->weights[i] = .5 - (double)rand()/RAND_MAX;
 	}
 
-	this->bias_updates = calloc(outputs, sizeof(double));
-	this->biases = calloc(outputs, sizeof(double));
+	this->bias_updates = (double *) calloc(outputs, sizeof(double));
+	this->biases = (double *) calloc(outputs, sizeof(double));
 
 	for (i = 0; i < outputs; ++i) {
 		this->biases[i] = (double)rand()/RAND_MAX;;

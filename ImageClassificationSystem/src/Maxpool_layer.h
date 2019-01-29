@@ -11,13 +11,13 @@
 #include "Image.h"
 
 class Maxpool_layer {
-private:
-	int stride;
-	Image output;
 public:
+	int stride;
+	Image *output;
+
 	Maxpool_layer(int h, int w, int c, int stride);
 	virtual ~Maxpool_layer();
-	void run_maxpool_layer(Image input);
+	void run_maxpool_layer(Image *input);
 };
 
 #endif /* MAXPOOL_LAYER_H_ */
