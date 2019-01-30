@@ -43,8 +43,10 @@ void aggregate(list<Image> images){
 	//3- parse through whole globalMap and select 4 biggest percentages
 	//4- divide percentages by 4 and save aggregation as a new Result
 
+	map<string,float> global;
 	std::list<Image>::iterator it;
 	for (it = images.begin() ; it != images.end(); ++it){
-
 	}
+
+
 }

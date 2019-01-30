@@ -22,7 +22,6 @@ public:
 	void setResult(Image input, Result result);
 	Result getResult(Image input);
 	void writeResultInFile(Image input);
-
 };
 
 #endif /* DATASAVER_H_ */

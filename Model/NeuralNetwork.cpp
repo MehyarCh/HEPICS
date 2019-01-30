@@ -7,7 +7,7 @@
 
 #include "NeuralNetwork.h"
 #include "Layer.h"
-#include <QImage>
+#include "qimage.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -16,12 +16,11 @@ using namespace std;
 NeuralNetwork::NeuralNetwork(string name, int numberOfLayers) {
 	this->name=name;
 	this->numberOfLayers=numberOfLayers;
-	this->index=0;
+	topology = NULL;
+	this->index = (int *) calloc(1, sizeof(int));
+	*index = 0;
 }
 
-NeuralNetwork::~NeuralNetwork() {
-	// TODO Auto-generated destructor stub
-}
 
 string NeuralNetwork::getName(){
 	return name;
@@ -32,9 +31,9 @@ void NeuralNetwork::setName(string name) {
 }
 
 void NeuralNetwork::addLayer(Layer layer){
-	layers[index]=layer;
-	++index;
-	if(index==numberOfLayers){
+	layers[*index]=layer;
+	*(index)++;
+	if(*index==numberOfLayers){
 		cout << "All layers are set" << std::endl;
 	}
 }
@@ -51,11 +50,11 @@ void NeuralNetwork::displayTopology() {
 
 }
 
-void NeuralNetwork::setTopology(QImage topology) {
+void NeuralNetwork::setTopology(QImage *topology) {
 	this->topology = topology;
 }
 
-QImage NeuralNetwork::getTopology(){
+QImage* NeuralNetwork::getTopology(){
 	return this->topology;
 }
 

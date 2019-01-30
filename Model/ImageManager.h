@@ -15,22 +15,39 @@ using namespace std;
 
 class ImageManager {
 private :
-	QImage inputImage;
+	QImage* inputImage;
 	string inputPath;
 public:
-	ImageManager();
+	ImageManager(){
+		inputImage = new QImage();
+	};
 	virtual ~ImageManager();
 	string getPath();
 	void setPath(string path);
-	QImage getImage();
-	QImage loadInput(QString path);
-	QImage convertToRGB(QImage input);
+	QImage* getImage();
+	const QImage* loadInput(const QString path){
+		QImage *image = new QImage(path);
+			return image;
+	};
+	QImage convertToRGB(QImage input){
+		return input.convertToFormat(QImage::Format_RGBA8888,Qt::AutoColor);
+	};
 
 	//needs a test function, converts input to a matrix of pixels
-	vector<vector<int>> preProcess(QImage input);
+	vector<vector<int>> preProcess(QImage* input){
+		vector<vector<int>> matrix;
+			for ( int row = 0; row < input->width() -1 ;++row){
+				for ( int col = 0; col < input->height() + 1; ++col){
+					matrix[row][col]=input->pixelIndex(row,col);
+				}
+			}
+			return matrix;
+	};
 
 	//needs a test function, creates a thumbnail
-	QImage resize(int length, int width);
+	QImage resize(int length, int width){
+		return inputImage->scaled(width, length, Qt::KeepAspectRatio, Qt::FastTransformation);
+	};
 };
 
 #endif /* MODEL_IMAGEMANAGER_H_ */
