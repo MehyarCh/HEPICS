@@ -45,8 +45,8 @@ public:
 	Image *make_random_image(int h, int w, int c);
 	// Image make_random_kernel(int size, int c);
 	Image copy_image(Image p);
-	Image resize_image(Image im, int w, int h);
-	Image load_image(char *filename);
+	static Image resize_image(Image im, int w, int h);
+	static Image load_image(char *filename, int w, int h, int c);
 	Image get_image_layer(Image m, int l); // get input image of layer l
 
 	/* Handling pixels */

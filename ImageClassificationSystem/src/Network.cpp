@@ -7,9 +7,10 @@
 
 #include "Network.h"
 
-Network::Network() {
-	// TODO Auto-generated constructor stub
-
+Network::Network(int n) {
+	this->n = n;
+	*this->layers = malloc(sizeof(LAYER_TYPE));
+	this->layers = malloc(sizeof(*layers));
 }
 
 Network::~Network() {
@@ -41,18 +42,13 @@ void Network::run_network(Image *input, Network net) {
 	}
 }
 
-Image Network::get_network_image(Network net) {
+Image Network::get_network_image_layer(Network net) {
 
 	int i;
 	for (i = net.n - 1; i >= 0; --i) {
 		if (net.types[i] == CONVOLUTIONAL) {
 			Convolutional_layer layer = *(Convolutional_layer *)net.layers[i];
 			return *layer.output;
-		}
-		else if (net.types[i] == CONNECTED) {
-			Connected_layer layer = *(Connected_layer *)net.layers[i];
-			// return *layer.output; // doesn't work output is pointer to double
-			return Image(1,1,1); // PLACEHOLDER
 		}
 		else if (net.types[i] == MAXPOOL) {
 			Maxpool_layer layer = *(Maxpool_layer *)net.layers[i];
@@ -61,4 +57,5 @@ Image Network::get_network_image(Network net) {
 	}
 	return Image(1,1,1);
 }
+
 

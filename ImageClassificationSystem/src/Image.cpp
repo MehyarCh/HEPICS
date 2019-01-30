@@ -63,13 +63,13 @@ void Image::zero_channel(Image m, int c) {
 }
 
 double Image::get_pixel(int x, int y, int c) {
-	assert(x < height && y < width && c < channels); /* terminate program execution */
-	return data[c * height * width + y]; // randomly chosen for test
+	assert(x < width && y < height && c < channels); /* terminate program execution */
+	return data[c * height * width + y * width + x]; // randomly chosen for test
 }
 
 double Image::get_pixel_extend(int x, int y, int c) {
-	if ( x < 0 || x >= this->height || y < 0 || y > this->width || c < 0 || c >= this->channels) return 0;
-	return this->data[c * this->height * this->width + y]; // randomly chosen for test
+	if (c < 0 || c >= channels) return 0;
+	return get_pixel(x, y, c);
 }
 
 void Image::set_pixel(int x, int y, int c, double val) {
@@ -121,8 +121,8 @@ Image load_image_stb(char *filename, int channels)
     int w, h, c;
     unsigned char *data = stbi_load(filename, &w, &h, &c, channels);
     if (!data) {
-        fprintf(stderr, "Cannot load image \"%s\"\nSTB Reason: %s\n", filename, stbi_failure_reason());
-        exit(0);
+    	fprintf(stderr, "Cannot load image \"%s\"\nSTB Reason: %s\n", filename, stbi_failure_reason());
+    	exit(0);
     }
     if(channels) c = channels;
     int i,j,k;
@@ -140,7 +140,6 @@ Image load_image_stb(char *filename, int channels)
     return im;
 }
 
-/*
 Image Image::resize_image(Image im, int w, int h) {
     Image resized = Image(w, h, im.channels);
     Image part = Image(w, im.height, im.channels);
@@ -183,14 +182,13 @@ Image Image::resize_image(Image im, int w, int h) {
     part.~Image();
     return resized;
 }
-*/
 
-Image Image::load_image(char *filename) {
-    Image out = load_image_stb(filename, channels);
+Image Image::load_image(char *filename, int w, int h, int c) {
+    Image out = load_image_stb(filename, c);
 
 
-    if((height && width) && (height != out.height || width != out.width)){
-        Image resized = resize_image(out, width, height);
+    if((h && w) && (h != out.height || w != out.width)){
+        Image resized = resize_image(out, w, h);
         out.~Image();
         out = resized;
     }

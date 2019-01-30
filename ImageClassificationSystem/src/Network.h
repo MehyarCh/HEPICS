@@ -21,15 +21,16 @@ private:
 		MAXPOOL
 	} LAYER_TYPE;
 
-	int n; // number of networks available
+	int n; // number of layers available
 	void **layers; // layers will be defined through type casting
 	LAYER_TYPE *types;
 public:
-	Network();
+	Network(int n);
 	virtual ~Network();
 
 	void run_network(Image *input, Network net);
-	Image get_network_image(Network net);
+	Image get_network_image_layer(Network net);
+
 };
 
 #endif /* NETWORK_H_ */
