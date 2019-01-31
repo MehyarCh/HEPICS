@@ -1,3 +1,10 @@
+/*
+ * welcomewindow.cpp
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+ 
 #ifndef WELCOMEWINDOW_H
 #define WELCOMEWINDOW_H
 
