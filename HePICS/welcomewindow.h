@@ -1,5 +1,5 @@
 /*
- * welcomewindow.cpp
+ * welcomewindow.h
  *
  *  Created on: Jan 31, 2019
  *      Author: Linjuan
