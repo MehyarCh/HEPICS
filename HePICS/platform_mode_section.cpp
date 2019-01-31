@@ -1,3 +1,10 @@
+/*
+ * platform_mode_section.cpp
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #include "platform_mode_section.h"
 
 Platform_Mode_Section::Platform_Mode_Section(QMainWindow *parent)
