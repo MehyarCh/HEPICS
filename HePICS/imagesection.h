@@ -1,3 +1,10 @@
+/*
+ * imagesection.h
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #ifndef IMAGESECTION_H
 #define IMAGESECTION_H
 
