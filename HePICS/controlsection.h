@@ -1,3 +1,10 @@
+/*
+ * controlsection.h
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #ifndef CONTROLSECTION_H
 #define CONTROLSECTION_H
 
