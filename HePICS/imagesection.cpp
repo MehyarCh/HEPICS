@@ -1,3 +1,10 @@
+/*
+ * imagesection.cpp
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #include "imagesection.h"
 
 ImageSection::ImageSection(QMainWindow *parent)
