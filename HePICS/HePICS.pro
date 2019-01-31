@@ -1,3 +1,10 @@
+/*
+ * HePICS.pro
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 TEMPLATE = app
 TARGET = HePICS
 
