@@ -1,3 +1,10 @@
+/*
+ * platform_mode_section.h
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #ifndef PLATFORM_MODE_SECTION_H
 #define PLATFORM_MODE_SECTION_H
 
