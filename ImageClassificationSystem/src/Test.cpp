@@ -10,6 +10,7 @@
 #include <time.h>
 #include "Image.h"
 
+/*
 void test_convolve()
 {
     Image *dog = new Image(1,1,1);
@@ -28,6 +29,13 @@ void test_convolve()
     printf("Convolutions: %lf seconds\n", (double)(end-start)/CLOCKS_PER_SEC);
     //show_image_layers(edge, "Test Convolve");
 }
+
+void test_load() {
+	char buffer[100] = "/home/ibrahim/localRepository/HePICS/hepics/test/src/dog.jpg";
+	char *path = buffer;
+	Image dog = Image::load_image(path, 1280, 720, 3);
+}
+*/
 
 int main(int argc, char **argv)
 {
