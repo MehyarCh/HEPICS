@@ -1,3 +1,10 @@
+/*
+ * controlsection.cpp
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #include "controlsection.h"
 
 ControlSection::ControlSection(QMainWindow *parent)
