@@ -39,6 +39,12 @@ void Network::run_network(Image *input, Network net) {
 			input = layer.output; // output is the input of the next layer
 			input_d = layer.output->data; // output data is the input data of the next layer
 		}
+		else if (net.types[i] == SOFTMAX) {
+			Softmax_layer layer = *(Softmax_layer *)net.types[i];
+			layer.run_softmax_layer(input_d);
+			input = layer.output; // output is the input of the next layer
+			//input_d = layer.output->data; // DIDN'T LOOK AT IT YET!!
+		}
 	}
 }
 

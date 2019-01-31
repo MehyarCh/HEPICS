@@ -12,13 +12,15 @@
 #include "Convolutional_layer.h"
 #include "Connected_layer.h"
 #include "Maxpool_layer.h"
+#include "Softmax_layer.h"
 
 class Network {
 private:
 	typedef enum {
 		CONVOLUTIONAL,
 		CONNECTED,
-		MAXPOOL
+		MAXPOOL,
+		SOFTMAX
 	} LAYER_TYPE;
 
 	int n; // number of layers available
