@@ -18,6 +18,7 @@ private:
 	int width;
 	int channels;
 	double *data;
+	static int id;
 public:
 	Image(int h, int w, int c); // make image
 	virtual ~Image(); // free image data
@@ -27,6 +28,7 @@ public:
 	int get_width();
 	int get_channels();
 	double* get_data();
+	int getId();
 
 	// Setters
 	void set_height(int h);

@@ -16,6 +16,7 @@ Image::Image(int h, int w, int c) {
 	this->width = w;
 	this->channels = c;
 	this->data = (double*) calloc(height * width * channels, sizeof(double)); // allocate memory for matrix and initialize it with 0 values
+	++id;
 }
 
 Image::~Image() {
@@ -36,6 +37,9 @@ int Image::get_channels() {
 }
 double* Image::get_data() {
 	return data;
+}
+int Image::getId(){
+	return id;
 }
 
 // Setters
