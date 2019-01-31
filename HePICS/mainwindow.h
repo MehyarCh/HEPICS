@@ -1,3 +1,10 @@
+/*
+ * mainwindow.h
+ *
+ *  Created on: Jan 31, 2019
+ *      Author: Linjuan
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
