@@ -53,8 +53,6 @@ Convolutional_layer::Convolutional_layer(int h, int w, int c, int n,
 	this->stride = stride;
 	this->size = size;
 	this->pad = padding;
-	this->weights = (float *) calloc(c / n * size * size, sizeof(float));
-	this->weight_updates = (float *) calloc(c / n * size * size, sizeof(float));
 	//this->biases = (float *) calloc(n, sizeof(float));
 	//this->bias_updates = (float *) calloc(n, sizeof(float));
 
@@ -64,8 +62,6 @@ Convolutional_layer::Convolutional_layer(int h, int w, int c, int n,
 	this->nweights = c / n * size * size;
 	this->nbiases = n;
 
-	for (i = 0; i < this->nweights; ++i)
-		this->weights[i] = scale * Utils::rand_normal();
 	int out_w = convolutional_out_width(*this);
 	int out_h = convolutional_out_height(*this);
 	this->out_h = out_h;

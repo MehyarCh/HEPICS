@@ -20,7 +20,7 @@
 class Connected_layer: public Layer {
 public:
 	Connected_layer();
-	Connected_layer(int inputs, int outputs, Activation::ACTIVATION activation, int batch_normalize);
+	Connected_layer(int inputs, int outputs, Activation::ACTIVATION activation);
 	void forward_layer(Network *net);
 };
 

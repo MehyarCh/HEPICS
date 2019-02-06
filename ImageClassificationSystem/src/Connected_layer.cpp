@@ -19,13 +19,12 @@ void Connected_layer::forward_layer(Network *net) {
 }
 
 Connected_layer::Connected_layer(int inputs, int outputs,
-		Activation::ACTIVATION activation, int batch_normalize) {
+		Activation::ACTIVATION activation) {
 	int i;
 	this->type = Layer_Type::CONNECTED;
 
 	this->inputs = inputs;
 	this->outputs = outputs;
-	this->batch_normalize = batch_normalize;
 	this->h = 1;
 	this->w = 1;
 	this->c = inputs;
@@ -53,14 +52,6 @@ Connected_layer::Connected_layer(int inputs, int outputs,
 
 	for (i = 0; i < outputs; ++i) {
 		this->biases[i] = 0;
-	}
-	if (batch_normalize) {
-		this->scales = (float *) calloc(outputs, sizeof(float));
-		this->scale_updates = (float *) calloc(outputs, sizeof(float));
-		for (i = 0; i < outputs; ++i) {
-			this->scales[i] = 1;
-		}
-
 	}
 
 	this->activation = activation;

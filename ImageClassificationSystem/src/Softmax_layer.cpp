@@ -17,7 +17,6 @@ Softmax_layer::Softmax_layer(int inputs) {
     this->inputs = inputs;
     this->outputs = inputs;
     this->output = (float *)calloc(inputs, sizeof(float));
-    this->cost = (float *)calloc(1, sizeof(float));
 
 
 }

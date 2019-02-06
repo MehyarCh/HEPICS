@@ -164,8 +164,7 @@ public:
 		int batch_normalize = Options_list::option_find_int_quiet(options,
 				"batch_normalize", 0);
 
-		Layer l = Connected_layer(params.inputs, output,
-				activation, batch_normalize);
+		Layer l = Connected_layer(params.inputs, output, activation);
 		return l;
 	}
 
