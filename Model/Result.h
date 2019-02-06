@@ -7,9 +7,12 @@
 
 #ifndef MODEL_RESULT_H_
 #define MODEL_RESULT_H_
-#include <map>
+#include <string>
 #include <vector>
+#include <iostream>
+#include <map>
 using namespace std;
+
 
 class Result {
 private:
@@ -25,7 +28,7 @@ public:
 	float getPercentageOf(string className);
 	//returns index if true, -1 if false
 	int getClassNameAt(string className);
-
+	map<string, float> getPercentage();
 };
 
 #endif /* MODEL_RESULT_H_ */

@@ -6,12 +6,8 @@
  */
 
 #include "NeuralNetwork.h"
-#include "Layer.h"
-#include "qimage.h"
-#include <string>
-#include <vector>
-#include <iostream>
-using namespace std;
+
+
 
 NeuralNetwork::NeuralNetwork(string name, int numberOfLayers) {
 	this->name=name;

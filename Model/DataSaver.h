@@ -7,8 +7,14 @@
 
 #ifndef DATASAVER_H_
 #define DATASAVER_H_
-#include "Result.h"
+
+#include <list>
+#include <map>
+
 #include "Image.h"
+#include "Result.h"
+#include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -22,6 +28,8 @@ public:
 	void setResult(Image input, Result result);
 	Result getResult(Image input);
 	void writeResultInFile(Image input);
+	Result aggregate(list<Image> images);
+	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
 };
 
 #endif /* DATASAVER_H_ */

@@ -6,15 +6,6 @@
  */
 
 #include "DataSaver.h"
-#include "Image.h"
-#include <map>
-#include "Result.h"
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <list>
-
-using namespace std;
 
 DataSaver::DataSaver() {
 		// TODO Auto-generated constructor stub
@@ -37,7 +28,19 @@ void DataSaver::writeResultInFile(Image input){
 	out << resultMap[input.getId()].toString();
 }
 
-void aggregate(list<Image> images){
+bool cmp(const pair<string, float>  &p1, const pair<string, float> &p2){
+    return p1.second < p2.second;
+}
+
+
+std::vector<pair<std::string, float> > DataSaver::convertToVector(std::map<std::string,float> map){
+	std::vector<pair<std::string, float> > toVector;
+	copy(map.begin(), map.end(), back_inserter(toVector));
+	sort(toVector.begin(), toVector.end(), cmp);
+	return toVector;
+}
+
+Result DataSaver::aggregate(list<Image> images){
 	//1- each image has 4 class names, add these to one map (globalMap) on this class, total of 4* number of images class names
 	//2- if class name already exists in globalMap, add percentage of current image classification
 	//3- parse through whole globalMap and select 4 biggest percentages
@@ -46,7 +49,35 @@ void aggregate(list<Image> images){
 	map<string,float> global;
 	std::list<Image>::iterator it;
 	for (it = images.begin() ; it != images.end(); ++it){
+		//iterate through images
+		std::map<std::string, float> currResult = resultMap[it->getId()].getPercentage();
+		std::map<std::string, float>::iterator it2 = currResult.begin();
+		while (it2 != currResult.end()){
+			//iterating through results of the image
+			if( global.find(it2->first) == global.end()){
+				//if classname doesn't exist add it
+				global[it2->first]= it2->second;
+			} else {
+				//if classname exists, add the new value to it
+				global[it2->first] += it2->second;
+			}
+			it2++; // next classname of the results
+		}
 	}
+	// now global is filled with all the classnames, need to look for the biggest 4
 
 
+	Result aggregationResult;
+	std::map<std::string, float>::iterator iterator = global.begin();
+	while (iterator != global.end()){
+		global[iterator->first]=iterator->second/images.size();
+		// to get the aggregation right
+	}
+	std::vector<pair<std::string, float>> vector = convertToVector(global);
+	//std::vector<pair<std::string, float>>::iterator i;
+	for(int i =0; i != 4; ++i) {
+	    aggregationResult.saveResult(vector[i].second, vector[i].first);
+	}
+	return aggregationResult;
 }
+

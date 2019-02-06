@@ -7,10 +7,12 @@
 
 #ifndef NEURALNETWORK_H_
 #define NEURALNETWORK_H_
+
+#include <QImage>
 #include "Layer.h"
 #include <string>
 #include <vector>
-#include "qimage.h"
+#include <iostream>
 using namespace std;
 
 class NeuralNetwork {

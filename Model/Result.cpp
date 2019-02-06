@@ -7,11 +7,6 @@
 // represents the results of a classified image
 
 #include "Result.h"
-#include <string>
-#include <vector>
-#include <iostream>
-#include <map>
-using namespace std;
 
 Result::Result() {
 	this->i=0;
@@ -50,5 +45,8 @@ int Result::getClassNameAt(string className){
 		}
 	}
 	return -1;
+}
+map<string, float> Result::getPercentage(){
+	return this->percentage;
 }
 
