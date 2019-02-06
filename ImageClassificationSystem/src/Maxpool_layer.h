@@ -5,19 +5,19 @@
  *      Author: ibrahim
  */
 
-#ifndef MAXPOOL_LAYER_H_
-#define MAXPOOL_LAYER_H_
+#ifndef SRC_MAXPOOL_LAYER_H_
+#define SRC_MAXPOOL_LAYER_H_
 
-#include "Image.h"
+#include "Network.h"
+#include "Layer.h"
 
-class Maxpool_layer {
+class Maxpool_layer: public Layer {
+private:
+
 public:
-	int stride;
-	Image *output;
-
-	Maxpool_layer(int h, int w, int c, int stride);
-	virtual ~Maxpool_layer();
-	void run_maxpool_layer(Image *input);
+	Maxpool_layer();
+	Maxpool_layer(int batch, int h, int w, int c, int size, int stride, int padding);
+	void forward_layer(Network *net);
 };
 
-#endif /* MAXPOOL_LAYER_H_ */
+#endif /* SRC_MAXPOOL_LAYER_H_ */

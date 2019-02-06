@@ -1,48 +1,56 @@
 /*
  * Activation.cpp
  *
- *  Created on: Jan 31, 2019
+ *  Created on: Feb 3, 2019
  *      Author: ibrahim
  */
 
 #include "Activation.h"
 
-double identity_activation(double x) {
-	return x;
+Activation::Activation() {
 }
 
-double sigmoid_activation(double x) {
-	return 1./(1. + exp(-x));
+Activation::Activation(char *s) {
+	this->act_str = s;
 }
 
-double relu_activation(double x) {
-	return x * (x > 0);
+Activation::ACTIVATION Activation::get_activation() {
+    if (strcmp(this->act_str, "relu")==0) return Activation::ACTIVATION::RELU;
+    if (strcmp(this->act_str, "linear")==0) return Activation::ACTIVATION::LINEAR;
+    if (strcmp(this->act_str, "ramp")==0) return Activation::ACTIVATION::RAMP;
+    fprintf(stderr, "Couldn't find activation function %s, going with ReLU\n", this->act_str);
+    return Activation::RELU;
 }
 
-double ramp_activation(double x) {
-	return x * (x > 0) + .1 * x;
+float linear_activate(float x){return x;}
+float logistic_activate(float x){return 1./(1. + exp(-x));}
+float loggy_activate(float x){return 2./(1. + exp(-x)) - 1;}
+float relu_activate(float x){return x*(x>0);}
+float elu_activate(float x){return (x >= 0)*x + (x < 0)*(exp(x)-1);}
+float selu_activate(float x){return (x >= 0)*1.0507*x + (x < 0)*1.0507*1.6732*(exp(x)-1);}
+float relie_activate(float x){return (x>0) ? x : .01*x;}
+float ramp_activate(float x){return x*(x>0)+.1*x;}
+float leaky_activate(float x){return (x>0) ? x : .1*x;}
+float tanh_activate(float x){return (exp(2*x)-1)/(exp(2*x)+1);}
+
+
+float activate(float x, Activation::ACTIVATION a)
+{
+    switch(a){
+        case Activation::ACTIVATION::LINEAR:
+            return linear_activate(x);
+        case Activation::ACTIVATION::RELU:
+            return relu_activate(x);
+        case Activation::ACTIVATION::RAMP:
+            return ramp_activate(x);
+    }
+    return 0;
 }
 
-double Activation::activate(double x, ACTIVATION a) {
-	switch(a) {
-	case IDENTITY:
-		return identity_activation(x);
-	case SIGMOID:
-		return sigmoid_activation(x);
-	case RELU:
-		return relu_activation(x);
-	case RAMP:
-		return ramp_activation(x);
-	}
-	return 0;
+void Activation::activate_array(float *x, int n, Activation::ACTIVATION a)
+{
+    int i;
+    for(i = 0; i < n; ++i){
+        x[i] = activate(x[i], a);
+    }
 }
-
-Activation::ACTIVATION Activation::get_activation(char* s) {
-	if (strcmp(s, "sigmoid") == 0) return SIGMOID;
-	if (strcmp(s, "relu") == 0) return RELU;
-	if (strcmp(s, "identity") == 0) return IDENTITY;
-	if (strcmp(s, "ramp") == 0) return RAMP;
-	fprintf(stderr, "Couldn't find activation %s, going with ReLu\n", s);
-	return RELU;
-}
-

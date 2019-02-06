@@ -1,27 +1,29 @@
 /*
  * Activation.h
  *
- *  Created on: Jan 31, 2019
+ *  Created on: Feb 3, 2019
  *      Author: ibrahim
  */
 
 #ifndef SRC_ACTIVATION_H_
 #define SRC_ACTIVATION_H_
 
-#include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 
 class Activation {
+private:
+	char *act_str;
+public:
 	typedef enum {
-		SIGMOID,
-		RELU,
-		IDENTITY,
-		RAMP
+		 RELU, LINEAR, RAMP
 	} ACTIVATION;
 
-	double activate(double x, ACTIVATION a);
-	ACTIVATION get_activation(char *s);
+	Activation();
+	Activation(char *s);
+	ACTIVATION get_activation();
+	void activate_array(float *x, int n, Activation::ACTIVATION a);
 };
 
 #endif /* SRC_ACTIVATION_H_ */

@@ -1,24 +1,22 @@
 /*
- * Softmaxl_ayer.h
+ * Softmax_layer.h
  *
- *  Created on: Jan 31, 2019
+ *  Created on: Jan 28, 2019
  *      Author: ibrahim
  */
 
-#ifndef SOFTMAXL_AYER_H_
-#define SOFTMAXL_AYER_H_
+#ifndef SRC_SOFTMAX_LAYER_H_
+#define SRC_SOFTMAX_LAYER_H_
 
-#include <math.h>
+#include "Network.h"
+#include "Layer.h"
 
-class Softmax_layer {
+class Softmax_layer: public Layer {
 public:
-	int inputs;
-	double *delta;
-	double *output;
-
+	Softmax_layer();
 	Softmax_layer(int inputs);
-	void run_softmax_layer(double *input);
+	void forward_layer(Network *net);
 
 };
 
-#endif /* SOFTMAXL_AYER_H_ */
+#endif /* SRC_SOFTMAX_LAYER_H_ */

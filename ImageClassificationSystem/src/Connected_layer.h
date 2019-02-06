@@ -5,24 +5,23 @@
  *      Author: ibrahim
  */
 
-#ifndef CONNECTED_LAYER_H_
-#define CONNECTED_LAYER_H_
+#ifndef SRC_CONNECTED_LAYER_H_
+#define SRC_CONNECTED_LAYER_H_
 
-#include <stdlib.h>
+#include "Layer.h"
+#include "Layer_Type.h"
+#include "Activation.h"
+#include "Utils.h"
+#include "Network.h"
+#include "IM2COL.h" // EXTERNAL LIBRARY from Caffe
+#include "BLAS.h" // EXTERNAL LIBRARY from Caffe
+#include "GEMM.h" // EXTERNAL LIBRARY from Caffe
 
-class Connected_layer {
+class Connected_layer: public Layer {
 public:
-	int inputs;
-	int outputs;
-	double *weights;
-	double *biases;
-	double *weight_updates;
-	double *bias_updates;
-	double *output; // outputs by connected layers are not images
-
-	Connected_layer(int inputs, int outputs);
-	virtual ~Connected_layer();
-	void run_connected_layer(double *input);
+	Connected_layer();
+	Connected_layer(int inputs, int outputs, Activation::ACTIVATION activation, int batch_normalize);
+	void forward_layer(Network *net);
 };
 
-#endif /* CONNECTED_LAYER_H_ */
+#endif /* SRC_CONNECTED_LAYER_H_ */

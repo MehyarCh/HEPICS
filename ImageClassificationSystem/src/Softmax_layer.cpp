@@ -1,27 +1,27 @@
 /*
  * Softmax_layer.cpp
  *
- *  Created on: Jan 31, 2019
+ *  Created on: Jan 28, 2019
  *      Author: ibrahim
  */
 
 #include "Softmax_layer.h"
 
+Softmax_layer::Softmax_layer() {
+
+}
+
 Softmax_layer::Softmax_layer(int inputs) {
-	this->inputs = inputs;
-	this->output = calloc(inputs, sizeof(double));
-	this->delta = calloc(inputs, sizeof(double));
+    fprintf(stderr, "softmax                                        %4d\n",  inputs);
+    this->type = Layer_Type::SOFTMAX;
+    this->inputs = inputs;
+    this->outputs = inputs;
+    this->output = (float *)calloc(inputs, sizeof(float));
+    this->cost = (float *)calloc(1, sizeof(float));
+
+
 }
 
-void Softmax_layer::run_softmax_layer(double *input)
-{
-    int i;
-    double sum = 0;
-    for(i = 0; i < inputs; ++i){
-        sum += exp(input[i]);
-    }
-    for(i = 0; i < inputs; ++i){
-        output[i] = exp(input[i])/sum;
-    }
+void Softmax_layer::forward_layer(Network *net) {
+	return;
 }
-
