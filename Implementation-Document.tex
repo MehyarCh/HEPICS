@@ -94,10 +94,10 @@
 	\end{itemize}
 	\subsection {Image and Result Saving}
 	@Mehyar Cherni
-	\tab The class #DataSaver is meant to work as a data base, it consists of one map whose keys are images' unique identifications #id, and whose values are results, represented as well as a an object. DataSaver allows the program to store input images and their results, retrieve them, delete them, or change their values. It also offers the possibility of saving the results of one classification in a text file. \\The aggregate function stores all classnames and percentages in a new map named #global, converts the map into a vector to sort it, then chooses the 4 biggest values and returns them as a #Result object.
-\\The class #Result wasn't included in the design, and was added for the purpose of making the storage clearer and more flexible. It is meant to represent the results of a classification of a single input image as follows. Each instance of the object Result contains a map, that stores classnames represented as strings, and links them to their values stored as floats. Functionalities included are saving a classname and its percentage into the map. To control the number of classnames needed, we added the int i who counts the number of elements which are currently saved. This class offers the possibility to write results as plain text to display it on the GUI as such, classname1 : percentage1, classname2 : percentage2 etc ... 
+	\tab The class DataSaver is meant to work as a data base, it consists of one map whose keys are images' unique identifications id, and whose values are results, represented as well as a an object. DataSaver allows the program to store input images and their results, retrieve them, delete them, or change their values. It also offers the possibility of saving the results of one classification in a text file. \\The aggregate function stores all classnames and percentages in a new map named global, converts the map into a vector to sort it, then chooses the 4 biggest values and returns them as a Result object.
+\\The class Result wasn't included in the design, and was added for the purpose of making the storage clearer and more flexible. It is meant to represent the results of a classification of a single input image as follows. Each instance of the object Result contains a map, that stores classnames represented as strings, and links them to their values stored as floats. Functionalities included are saving a classname and its percentage into the map. To control the number of classnames needed, we added the int i who counts the number of elements which are currently saved. This class offers the possibility to write results as plain text to display it on the GUI as such, classname1 : percentage1, classname2 : percentage2 etc ... 
 	\subsubsection {Assistant}
-	\tab Class #ClassificationAssistant has been renamed into Assistant. It serves the purpose of providing and storing all data given by the user through the GUI to the system. The weight file is loaded directly into the network through a configuration file, so it doesn't belong to the assistant anymore. The boolean function is classified has been removed since it hasn't been needed. The classnames file is set in the assistant, which will then be able to load them into a list of strings. Input images are stored into a list as well, with the possibility of deleting them by selection, or clearing the whole list.
+	\tab Class ClassificationAssistant has been renamed into Assistant. It serves the purpose of providing and storing all data given by the user through the GUI to the system. The weight file is loaded directly into the network through a configuration file, so it doesn't belong to the assistant anymore. The boolean function is classified has been removed since it hasn't been needed. The classnames file is set in the assistant, which will then be able to load them into a list of strings. Input images are stored into a list as well, with the possibility of deleting them by selection, or clearing the whole list.
 
 	\subsection {Network Model}
 	\tab The Network Model consists of the network and the layers:
@@ -167,7 +167,7 @@
 
 \section{Scheduler} \label{Scheduler}
 	@Mehyar Cherni
-	\tab Class #Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform { \\ 
+	\tab Class Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform { \\ 
 	\begin {itemize}
 		\item cpu, 
 		\item gpu, 
@@ -179,7 +179,7 @@
 		\item Performance : fpga>gpu>cpu
 		\item Energy Efficiency : fpga>cpu>gpu
 	\end{itemize}
-\\ Next to accessing information about the mode and currently enabled/used platforms, #Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification.\\
+\\ Next to accessing information about the mode and currently enabled/used platforms, Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification.\\
 	\begin {itemize}
 		\item bool isWaiting() : gives the status of the worker provider
 		\item void next() : provides the next worker, when not waiting
@@ -202,7 +202,7 @@
 
 \section{Operation Modes} \label{Operation Modes}
 	@Mehyar Cherni
-	\tab Classes #Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class #Scheduler as such \\ Mode { \\
+	\tab Classes Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class Scheduler as such \\ Mode { \\
 	\begin {itemize}
 		\item standard,(initial state, before selecting the mode)
 		\item high_performance, 
