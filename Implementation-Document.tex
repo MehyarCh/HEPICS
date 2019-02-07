@@ -58,7 +58,7 @@
 
 
 \section {Introduction}
-	\tab In this document you will find a full description of the work flow in the implementation phase as well as the deviations and changes made on the class digaram. Those changes are sometimes necessary and have convincing reasons that will be mentioned in details.
+	\tab In this document you will find a full description of the work flow in the implementation phase as well as the deviations and changes made on the class diagram. Those changes are sometimes necessary and have convincing reasons that will be mentioned in details.
 	\subsection{Workflow}
 	\tab In order to distribute tasks and maintain good communication between team members, we use a scrum framework online 	\url{https://app.vivifyscrum.com} and a github repository \url{https://github.com/Turon42/hepics}.
 	
@@ -86,27 +86,27 @@
 	
 	\subsection {Image Model}
 	\tab The Image Class represents the \textbf{input} as well as the \textbf{filter} used in the different layers.\\
-	The Image Manager Class however was removed in the implementation because all of its methods can be fully implemented as static ones in the Image Class.\\ As a result the use of this methods does not require any new instance object to be created and thus makes less use of memory. \\ Classes InputImage and ResultImage were not needed as results are only to display as text for the moment, as for input images, they are simply represented as instances of the class Image.\\ Here a list of of static methods implemented in Image:
+	The Image Manager Class however was removed in the implementation because all of its methods can be fully implemented as static ones in the Image Class.\\ As a result the use of these methods does not require any new instance object to be created and thus makes less use of memory. \\ Classes InputImage and ResultImage were not needed as results are only to display as text for the moment, as for input images, they are simply represented as instances of the class Image.\\ Here is a list of static methods implemented in Image:
 	\begin {itemize}
 		\item load\_image\_color: load an image
 		\item load\_image: load an image an resize it if necessary
 		\item load\_image\_stb: uses an external library to load an image. See \ref{External Libraries}
 	\end{itemize}
 	\subsection {Image and Result Saving}
-	\tab The class DataSaver is meant to work as a data base, it consists of one map whose keys are images' unique identifications id, and whose values are results, represented as well as a an object. DataSaver allows the program to store input images and their results, retrieve them, delete them, or change their values. It also offers the possibility of saving the results of one classification in a text file. \\The aggregate function stores all classnames and percentages in a new map named global, converts the map into a vector to sort it, then chooses the 4 biggest values and returns them as a Result object.
+	\tab The class DataSaver is meant to work as a data base, it consists of one map whose keys are images' unique identifications id, and whose values are results, which are represented as well as an object on their own. DataSaver allows the program to store input images and their results, retrieve them, delete them, or change their values. It also offers the possibility of saving the results of one classification in a text file. \\The aggregate function stores all classnames and percentages in a new map named global, converts the map into a vector to sort it, then chooses the 4 biggest values and returns them as a Result object.
 \\The class Result wasn't included in the design, and was added for the purpose of making the storage clearer and more flexible. It is meant to represent the results of a classification of a single input image as follows. Each instance of the object Result contains a map, that stores classnames represented as strings, and links them to their values stored as floats. Functionalities included are saving a classname and its percentage into the map. To control the number of classnames needed, we added the int i who counts the number of elements which are currently saved. This class offers the possibility to write results as plain text to display it on the GUI as such, classname1 : percentage1, classname2 : percentage2 etc ... 
 	\subsubsection {Assistant}
-	\tab Class ClassificationAssistant has been renamed into Assistant. It serves the purpose of providing and storing all data given by the user through the GUI to the system. The weight file is loaded directly into the network through a configuration file, so it doesn't belong to the assistant anymore. The boolean function is classified has been removed since it hasn't been needed. The classnames file is set in the assistant, which will then be able to load them into a list of strings. Input images are stored into a list as well, with the possibility of deleting them by selection, or clearing the whole list.
+	\tab Class ClassificationAssistant has been renamed into Assistant. It serves the purpose of providing and storing all data given by the user through the GUI to the system. The weight file is loaded directly into the network through a configuration file, so it doesn't belong to the assistant anymore. The boolean function isclassified() has been removed since it hasn't been needed. The classnames file is set in the assistant, which will then be able to load them into a list of strings. Input images are stored into a list as well, with the possibility of deleting them by selection, or clearing the whole list.
 
 	\subsection {Network Model}
 	\tab The Network Model consists of the network and the layers:
 	
 		\subsubsection {Network}
 		\tab The Network Class was implemented as it was introduced in the class diagram. However displaying the topology  as designed was not part of the implementation due to the fact that only the alexnet architecture will be deployed in the classification process. To display the topology of the neural network, an image whose path has been set from the beginning is displayed, in order to give an idea about the structure of the implemented neural network.
-		The architecure (See \ref{fig:alexnet-architecture}) itself was described in a comprehensible configuration file, which will be parsed (See Parser \ref{Parser}) to extract relevant informations about the network.
+		The architecure (See \ref{fig:alexnet-architecture}) itself was described in a comprehensible configuration file, which will be parsed (See Parser \ref{Parser}) to extract relevant information about the network.
 		
 		\subsubsection {Layer}
-		\tab The Layer Class stores informations such as the number of inputs and outputs as well as the layer type and define the forward function which is implemented by derived classes:\\
+		\tab The Layer Class stores information such as the number of inputs and outputs as well as the layer type and define the forward function which is implemented by derived classes:\\
 		\begin{itemize}
 			\item Convolutional Layer
 			\item Max Pool Layer
@@ -121,7 +121,7 @@
 		\end{figure}
 		
 		\subsubsection {Activation}
-		\tab The Activation Class implements the following activations functions:
+		\tab The Activation Class implements the following activation functions:
 		\begin{itemize}
 			\item ReLu $g(z) = max{0, z}$
 			\item Linear $g(z) =z$
@@ -131,13 +131,13 @@
 		
 	\subsection {New Classes}
 		\paragraph{a.Parser} \label{Parser}
-		\tab This class was created to parse and extract informations related to the network from the alexnet architecture (See \ref{fig:alexnet-architecture}).
+		\tab This class was created to parse and extract information related to the network from the alexnet architecture (See \ref{fig:alexnet-architecture}).
 		\begin{itemize}
-			\item parse\_convolutional: create a convolutional layer from the convolution section in the configuration file
-			\item parse\_maxpool: create a maxpool layer from the convolution section in the configuration file
-			\item parse\_connected: create a connected layer from the convolution section in the configuration file
-			\item parse\_softmax: create a softmax layer from the convolution section in the configuration file
-			\item load\_network: create the network and initialize layers
+			\item parse\_convolutional: creates a convolutional layer from the convolution section in the configuration file
+			\item parse\_maxpool: creates a maxpool layer from the convolution section in the configuration file
+			\item parse\_connected: creates a connected layer from the convolution section in the configuration file
+			\item parse\_softmax: creates a softmax layer from the convolution section in the configuration file
+			\item load\_network: creates the network and initialize layers
 		\end{itemize}
 		
 		\paragraph{b.Utils}
@@ -172,7 +172,7 @@
 		\item gpu, 
 		\item fpga
 	\end{itemize}
-	The class also consists of two other vectors of booleans. The first, named platforms, represents the platforms that the user has chosen to enable. The second, named use\_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations.
+	The class also consists of two other vectors of booleans. The first one, named platforms, represents the platforms that the user has chosen to enable. The second, named use\_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations.
 	\begin {itemize}
 		\item Power Consumption : cpu>gpu>fpga
 		\item Performance : fpga>gpu>cpu
@@ -190,14 +190,15 @@ As for the progress bar, it seems that its implementation is more complicated th
 \pagebreak
 
 \section{Connecting FPGA} \label{Connecting FPGA}
+@Andres Stober
 
-Connecting to the FPGA proved more difficult than expected. Due to lack of experience with the platform we were unware of the soc board holding another linux that we had to work with. To use the FPGA we had to write a service that we can connect to via ethernet that uses the FPGA. Therefore a Socket class was added. High complexity led to multiple OpenCL classes. Also padding was an issue that had to be addressed to reduce branching in the FPGA
+Connecting to the FPGA proved more difficult than expected. Due to lack of experience with the platform we were unware of the soc board holding another linux that we had to work with. To use the FPGA we had to write a service to which we can connect via ethernet and which uses the FPGA. Therefore a Socket class was added. High complexity led to multiple OpenCL classes. Also padding was an issue that had to be addressed to reduce branching in the FPGA
 
 \subsection{Socket}
 
 Sockets provide the communication mechanism between two computers using TCP. In our project we created a socket because we need the communication with the PC that is connected with the FPGA. 
 
-In the socket.h class we used this Methods:
+In the socket.h class we used these methods:
 
 \begin {itemize}
 	\item void set\_tcp\_nodelay
@@ -209,17 +210,17 @@ set\_tcp\_nodelay method: this method is intended to disable/enable segment buff
 
 send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8\_t> to send it to the FPGA.
 
-receive mthod: decoding the byte array(vector<uint8\_t>).
+receive method: decoding the byte array(vector<uint8\_t>).
 
 \pagebreak
 
 \subsection{OpenCL}
 
-OpenCL (Open Computing Language) is the open, royalty-free standard for cross-platform, parallel programming of diverse processors found in personal computers, servers, mobile devices and embedded platforms. In our project we use this framework for programming heterogeneous systems that contains a combination of CPU, GPU and FPGA.
+OpenCL (Open Computing Language) is the open, royalty-free standard for cross-platform, parallel programming of diverse processors found in personal computers, servers, mobile devices and embedded platforms. In our project we use this framework for programming heterogeneous systems that contain a combination of CPU, GPU and FPGA.
 
-In “OpenCL.h” file we used Resource Acquisition Is Initialization or RAII technique  therefore we have 6 classes in this “OpenCL.h” file. 
+In “OpenCL.h” file we used Resource Acquisition Is Initialization or RAII technique, therefore we have 6 classes in this “OpenCL.h” file. 
 RAII technique binds the life cycle of a resource that must be acquired before use ( open socket…) to the lifetime of an object. 
-With this technique we want to guarantees that the resource is available to any function that may access the object. It also guarantees that all resources are released when the lifetime of their controlling object ends, in reverse order of acquisition.
+With this technique we want to guarantee that the resource is available to any function that may access the object. It also guarantees that all resources are released when the lifetime of their controlling object ends, in reverse order of acquisition.
  
 \pagebreak
 
@@ -229,17 +230,19 @@ A convolution neural network is a sequence of layers. We used 3 types of layers 
 
 \begin {itemize}
 	\item Convolution Layer
-	\item Pooling-Layer
+	\item MaxPooling-Layer
 	\item Fully-Connected-Layer
 \end{itemize}
 
 Zero-padding refers to the process of symmetrically adding zeroes to the input matrix. 
-It's a commonly used modification that allows the size of the input to be adjusted to our requirement. We used in designing the CNN layers when the dimensions of the input volume need to be preserved in the output volume.
+It's a commonly used modification that allows the size of the input to be adjusted to our requirement. We used it in designing the CNN layers when the dimensions of the input volume needs to be preserved in the output volume.
 
-For the Zero-padding Method we used this 3 methods:
-INPUT [WidthxheighxRGB(=3)] will hold the raw pixel values of the image.
-CONV This method may result in volume such as [widthx3heighx(number of filter * 3(RGB))].
-RELU returns max(0, x). Size of the volume.
+For the Zero-padding Method we used these 3 methods:
+\begin {itemize}
+	\item INPUT [WidthxheighxRGB(=3)] will hold the raw pixel values of the image.
+	\item CONV This method may result in volume such as [widthx3heighx(number of filter * 3(RGB))].
+	\item RELU returns max(0, x). Size of the volume.
+\end {itemize}
     
 About the Matrix Implementation:
 Accepts a volume of size W1 * H1 * D1
