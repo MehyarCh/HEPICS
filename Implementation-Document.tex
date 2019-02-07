@@ -190,10 +190,42 @@ As for the progress bar, it seems that its implementation is more complicated th
 \pagebreak
 
 \section{Connecting FPGA} \label{Connecting FPGA}
-	@Andres Stober \textit{(No description provided yet)}
+
+Connecting to the FPGA proved more difficult than expected. Due to lack of experience with the platform we were unware of the soc board holding another linux that we had to work with. To use the FPGA we had to write a service that we can connect to via ethernet that uses the FPGA. Therefore a Socket class was added. High complexity led to multiple OpenCL classes. Also padding was an issue that had to be addressed to reduce branching in the FPGA
+
+\subsection{Socket}
+
+Sockets provide the communication mechanism between two computers using TCP. In our project we created a socket because we need the communication with the PC that is connected with the FPGA. 
+
+In the socket.h class we used this Methods:
+
+\begin {itemize}
+	\item void set\_tcp\_nodelay
+	\item void receive
+	\item void send
+\end{itemize}
+
+set\_tcp\_nodelay method: this method is intended to disable/enable segment buffering so data can be sent out to peer as quickly as possible, so this is typically used to improve network utilisation
+
+send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8\_t> to send it to the FPGA.
+
+receive mthod: decoding the byte array(vector<uint8\_t>).
+
+\pagebreak
+
+\subsection{OpenCL}
+
+OpenCL (Open Computing Language) is the open, royalty-free standard for cross-platform, parallel programming of diverse processors found in personal computers, servers, mobile devices and embedded platforms. In our project we use this framework for programming heterogeneous systems that contains a combination of CPU, GPU and FPGA.
+
+In “OpenCL.h” file we used Resource Acquisition Is Initialization or RAII technique  therefore we have 6 classes in this “OpenCL.h” file. 
+RAII technique binds the life cycle of a resource that must be acquired before use ( open socket…) to the lifetime of an object. 
+With this technique we want to guarantees that the resource is available to any function that may access the object. It also guarantees that all resources are released when the lifetime of their controlling object ends, in reverse order of acquisition.
+ 
+\pagebreak
+
 \subsection{Zero-Padding-Concept}
 
-a convolution neural network is a sequence of layers. We used 3 types of layers for the implementation of the convolution neural network:
+A convolution neural network is a sequence of layers. We used 3 types of layers for the implementation of the convolution neural network:
 
 \begin {itemize}
 	\item Convolution Layer
@@ -222,25 +254,6 @@ D2 = K
 
 \pagebreak
 
-\subsection{Socket}
-
-Sockets provide the communication mechanism between two computers using TCP. In our project we created a socket because we need the communication with the PC that is connected with the FPGA. 
-
-In the socket.h class we used this Methods:
-
-\begin {itemize}
-	\item void set\_tcp\_nodelay
-	\item void receive
-	\item void send
-\end{itemize}
-
-set\_tcp\_nodelay method: this method is intended to disable/enable segment buffering so data can be sent out to peer as quickly as possible, so this is typically used to improve network utilisation
-
-send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8\_t> to send it to the FPGA.
-
-receive mthod: decoding the byte array(vector<uint8\_t>).
-
-\pagebreak
 
 \section{Operation Modes} \label{Operation Modes}
 	@Mehyar Cherni\\
