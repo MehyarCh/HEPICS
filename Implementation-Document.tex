@@ -192,11 +192,54 @@
 
 \section{Connecting FPGA} \label{Connecting FPGA}
 	@Andres Stober \textit{(No description provided yet)}
-	
+\subsection{Zero-Padding-Concept}
+
+a convolution neural network is a sequence of layers. We used 3 types of layers for the implementation of the convolution neural network:
+
+\begin {itemize}
+	\item Convolution Layer
+	\item Pooling-Layer
+	\item Fully-Connected-Layer
+\end{itemize}
+
+Zero-padding refers to the process of symmetrically adding zeroes to the input matrix. 
+It's a commonly used modification that allows the size of the input to be adjusted to our requirement. We used in designing the CNN layers when the dimensions of the input volume need to be preserved in the output volume.
+
+For the Zero-padding Method we used this 3 methods:
+INPUT [WidthxheighxRGB(=3)] will hold the raw pixel values of the image.
+CONV This method may result in volume such as [widthx3heighx(number of filter * 3(RGB))].
+RELU returns max(0, x). Size of the volume.
+    
+About the Matrix Implementation:
+Accepts a volume of size W1 * H1 * D1
+Requires four hyperparameters: 
+Number of filters K
+their spatial extent F
+the stride S
+the amount of zero padding P
+Produces a volume of size W2 * X2 * D2, where:
+W2 = (H1 - F + 2P) / S + 1
+D2 = K
 
 \pagebreak
 
+\subsection{Socket}
 
+Sockets provide the communication mechanism between two computers using TCP. In our project we created a socket because we need the communication with the PC that is connected with the FPGA. 
+
+In the socket.h class we used this Methods:
+
+\begin {itemize}
+	\item void set_tcp_nodelay
+	\item void receive
+	\item void send
+\end{itemize}
+
+ste_tcp_nodelay method: this method is intended to disable/enable segment buffering so data can be sent out to peer as quickly as possible, so this is typically used to improve network utilisation
+
+send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8_t> to send it to the FPGA.
+
+receive mthod: decoding the byte array(vector<uint8_t>).
 
 \pagebreak
 
