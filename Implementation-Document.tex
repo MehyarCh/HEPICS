@@ -67,7 +67,7 @@
 	\tab \begin{itemize}
 	\item GUI \ref{GUI}
 	\item Image and Neural Network Model  \ref{Image and Neural Network Model}
-	\item Sheduler \ref{Scheduler}
+	\item Scheduler \ref{Scheduler}
 	\item Connecting PFGA \ref{Connecting FPGA}
 	\item Operation Modes  \ref{Operation Modes}
 	\end{itemize}
@@ -103,7 +103,7 @@
 	\tab The Network Model consists of the network and the layers:
 	
 		\subsubsection {Network}
-		\tab The Network Class was implemented as it was introduced in the class diagram. However displaying the topology was not part of the implementation due to the fact that only the alexnet architecture will be deployed in the classification process. To display the topology of the neural network, an image whose path has been set from the beginning is displayed, in order to give an idea about the structure of the implemented neural network.
+		\tab The Network Class was implemented as it was introduced in the class diagram. However displaying the topology  as designed was not part of the implementation due to the fact that only the alexnet architecture will be deployed in the classification process. To display the topology of the neural network, an image whose path has been set from the beginning is displayed, in order to give an idea about the structure of the implemented neural network.
 		The architecure (See \ref{fig:alexnet-architecture}) itself was described in a comprehensible configuration file, which will be parsed (See Parser \ref{Parser}) to extract relevant informations about the network.
 		
 		\subsubsection {Layer}
@@ -145,7 +145,7 @@
 		\tab This class implements static methods that does logically not belong to any object. For instance file and memory errors. 
 		
 		\paragraph{c.Options\_list}
-		\tab This class read datas from the configuration file line by line.\\
+		\tab This class reads data from the configuration file line by line.\\
 		It models a hash set with key words and associated values. The extracted values will be stored in lists (See \ref{Structures})
 		
 	\subsection {External Libraries} \label{External Libraries}
@@ -167,19 +167,19 @@
 
 \section{Scheduler} \label{Scheduler}
 	@Mehyar Cherni
-	\tab Class #Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform { 
+	\tab Class #Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform { \\ 
 	\begin {itemize}
 		\item cpu, 
 		\item gpu, 
 		\item fpga
-	\end{itemize}
-	}. The class also consists of two other vectors of booleans. The first, named platforms, represents the platforms that the user has chosen to enable. The second, named use_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations. 
+	\end{itemize} \\
+	}. The class also consists of two other vectors of booleans. The first, named platforms, represents the platforms that the user has chosen to enable. The second, named use_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations. \\
 	\begin {itemize}
 		\item Power Consumption : cpu>gpu>fpga
 		\item Performance : fpga>gpu>cpu
 		\item Energy Efficiency : fpga>cpu>gpu
 	\end{itemize}
-\\ Next to accessing information about the mode and currently enabled/used platforms, #Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification.
+\\ Next to accessing information about the mode and currently enabled/used platforms, #Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification.\\
 	\begin {itemize}
 		\item bool isWaiting() : gives the status of the worker provider
 		\item void next() : provides the next worker, when not waiting
@@ -202,13 +202,13 @@
 
 \section{Operation Modes} \label{Operation Modes}
 	@Mehyar Cherni
-	\tab Classes #Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class #Scheduler as such \\ Mode {
+	\tab Classes #Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class #Scheduler as such \\ Mode { \\
 	\begin {itemize}
 		\item standard,(initial state, before selecting the mode)
 		\item high_performance, 
 		\item low_power,
 		\item energy_efficient
-	\end{itemize}  
+	\end{itemize}  \\
 	} , since they contain no functionality, but only describe states.
 
 
