@@ -18,8 +18,9 @@ private:
 	int width;
 	int channels;
 	double *data;
-	static int id;
+
 public:
+	static int id;
 	Image(int h, int w, int c); // make image
 	virtual ~Image(); // free image data
 

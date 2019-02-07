@@ -7,7 +7,9 @@
 
 #include "NeuralNetwork.h"
 
+NeuralNetwork::NeuralNetwork(){
 
+}
 
 NeuralNetwork::NeuralNetwork(string name, int numberOfLayers) {
 	this->name=name;

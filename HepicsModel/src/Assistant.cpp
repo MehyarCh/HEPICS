@@ -39,13 +39,6 @@ void Assistant::setInputs(std::list<Image> inputs) {
 	this->inputs = inputs;
 }
 
-const ImageManager Assistant::getManager() const {
-	return manager;
-}
-
-void Assistant::setManager(ImageManager manager) {
-	this->manager = manager;
-}
 
 const NeuralNetwork Assistant::getNetwork() const {
 	return net;

@@ -12,7 +12,7 @@
 #include "Image.h"
 #include "NeuralNetwork.h"
 #include "DataSaver.h"
-#include "ImageManager.h"
+
 using namespace std;
 
 class Assistant {
@@ -20,7 +20,6 @@ private:
 	std::list<Image> inputs;
 	std::string classNamesPath;
 	NeuralNetwork net;
-	ImageManager manager;
 	DataSaver dataBase;
 public:
 	Assistant(std::string path);
@@ -31,8 +30,6 @@ public:
 	void setDataBase(DataSaver dataBase);
 	const std::list<Image> getInputs() const;
 	void setInputs(std::list<Image> inputs);
-	const ImageManager getManager() const;
-	void setManager(ImageManager manager);
 	const NeuralNetwork getNetwork() const;
 	void setNet(NeuralNetwork network);
 	void loadClassNames();

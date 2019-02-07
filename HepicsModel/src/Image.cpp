@@ -11,12 +11,13 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
 Image::Image(int h, int w, int c) {
 	this->height = h;
 	this->width = w;
 	this->channels = c;
 	this->data = (double*) calloc(height * width * channels, sizeof(double)); // allocate memory for matrix and initialize it with 0 values
-	++id;
+	id++;
 }
 
 Image::~Image() {
@@ -134,7 +135,7 @@ Image load_image_stb(char *filename, int channels)
             for(i = 0; i < w; ++i){
                 int dst_index = i + w*j + w*h*k;
                 int src_index = k + c*i + c*w*j;
-                im.data[dst_index] = (float)data[src_index]/255.;
+                im.get_data()[dst_index] = (float)data[src_index]/255.;
             }
         }
     }

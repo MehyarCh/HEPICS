@@ -23,6 +23,7 @@ private:
 	vector<Layer> layers;
 	int *index;
 public:
+	NeuralNetwork();
 	NeuralNetwork(string name, int numberOfLayers);
 	string getName();
 	void setName(string name);

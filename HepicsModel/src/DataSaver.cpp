@@ -6,9 +6,10 @@
  */
 
 #include "DataSaver.h"
+int Image::id=0;
 
 DataSaver::DataSaver() {
-		// TODO Auto-generated constructor stub
+
 }
 
 DataSaver::~DataSaver() {
