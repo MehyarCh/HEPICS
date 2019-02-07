@@ -229,16 +229,16 @@ Sockets provide the communication mechanism between two computers using TCP. In 
 In the socket.h class we used this Methods:
 
 \begin {itemize}
-	\item void set_tcp_nodelay
+	\item void set\_tcp\_nodelay
 	\item void receive
 	\item void send
 \end{itemize}
 
-ste_tcp_nodelay method: this method is intended to disable/enable segment buffering so data can be sent out to peer as quickly as possible, so this is typically used to improve network utilisation
+set\_tcp\_nodelay method: this method is intended to disable/enable segment buffering so data can be sent out to peer as quickly as possible, so this is typically used to improve network utilisation
 
-send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8_t> to send it to the FPGA.
+send method:  is used only when the socket is in a connected state. This method codes the input image parameters into a byte Array using vector<uint8\_t> to send it to the FPGA.
 
-receive mthod: decoding the byte array(vector<uint8_t>).
+receive mthod: decoding the byte array(vector<uint8\_t>).
 
 \pagebreak
 
