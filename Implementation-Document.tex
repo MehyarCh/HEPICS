@@ -82,7 +82,7 @@
 \pagebreak
 
 \section {Image and Neural Network Model} \label{Image and Neural Network Model}
-	@Ibrahim Bouriga
+	@Ibrahim Bouriga @Mehyar Cherni
 	
 	\subsection {Image Model}
 	\tab The Image Class represents the \textbf{input} as well as the \textbf{filter} used in the different layers.\\
@@ -93,7 +93,6 @@
 		\item load\_image\_stb: uses an external library to load an image. See \ref{External Libraries}
 	\end{itemize}
 	\subsection {Image and Result Saving}
-	@Mehyar Cherni
 	\tab The class DataSaver is meant to work as a data base, it consists of one map whose keys are images' unique identifications id, and whose values are results, represented as well as a an object. DataSaver allows the program to store input images and their results, retrieve them, delete them, or change their values. It also offers the possibility of saving the results of one classification in a text file. \\The aggregate function stores all classnames and percentages in a new map named global, converts the map into a vector to sort it, then chooses the 4 biggest values and returns them as a Result object.
 \\The class Result wasn't included in the design, and was added for the purpose of making the storage clearer and more flexible. It is meant to represent the results of a classification of a single input image as follows. Each instance of the object Result contains a map, that stores classnames represented as strings, and links them to their values stored as floats. Functionalities included are saving a classname and its percentage into the map. To control the number of classnames needed, we added the int i who counts the number of elements which are currently saved. This class offers the possibility to write results as plain text to display it on the GUI as such, classname1 : percentage1, classname2 : percentage2 etc ... 
 	\subsubsection {Assistant}
@@ -132,7 +131,7 @@
 		
 	\subsection {New Classes}
 		\paragraph{a.Parser} \label{Parser}
-		\tab This class was created to parse and extract informations related to the network from the alexnet architecture (See \ref{fig:alexnet_architecture}).
+		\tab This class was created to parse and extract informations related to the network from the alexnet architecture (See \ref{fig:alexnet-architecture}).
 		\begin{itemize}
 			\item parse\_convolutional: create a convolutional layer from the convolution section in the configuration file
 			\item parse\_maxpool: create a maxpool layer from the convolution section in the configuration file
@@ -166,26 +165,26 @@
 \pagebreak
 
 \section{Scheduler} \label{Scheduler}
-	@Mehyar Cherni
-	\tab Class Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform { \\ 
+	@Mehyar Cherni\\
+	\tab Class Scheduler has been set for the service of enabling and selecting the platforms corresponding to the selected mode. Following this logic, an enumeration type has been defined under the name Platform.
 	\begin {itemize}
 		\item cpu, 
 		\item gpu, 
 		\item fpga
-	\end{itemize} \\
-	}. The class also consists of two other vectors of booleans. The first, named platforms, represents the platforms that the user has chosen to enable. The second, named use_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations. \\
+	\end{itemize}
+	The class also consists of two other vectors of booleans. The first, named platforms, represents the platforms that the user has chosen to enable. The second, named use\_platforms, defines which platforms are to run the code on, but only after the user chooses the operating mode. The choice of the use of platforms follows a comparison of the three platforms on three different levels, supposing that the code is meant to run parallel and contains mainly vector operations.
 	\begin {itemize}
 		\item Power Consumption : cpu>gpu>fpga
 		\item Performance : fpga>gpu>cpu
 		\item Energy Efficiency : fpga>cpu>gpu
 	\end{itemize}
-\\ Next to accessing information about the mode and currently enabled/used platforms, Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification.\\
+Next to accessing information about the mode and currently enabled/used platforms, Scheduler also contains a vector of workers, whose size has to be defined while creating an instance of the class. Each worker can be assigned to execute a task on a selected platform, which he would only do if, this platform is allowed to use after the choosing process. \\A group of methods has been also made available for a possibly future parallel implementation of the classification
 	\begin {itemize}
 		\item bool isWaiting() : gives the status of the worker provider
 		\item void next() : provides the next worker, when not waiting
 		\item void wait() : sets the provider into wait mode
 	\end{itemize}
-\\As for the progress bar, it seems that its implementation is more complicated than expected, which delayed its implementation to a future time due to functionalities with higher priority.
+As for the progress bar, it seems that its implementation is more complicated than expected, which delayed its implementation to a future time due to functionalities with higher priority.
 	
 	
 \pagebreak
@@ -201,15 +200,15 @@
 \pagebreak
 
 \section{Operation Modes} \label{Operation Modes}
-	@Mehyar Cherni
-	\tab Classes Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class Scheduler as such \\ Mode { \\
+	@Mehyar Cherni\\
+	\tab Classes Mode, and the three different modes that inherit from it were set to be represented as a public enumeration type inside the class Scheduler as such \\ Mode
 	\begin {itemize}
 		\item standard,(initial state, before selecting the mode)
-		\item high_performance, 
-		\item low_power,
-		\item energy_efficient
-	\end{itemize}  \\
-	} , since they contain no functionality, but only describe states.
+		\item high\_performance 
+		\item low\_power
+		\item energy\_efficient
+	\end{itemize} 
+	 , since they contain no functionality, but only describe states.
 
 
 \pagebreak
