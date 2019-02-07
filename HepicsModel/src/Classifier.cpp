@@ -15,7 +15,25 @@ Classifier::Classifier() {
 Classifier::~Classifier() {
 	// TODO Auto-generated destructor stub
 }
-void Classifier::run(){
 
+bool Classifier::getIsRunning() const {
+	return is_running;
+}
+
+void Classifier::setIsRunning(bool isRunning) {
+	is_running = isRunning;
+}
+
+void Classifier::run(){
+	setIsRunning(true);
+	while(getIsRunning()){
+
+	}
+}
+void Classifier::pause(){
+	setIsRunning(false);
+}
+void Classifier::resume(){
+	setIsRunning(true);
 }
 
