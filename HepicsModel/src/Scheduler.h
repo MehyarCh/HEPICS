@@ -13,8 +13,8 @@
 
 using namespace std;
 
-enum Mode{standard, high_performance, low_power, energy_efficient};
-enum Platform{cpu, gpu, fpga};
+enum Mode	{standard, high_performance, low_power, energy_efficient};
+enum Platform	{cpu, gpu, fpga};
 
 class Scheduler {
 private:

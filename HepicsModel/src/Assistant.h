@@ -17,6 +17,7 @@ using namespace std;
 
 class Assistant {
 private:
+	std::list<string> classnames;
 	std::list<Image> inputs;
 	std::string classNamesPath;
 	NeuralNetwork net;

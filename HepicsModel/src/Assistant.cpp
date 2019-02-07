@@ -51,17 +51,17 @@ void Assistant::setNet(NeuralNetwork net) {
 //loads the classnames file into a list
 void Assistant::loadClassNames(){
 	std::string line;
-    std::list<std::string> classes;
 
     std::ifstream f(this->classNamesPath);
     while (std::getline(f,line)){
-        classes.push_back(line);
+        classnames.push_back(line);
     }
 }
 
 //matches the add button
 void Assistant::addInputImage(char *path){
-	Image input= Image::load_image(path, 800,800,3);
+	Image input= Image::load_image(path, 0,0,3);
+	//not willing to resize, values of length and width are to be set afterwards
 	this->inputs.push_back(input);
 }
 
