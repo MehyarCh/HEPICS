@@ -1,0 +1,20 @@
+GUI:
+Class #HepicsGui has been renamed as #Main which still contains the main method and represents the entry point to start the software by opening the welcome window.
+
+Class #WelcomeWindow remains its functionalities: displaying information about the software, showing a welcome picture and as a start entry for main window. Its attributes have been changed into two labels (for information text and welcome image), a push-button (for open the main window) and the pointer of main window. The constructor is remained and a slot method named “openMainWindow” is added.
+
+Class #MainWindow specifies its attribute “section” as three pointer of control section, platform section and image section.
+
+Class #Observer #ObserverManager #ResultObserver #StateObserver have been removed. Because instead of having observerable objects and observers, and registering them, Qt provides two high level concepts: signals and slots.     
+    A signal is a message that an object can send, most of the time to inform of a status change.
+    A slot is a function that is used to accept and respond to a signal. 
+
+Class #Section has been removed, because all the three sections are inherited from QWidge, which has been defined in Qt library.
+
+Class #ControlSection adds a progress bar, a label for result and three push-buttons as attributes. The “setLabel” method is unnecessary, because the setting of the label and other widgets is implemented in its constructor. Moreover, the methods “handleButton” is extended as three different slots methods for each buttons.
+
+Class # Platform_Mode_Section adds two labels, three check-boxes and a combo-box as attributes. The “setLabel” method is also unnecessary, and the setting of al the widgets is implemented in its constructor. The slots methods “enableModeComboBox” is added for manage the sections between platforms and operation mode.
+
+Class #FileLoader is unnecessary, because it is replaced by QFileDialog which has been defined in Qt library and it is contained in ImageSection class as an attribute.
+
+Class #ImageSection add a label for thumbnail, a combo-box, three buttons and a file dialog. An additional slot method “showThumbnail” is used for show the thumbnail of the current selected image.  
