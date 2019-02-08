@@ -37,7 +37,7 @@ ImageSection::ImageSection(QMainWindow *parent)
     // connect signals with slots
     connect(button_add, SIGNAL(clicked()), this, SLOT(addAnImageFile()));
     connect(button_delete, SIGNAL(clicked()), this, SLOT(deleteAnItem()));
-    connect(button_reset,SIGNAL(clicked()), box_image, SLOT(clear()));
+    connect(button_reset,SIGNAL(clicked()), box_image, SLOT(clearAllItems()));
     connect(box_image, SIGNAL(currentIndexChanged(const QString)), this, SLOT(showThumbnail()));
 
 }
@@ -49,24 +49,33 @@ void ImageSection::addAnImageFile()
                 this, tr("Open File"), "/home",
                 tr("Image Files (*.jpeg *.jpg *.jpe *.png *.xpm)"));
     QStringList list = fileName.split("/");
-    box_image->addItem(list.last());
-    box_image->setCurrentIndex(box_image->count() - 1);
-    QPixmap pixmap(fileName);
-    thumbnail->setPixmap(pixmap);
-    thumbnail->setScaledContents(true);
+
+    // if choose a image file, add a new item into the list
+    if (!fileName.isNull()) {
+        file_name_list->append(fileName);
+        box_image->addItem(list.last());
+        box_image->setCurrentIndex(box_image->count() - 1);
+    }
+    
     filedialog->close();
 }
 
 void ImageSection::deleteAnItem()
 {
+    file_name_list->removeAt(box_image->currentIndex());
     box_image->removeItem(box_image->currentIndex());
 }
 
 void ImageSection::showThumbnail()
 {
-    QString path = "/home/linjuanfan/Pictures/";
-    path += box_image->currentText();
-    QPixmap pixmap(path);
-    thumbnail->setPixmap(pixmap);
-    thumbnail->setScaledContents(true);
+    int index = (box_image->currentIndex());
+
+    if (box_image->count() != 0 && index <= (file_name_list->count() - 1))  {
+        QString path = file_name_list->at(index);
+        QPixmap pixmap (path);
+        thumbnail->setPixmap(pixmap);
+        thumbnail->setScaledContents(true);
+    } else {
+        thumbnail->clear();
+    }
 }
