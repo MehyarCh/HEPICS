@@ -26,6 +26,7 @@ public:
 public slots:
     void addAnImageFile();
     void deleteAnItem();
+    void clearAllItems();
     void showThumbnail();
 private:
     QLabel *text_image;
