@@ -66,3 +66,13 @@ void Maxpool_layer::forward_layer(Network *net) {
         }
 }
 
+void Maxpool_layer::copy_layer(Layer *l) {
+	this->activation = l->activation;
+	this->biases = l->biases;
+	this->h = l->h;
+	this->w = l->w;
+	this->c = l->c;
+	this->n = l->n;
+	this->nweights = l->nweights;
+}
+

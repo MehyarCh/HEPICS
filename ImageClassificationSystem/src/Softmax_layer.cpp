@@ -24,3 +24,13 @@ Softmax_layer::Softmax_layer(int inputs) {
 void Softmax_layer::forward_layer(Network *net) {
 	return;
 }
+
+void Softmax_layer::copy_layer(Layer *l) {
+	this->activation = l->activation;
+	this->biases = l->biases;
+	this->h = l->h;
+	this->w = l->w;
+	this->c = l->c;
+	this->n = l->n;
+	this->nweights = l->nweights;
+}

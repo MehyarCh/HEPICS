@@ -18,6 +18,7 @@ public:
 	Maxpool_layer();
 	Maxpool_layer(int batch, int h, int w, int c, int size, int stride, int padding);
 	void forward_layer(Network *net);
+	void copy_layer(Layer *l);
 };
 
 #endif /* SRC_MAXPOOL_LAYER_H_ */

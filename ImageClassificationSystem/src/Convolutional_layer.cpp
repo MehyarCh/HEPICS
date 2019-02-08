@@ -74,12 +74,9 @@ Convolutional_layer::Convolutional_layer(int h, int w, int c, int n,
 
 
 	fprintf(stderr,
-			"conv  %5d %2d x%2d /%2d  %4d x%4d x%4d   ->  %4d x%4d x%4d  %5.3f BFLOPs\n",
+			"conv  %5d %2d x%2d /%2d  %4d x%4d x%4d   ->  %4d x%4d x%4d \n",
 			n, size, size, stride, w, h, c, this->getOutW(), this->getOutH(),
-			this->getOutC(),
-			(2.0 * this->getN() * this->getSize() * this->getSize()
-					* this->getC() / this->getOutH() * this->getOutW())
-					/ 1000000000.);
+			this->getOutC());
 
 }
 

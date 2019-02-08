@@ -155,7 +155,7 @@ public:
 		return layer;
 	}
 
-	static Layer parse_connected(List *options, size_params params) {
+	static Connected_layer parse_connected(List *options, size_params params) {
 		int output = Options_list::option_find_int(options, "output", 1);
 		char *activation_s = Options_list::option_find_str(options,
 				"activation", "logistic");
@@ -164,14 +164,14 @@ public:
 		int batch_normalize = Options_list::option_find_int_quiet(options,
 				"batch_normalize", 0);
 
-		Layer l = Connected_layer(params.inputs, output, activation);
+		Connected_layer l = Connected_layer(params.inputs, output, activation);
 		return l;
 	}
 
-	static Layer parse_softmax(List *options, size_params params)
+	static Softmax_layer parse_softmax(List *options, size_params params)
 	{
 	    int groups = Options_list::option_find_int_quiet(options, "groups",1);
-	    Layer l = Softmax_layer(params.inputs);
+	    Softmax_layer l = Softmax_layer(params.inputs);
 	    l.setW(params.w);
 	    l.setH(params.h);
 	    l.setC(params.c);
