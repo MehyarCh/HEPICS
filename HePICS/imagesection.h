@@ -32,6 +32,8 @@ private:
     QLabel *text_image;
     QComboBox *box_image;
 
+    QStringList *file_name_list;
+
     QFileDialog *filedialog;
 
     QPushButton *button_add;
