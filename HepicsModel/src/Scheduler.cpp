@@ -21,6 +21,13 @@ Scheduler::~Scheduler() {
 	// TODO Auto-generated destructor stub
 }
 
+vector<bool> Scheduler::getPlatforms(){
+	return this->platforms;
+}
+vector<bool> Scheduler::getUsedPlatforms(){
+	return this->use_platforms;
+}
+
 //enables a platform
 void Scheduler::activate(Platform p){
 	switch(p){

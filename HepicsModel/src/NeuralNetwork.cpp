@@ -48,11 +48,11 @@ void NeuralNetwork::displayTopology() {
 
 }
 
-void NeuralNetwork::setTopology(QImage *topology) {
+void NeuralNetwork::setTopology(Image *topology) {
 	this->topology = topology;
 }
 
-QImage* NeuralNetwork::getTopology(){
+Image* NeuralNetwork::getTopology(){
 	return this->topology;
 }
 

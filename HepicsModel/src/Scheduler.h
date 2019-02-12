@@ -28,6 +28,8 @@ private:
 public:
 	Scheduler(int numberOfUnits);
 	virtual ~Scheduler();
+	vector<bool> getPlatforms();
+	vector<bool> getUsedPlatforms();
 	Mode getMode();
 	void setMode(Mode mode);
 	void activate(Platform p);

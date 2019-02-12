@@ -8,17 +8,17 @@
 #ifndef NEURALNETWORK_H_
 #define NEURALNETWORK_H_
 
-#include <QImage>
 #include "Layer.h"
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Image.h"
 using namespace std;
 
 class NeuralNetwork {
 private:
 	string name;
-	QImage *topology;
+	Image *topology;
 	int numberOfLayers;
 	vector<Layer> layers;
 	int *index;
@@ -31,8 +31,8 @@ public:
 	int getNumberOfLayers();
 	void setNumberOfLayers(int numberOfLayers);
 	void displayTopology();
-	void setTopology(QImage* topology);
-	QImage* getTopology();
+	void setTopology(Image* topology);
+	Image* getTopology();
 	Layer getLayerAt(int i);
 	void setLayerAt(int i, Layer layer);
 };
