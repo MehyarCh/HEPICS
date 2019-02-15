@@ -37,7 +37,7 @@ public:
 	void addInputImage(char *path);
 	void deleteImage(Image input);
 	void resetInputs();
-
+	std::list<string> getClassnames() const;
 };
 
 #endif /* ASSISTANT_H_ */

@@ -1,0 +1,8 @@
+dog
+pinguin
+lion
+cat
+snake
+table
+chair
+pen

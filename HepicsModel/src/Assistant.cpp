@@ -79,6 +79,10 @@ void Assistant::deleteImage(Image input){
 	}
 }
 
+std::list<string> Assistant::getClassnames() const {
+	return classnames;
+}
+
 //matches the reset button
 void Assistant::resetInputs(){
 	this->inputs.clear();

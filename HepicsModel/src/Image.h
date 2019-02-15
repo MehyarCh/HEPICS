@@ -5,6 +5,8 @@
  *      Author: ibrahim
  */
 
+
+
 #ifndef IMAGE_H_
 #define IMAGE_H_
 
@@ -12,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+static int id=0;
 class Image {
 private:
 	int height;
@@ -20,7 +23,7 @@ private:
 	double *data;
 
 public:
-	static int id;
+
 	Image(int h, int w, int c); // make image
 	virtual ~Image(); // free image data
 
