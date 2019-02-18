@@ -23,5 +23,6 @@ void Layer::add_bias(float *output, float *biases, int n, int size) {
 }
 
 void Layer::forward_layer(Network *net) {
+	printf("Greetings from forward Layer\n");
 	return;
 }

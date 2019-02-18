@@ -34,7 +34,7 @@ private:
 public:
 	float *workspace; // USED BY EXTERNAL LIBRARY: REFER TO "forward_convolutional_layer()" METHOD
 	float *delta;
-	Layer *layers; // declared public for now just to get around problem in parse_networ_cfg
+	Layer **layers; // declared public for now just to get around problem in parse_networ_cfg
 	float *input;
 
 	static Network *make_network(int n);
@@ -49,14 +49,6 @@ public:
 
 	void setBatch(int batch) {
 		this->batch = batch;
-	}
-
-	Layer* getLayers() {
-		return layers;
-	}
-
-	void setLayers(Layer* layers) {
-		this->layers = layers;
 	}
 
 	int getN() {

@@ -1,7 +1,7 @@
 /*
  * Network.cpp
  *
- *  Created on: Feb 3, 2019
+ *  Created on: Jan 28, 2019
  *      Author: ibrahim
  */
 
@@ -10,50 +10,44 @@
 Network* Network::make_network(int n) {
     Network *net = (Network *)calloc(1, sizeof(Network));
     net->n = n;
-    net->layers = (Layer *)calloc(net->n, sizeof(Layer));
+    net->layers = new Layer*[net->n];
     return net;
 }
 
 Layer Network::get_network_output_layer() {
-	return this->layers[n - 1];
+	return *this->layers[n - 1];
 }
 
 void Network::forward_network() {
 	Network *net = this;
-	int i;
 	//net.layers = net.layers - 4;
-	for (i = 0; i < n; ++i) {
-		net->index = i;
-		Layer *l = &net->layers[i]; // Issue: first layer has wrong type: Softmax!!!
+	for (int i = 0; i < n; ++i) {
+		//net->index = i;
+		//Layer *l = &net->layers[i]; // Issue: first layer has wrong type: Softmax!!!
 
-		/*if (l.getDelta()) {
-			fill_cpu(l.getOutputs() * l.getBatch(), 0, l.getDelta(), 1);
-		}
-		if (l.getType() == Layer_Type::CONVOLUTIONAL) {
+		if(net->layers[i]->type == Layer_Type::SOFTMAX) continue; // just to solve the issue temporarely
+		/*if (l.getType() == Layer_Type::CONVOLUTIONAL) {
 			Convolutional_layer layer = *(Convolutional_layer)(net.layers[i]);
 			layer.forward_convolutional_layer(net);
 		} else if (l.getType() == Layer_Type::CONNECTED) {
 			Connected_layer layer = *(Connected_layer *) net.layers[i];
 			layer.forward_connected_layer(net);
-		} else if (l.getType() == Layer_Type::MAXPOOL) {
-			Maxpool_layer layer = *(Maxpool_layer *) net.layers[i];
-			layer.forward_maxpool_layer(net);
+		} else if (l->getType() == Layer_Type::MAXPOOL) {
+			Maxpool_layer *maxpool_layer;
+			maxpool_layer->copy_layer(l);
+			maxpool_layer->forward_layer(net);
+			net->input = l->getOutput();
 		} else if (l.getType() == Layer_Type::DROPOUT) {
 			Dropout_layer layer = *(Dropout_layer *) net.layers[i];
 			layer.forward_dropout_layer(net);
-		} else */if (l->getType() == Layer_Type::SOFTMAX) {
-			Softmax_layer *soft_layer = new Softmax_layer();
-			soft_layer->activation = l->activation;
-			soft_layer->biases = l->biases;
-			soft_layer->h = l->h;
-			soft_layer->w = l->w;
-			soft_layer->c = l->c;
-			soft_layer->n = l->n;
-			soft_layer->nweights = l->nweights;
+		} else if (l->getType() == Layer_Type::SOFTMAX) {
+			Softmax_layer *soft_layer;
+			soft_layer->copy_layer(l);
 			soft_layer->forward_layer(net);
-		}
-		//l->forward_layer(net);
-		net->input = l->getOutput();
+			net->input = l->getOutput();
+		}*/
+		net->layers[i]->forward_layer(net);
+		//net->input = l->getOutput();
 	}
 }
 

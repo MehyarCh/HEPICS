@@ -9,8 +9,6 @@
 #define SRC_LAYER_H_
 
 #include <stddef.h>
-#include "Tree.h"
-#include "Update_args.h"
 #include "Layer_Type.h"
 #include "Activation.h"
 class Network; // forward declaration, avoid circular dependency
@@ -19,10 +17,9 @@ class Layer {
 public:
 
 	Layer();
-
+	//copy_layer();
 	Layer_Type::LAYER_TYPE type;
 	Activation::ACTIVATION activation;
-	int shortcut;
 
 	int inputs;
 	int outputs;
@@ -50,7 +47,6 @@ public:
 	//float * delta;
 	float * output;
 
-	Tree *softmax_tree;
 
 	size_t workspace_size;
 public:

@@ -15,6 +15,7 @@ class Softmax_layer: public Layer {
 public:
 	Softmax_layer();
 	Softmax_layer(int inputs);
+	void copy_layer(Layer *l);
 	void forward_layer(Network *net);
 
 };

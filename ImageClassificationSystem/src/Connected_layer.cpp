@@ -16,6 +16,7 @@ void Connected_layer::forward_layer(Network *net) {
 	add_bias(this->output, this->biases, this->outputs, 1);
 	Activation activator = Activation();
 	activator.activate_array(this->output, this->outputs, this->activation);
+	printf("Greetings from forward Connected Layer\n");
 }
 
 Connected_layer::Connected_layer(int inputs, int outputs,

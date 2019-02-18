@@ -31,18 +31,24 @@ void add_bias(float *output, float *biases, int batch, int n, int size) {
 }
 
 void Convolutional_layer::forward_layer(Network *net) {
+	fill_cpu(this->outputs, 0, this->output, 1);
 	float *b = net->getWorkspace();
 	float *im =  net->input;
+	int k = size * size * c;
+	int mul_out = this->out_w * this->out_h;
+	float *f = this->output;
 	im2col_cpu(im, this->c, this->h, this->w, this->size, this->stride, this->pad, b);
+	gemm(0, 0, this->n, mul_out, k, 1, this->weights, k, net->workspace, mul_out, 1, f, mul_out);
 	//add_bias(this->output, this->biases, this->n, this->out_h * this->out_w);
 	Activation activator = Activation();
 	activator.activate_array(this->output, this->outputs, this->activation);
+	printf("Greetings from forward Convolutional Layer\n");
 
 }
 
 Convolutional_layer::Convolutional_layer(int h, int w, int c, int n,
 		int size, int stride, int padding, Activation::ACTIVATION activation) {
-	int i;
+
 	this->type = Layer_Type::LAYER_TYPE::CONVOLUTIONAL;
 
 	this->h = h;
@@ -74,12 +80,9 @@ Convolutional_layer::Convolutional_layer(int h, int w, int c, int n,
 
 
 	fprintf(stderr,
-			"conv  %5d %2d x%2d /%2d  %4d x%4d x%4d   ->  %4d x%4d x%4d  %5.3f BFLOPs\n",
+			"conv  %5d %2d x%2d /%2d  %4d x%4d x%4d   ->  %4d x%4d x%4d \n",
 			n, size, size, stride, w, h, c, this->getOutW(), this->getOutH(),
-			this->getOutC(),
-			(2.0 * this->getN() * this->getSize() * this->getSize()
-					* this->getC() / this->getOutH() * this->getOutW())
-					/ 1000000000.);
+			this->getOutC());
 
 }
 
