@@ -37,7 +37,6 @@ static void gemm_nt(int M, int N, int K, float ALPHA,
     }
 }
 
-
 static void gemm_nn(int M, int N, int K, float ALPHA,
         float *A, int lda,
         float *B, int ldb,
