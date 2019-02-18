@@ -10,23 +10,22 @@
 Network* Network::make_network(int n) {
     Network *net = (Network *)calloc(1, sizeof(Network));
     net->n = n;
-    net->layers = (Layer *)calloc(net->n, sizeof(Layer));
+    net->layers = new Layer*[net->n];
     return net;
 }
 
 Layer Network::get_network_output_layer() {
-	return this->layers[n - 1];
+	return *this->layers[n - 1];
 }
 
 void Network::forward_network() {
 	Network *net = this;
-	int i;
 	//net.layers = net.layers - 4;
-	for (i = 0; i < n; ++i) {
-		net->index = i;
-		Layer *l = &net->layers[i]; // Issue: first layer has wrong type: Softmax!!!
+	for (int i = 0; i < n; ++i) {
+		//net->index = i;
+		//Layer *l = &net->layers[i]; // Issue: first layer has wrong type: Softmax!!!
 
-		if(l->type == Layer_Type::SOFTMAX) continue; // just to solve the issue temporarely
+		if(net->layers[i]->type == Layer_Type::SOFTMAX) continue; // just to solve the issue temporarely
 		/*if (l.getType() == Layer_Type::CONVOLUTIONAL) {
 			Convolutional_layer layer = *(Convolutional_layer)(net.layers[i]);
 			layer.forward_convolutional_layer(net);
@@ -47,7 +46,7 @@ void Network::forward_network() {
 			soft_layer->forward_layer(net);
 			net->input = l->getOutput();
 		}*/
-		//l->forward_layer(net);
+		net->layers[i]->forward_layer(net);
 		//net->input = l->getOutput();
 	}
 }

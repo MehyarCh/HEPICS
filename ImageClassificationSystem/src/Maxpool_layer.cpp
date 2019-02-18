@@ -64,6 +64,7 @@ void Maxpool_layer::forward_layer(Network *net) {
                 }
             }
         }
+        printf("Greetings from forward Maxpool Layer\n");
 }
 
 void Maxpool_layer::copy_layer(Layer *l) {

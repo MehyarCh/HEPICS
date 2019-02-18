@@ -15,7 +15,6 @@
 #include "Network.h"
 #include "IM2COL.h" // EXTERNAL LIBRARY from Caffe
 #include "BLAS.h" // EXTERNAL LIBRARY from Caffe
-#include "GEMM.h" // EXTERNAL LIBRARY from Caffe
 
 class Connected_layer: public Layer {
 public:

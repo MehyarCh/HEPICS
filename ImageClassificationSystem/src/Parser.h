@@ -106,7 +106,7 @@ public:
 		free(s);
 	}
 
-	static Convolutional_layer parse_convolutional(List *options,
+	static Layer *parse_convolutional(List *options,
 			size_params params) {
 		int n = Options_list::option_find_int(options, "filters", 1);
 		int size = Options_list::option_find_int(options, "size", 1);
@@ -131,12 +131,13 @@ public:
 		if (!(h && w && c))
 			Utils::error("Layer before convolutional layer must output image.");
 
-		Convolutional_layer layer = Convolutional_layer(h, w, c, n, size, stride, padding, activation);
+		Layer *layer = new Convolutional_layer(h, w, c, n, size,
+				stride, padding, activation);
 
 		return layer;
 	}
 
-	static Maxpool_layer parse_maxpool(List *options, size_params params) {
+	static Layer *parse_maxpool(List *options, size_params params) {
 		int stride = Options_list::option_find_int(options, "stride", 1);
 		int size = Options_list::option_find_int(options, "size", stride);
 		int padding = Options_list::option_find_int_quiet(options, "padding",
@@ -150,32 +151,28 @@ public:
 		if (!(h && w && c))
 			Utils::error("Layer before maxpool layer must output image.");
 
-		Maxpool_layer layer = Maxpool_layer(batch, h, w, c, size, stride,
+		Layer *layer = new Maxpool_layer(batch, h, w, c, size, stride,
 				padding);
 		return layer;
 	}
 
-	static Connected_layer parse_connected(List *options, size_params params) {
+	static Layer *parse_connected(List *options, size_params params) {
 		int output = Options_list::option_find_int(options, "output", 1);
 		char *activation_s = Options_list::option_find_str(options,
 				"activation", "logistic");
 		Activation act = Activation(activation_s);
 		Activation::ACTIVATION activation = act.get_activation();
-		int batch_normalize = Options_list::option_find_int_quiet(options,
-				"batch_normalize", 0);
 
-		Connected_layer l = Connected_layer(params.inputs, output, activation);
+		Layer *l = new Connected_layer(params.inputs, output, activation);
 		return l;
 	}
 
-	static Softmax_layer parse_softmax(List *options, size_params params)
-	{
-	    int groups = Options_list::option_find_int_quiet(options, "groups",1);
-	    Softmax_layer l = Softmax_layer(params.inputs);
-	    l.setW(params.w);
-	    l.setH(params.h);
-	    l.setC(params.c);
-	    return l;
+	static Layer *parse_softmax(List *options, size_params params) {
+		Layer *l = new Softmax_layer(params.inputs);
+		l->setW(params.w);
+		l->setH(params.h);
+		l->setC(params.c);
+		return l;
 	}
 
 	static Layer_Type::LAYER_TYPE string_to_layer_type(char * type) {
@@ -185,8 +182,8 @@ public:
 			return Layer_Type::MAXPOOL;
 		if (strcmp(type, "[conn]") == 0 || strcmp(type, "[connected]") == 0)
 			return Layer_Type::CONNECTED;
-	    if (strcmp(type, "[soft]")==0
-	            || strcmp(type, "[softmax]")==0) return Layer_Type::SOFTMAX;
+		if (strcmp(type, "[soft]") == 0 || strcmp(type, "[softmax]") == 0)
+			return Layer_Type::SOFTMAX;
 	}
 
 	static Network *parse_network_cfg(char *filename) {
@@ -221,7 +218,7 @@ public:
 			fprintf(stderr, "%5d ", count);
 			s = (Section *) n->getVal();
 			options = s->getOptions();
-			Layer l = Layer(); // empty layer
+			Layer *l = new Layer(); // empty layer
 			Layer_Type::LAYER_TYPE lt = string_to_layer_type(s->getType());
 
 			if (lt == Layer_Type::CONVOLUTIONAL) {
@@ -237,17 +234,17 @@ public:
 			}
 
 			net->layers[count] = l;
-			net->layers->type = l.type;
-			if (l.getWorkspaceSize() > workspace_size)
-				workspace_size = l.getWorkspaceSize();
+			net->layers[count]->type = l->type;
+			if (l->getWorkspaceSize() > workspace_size)
+				workspace_size = l->getWorkspaceSize();
 			free_section(s);
 			n = n->getNext();
 			++count;
 			if (n) {
-				params.h = l.getOutH();
-				params.w = l.getOutW();
-				params.c = l.getOutC();
-				params.inputs = l.getOutputs();
+				params.h = l->getOutH();
+				params.w = l->getOutW();
+				params.c = l->getOutC();
+				params.inputs = l->getOutputs();
 			}
 		}
 		sections->~List();
@@ -257,13 +254,57 @@ public:
 		net->setInput(
 				(float *) calloc(net->getInputs() * net->getBatch(),
 						sizeof(float)));
-		 net->workspace = (float *)calloc(1, workspace_size);
-		 //net->layers = net->layers - count - 1;
+		net->workspace = (float *) calloc(1, workspace_size);
+		//net->layers = net->layers - count - 1;
 		return net;
+	}
+
+	static void load_convolutional_weights(Layer l, FILE *fp) {
+		int num = l.c / l.n * l.size * l.size;
+		fread(l.biases, sizeof(float), l.n, fp);
+
+		fread(l.weights, sizeof(float), num, fp);
+
+	}
+
+	static void load_connected_weights(Layer l, FILE *fp) {
+		fread(l.biases, sizeof(float), l.outputs, fp);
+		fread(l.weights, sizeof(float), l.outputs * l.inputs, fp);
+
+	}
+
+	static void load_weights_upto(Network *net, char *filename, int start,
+			int cutoff) {
+		fprintf(stderr, "Loading weights from %s...", filename);
+		fflush(stdout);
+		FILE *fp = fopen(filename, "rb");
+		if (!fp)
+			Utils::file_error(filename);
+
+		for (int i = start; i < net->getN() && i < cutoff; ++i) {
+			Layer *l = net->layers[i];
+			if (l->type == Layer_Type::CONVOLUTIONAL) {
+				load_convolutional_weights(*l, fp);
+			}
+			if (l->type == Layer_Type::CONNECTED) {
+				load_connected_weights(*l, fp);
+			}
+		}
+		fprintf(stderr, "Done!\n");
+		fclose(fp);
+	}
+
+	static void load_weights(Network *net, char *filename) {
+		load_weights_upto(net, filename, 0, net->getN());
 	}
 
 	static Network *load_network(char *cfg, char *weights) {
 		Network *net = parse_network_cfg(cfg);
+		/*
+		if (weights && weights[0] != 0) {
+			load_weights(net, weights);
+		}
+		*/
 		return net;
 	}
 

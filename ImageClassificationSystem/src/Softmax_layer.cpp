@@ -22,6 +22,7 @@ Softmax_layer::Softmax_layer(int inputs) {
 }
 
 void Softmax_layer::forward_layer(Network *net) {
+	printf("Greetings from forward Softmax Layer\n");
 	return;
 }
 
