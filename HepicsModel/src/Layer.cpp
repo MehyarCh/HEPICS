@@ -1,18 +1,29 @@
 /*
  * Layer.cpp
  *
- *  Created on: Feb 5, 2019
- *      Author: mehyar
+ *  Created on: Jan 31, 2019
+ *      Author: ibrahim
  */
 
 #include "Layer.h"
 
 Layer::Layer() {
-	// TODO Auto-generated constructor stub
 
 }
 
-Layer::~Layer() {
-	// TODO Auto-generated destructor stub
+
+void Layer::add_bias(float *output, float *biases, int n, int size) {
+	int i, j;
+
+	for (i = 0; i < n; ++i) {
+		for (j = 0; j < size; ++j) {
+			output[(n + i) * size + j] += biases[i];
+		}
+	}
+
 }
 
+void Layer::forward_layer(Network *net) {
+	printf("Greetings from forward Layer\n");
+	return;
+}

@@ -5,69 +5,66 @@
  *      Author: ibrahim
  */
 
+#ifndef SRC_IMAGE_H_
+#define SRC_IMAGE_H_
 
+#include <assert.h>
+#include "stb_image.h"
+#include "stdlib.h"
 
-#ifndef IMAGE_H_
-#define IMAGE_H_
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-static int id=0;
 class Image {
 private:
-	int height;
-	int width;
-	int channels;
-	double *data;
-
+    int w;
+    int h;
+    int c;
+    float *data;
 public:
+    static int id;
 
-	Image(int h, int w, int c); // make image
-	virtual ~Image(); // free image data
+    Image(int w, int h, int c);
+    ~Image();
+    float get_pixel(int x, int y, int c);
+    void set_pixel(int x, int y, int c, float val);
+    void add_pixel(int x, int y, int c, float val);
+    void resize_image(int w, int h);
+    static Image load_image_stb(char *filename, int channels);
+    static Image load_image(char *filename, int w, int h, int c);
+    static Image load_image_color(char *filename, int w, int h);
 
-	// Getters
-	int get_height();
-	int get_width();
-	int get_channels();
-	double* get_data();
-	int getId();
+	int getC() {
+		return c;
+	}
 
-	// Setters
-	void set_height(int h);
-	void set_width(int w);
-	void set_channels(int c);
-	void set_data(double *d);
+	void setC(int c) {
+		this->c = c;
+	}
 
-	void zero_image(Image m);
-	void zero_channel(Image m, int c);
+	float* getData() {
+		return data;
+	}
 
-	/* Show image */
-	void show_image(Image p, char* name);
-	void show_image_layers(Image p, char* name);
+	void setData(float* data) {
+		this->data = data;
+	}
 
-	/* Handling image */
-	Image *make_random_image(int h, int w, int c);
-	// Image make_random_kernel(int size, int c);
-	Image copy_image(Image p);
-	static Image resize_image(Image im, int w, int h);
-	static Image load_image(char *filename, int w, int h, int c);
-	Image get_image_layer(Image m, int l); // get input image of layer l
+	int getH() {
+		return h;
+	}
 
-	/* Handling pixels */
-	double get_pixel(int x, int y, int c);
-	double get_pixel_extend(int x, int y, int c);
-	void set_pixel(int x, int y, int c, double val);
-	void set_pixel_extend(Image m, int x, int y, int c, double val);
-	void add_pixel(int x, int y, int c, double val);
-	void add_pixel_extend(int x, int y, int c, double val);
+	void setH(int h) {
+		this->h = h;
+	}
 
-	// Convolving
-	void two_d_convolve(int mc, Image *kernel, int kc, int stride, Image out,
-			int oc);
-	void convolve(Image *kernel, int stride, int channel, Image out);
+	int getW() {
+		return w;
+	}
 
+	void setW(int w) {
+		this->w = w;
+	}
+	int getId(){
+		return id;
+	}
 };
 
-#endif /* IMAGE_H_ */
+#endif /* SRC_IMAGE_H_ */

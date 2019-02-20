@@ -1,5 +1,5 @@
 dog
-pinguin
+penguin
 lion
 cat
 snake

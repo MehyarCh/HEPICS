@@ -40,23 +40,35 @@ void Assistant::setInputs(std::list<Image> inputs) {
 }
 
 
-const NeuralNetwork Assistant::getNetwork() const {
+const Network Assistant::getNetwork() const {
 	return net;
 }
 
-void Assistant::setNet(NeuralNetwork net) {
+void Assistant::setNet(Network net) {
 	this->net = net;
 }
 
 //loads the classnames file into a list
 void Assistant::loadClassNames(){
-	std::string line;
+	try{
+		std::ifstream f(this->classNamesPath);
 
-    std::ifstream f(this->classNamesPath);
-    while (std::getline(f,line)){
-        classnames.push_back(line);
-    }
+		if(!f){
+			std::cerr << "ERROR: Cannot open 'classnames.txt'!" << std::endl;
+			exit(1);
+		}
+		std::string line;
+
+		while (std::getline(f,line)){
+			this->classnames.push_back(line);
+			//std::cout << this->classnames.back() << std::endl;
+		}
+	}catch(const std::exception& ex){
+		std::cerr << "Exception: '" << ex.what() << "'!" << std::endl;
+		exit(1);
+	}
 }
+
 
 //matches the add button
 void Assistant::addInputImage(char *path){
@@ -79,7 +91,7 @@ void Assistant::deleteImage(Image input){
 	}
 }
 
-std::list<string> Assistant::getClassnames() const {
+std::list<string> Assistant::getClassnames() {
 	return classnames;
 }
 
