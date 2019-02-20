@@ -100,3 +100,9 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+Implementation-Document.aux
+Implementation-Document.log
+Implementation-Document.pdf
+Implementation-Document.synctex.gz
+Implementation-Document.toc

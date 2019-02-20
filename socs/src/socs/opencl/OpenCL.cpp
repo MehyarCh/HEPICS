@@ -143,8 +143,7 @@ static auto make_buffer(size_t size, cl_mem_flags flags, const Context &context)
 }
 
 Buffer::Buffer(size_t size, cl_mem_flags flags, const Context &context) :
-		buffer { make_buffer(size, flags, context) },
-				size { size }, flags { flags }, mem { size } {
+		buffer { make_buffer(size, flags, context) }, mem { size } {
 }
 
 Buffer::~Buffer() {
@@ -152,19 +151,19 @@ Buffer::~Buffer() {
 }
 
 static auto read_file(const string &path) {
-	auto stream = make_unique<ifstream>(path, ifstream::in | ifstream::binary);
+	auto stream = make_unique<ifstream>(path, ios_base::in | ios_base::binary);
+	if (!stream->good()) {
+		throw Read_file_failed { };
+	}
 	stream->seekg(0, ifstream::end);
 	auto size = stream->tellg();
+	if (size == -1) {
+		throw Read_file_failed { };
+	}
 	stream->seekg(0, ifstream::beg);
 	auto buffer = vector<uint8_t>(size);
 	stream->read(reinterpret_cast<char *>(&buffer[0]), buffer.size());
 	return buffer;
-}
-
-static auto build_program(cl_program program) {
-	if (clBuildProgram(program, 0, nullptr, "", nullptr, nullptr) != CL_SUCCESS) {
-		throw Build_program_failed { };
-	}
 }
 
 static auto create_program_with_source(const string &path, const Context &context) {
@@ -175,7 +174,6 @@ static auto create_program_with_source(const string &path, const Context &contex
 	if (program == nullptr) {
 		throw Create_program_with_source_failed { };
 	}
-	build_program(program);
 	return program;
 }
 
@@ -192,7 +190,6 @@ static auto create_program_with_binary(const string &path, const Context &contex
 	if (program == nullptr) {
 		throw Create_program_with_binary_failed { };
 	}
-	build_program(program);
 	return program;
 }
 
@@ -202,6 +199,27 @@ Program::Program(const string &path, const Context &context, const Device &devic
 
 Program::~Program() {
 	clReleaseProgram(program);
+}
+
+auto get_build_log(const Program &program, const Device &device) {
+	auto size = size_t { 0 };
+	if (clGetProgramBuildInfo(program.program, device.id, CL_PROGRAM_BUILD_LOG, 0, nullptr, &size) != CL_SUCCESS) {
+		return string { };
+	}
+	auto log = vector<char>(size);
+	if (clGetProgramBuildInfo(program.program, device.id, CL_PROGRAM_BUILD_LOG, log.size(), &log[0],
+			nullptr) != CL_SUCCESS) {
+		return string { };
+	}
+	return string { log.begin(), log.end() };
+
+}
+
+void Program::build(const Device &device) const {
+	auto device_vec = vector<cl_device_id> { device.id };
+	if (clBuildProgram(program, device_vec.size(), &device_vec[0], "", nullptr, nullptr) != CL_SUCCESS) {
+		throw Build_program_failed { get_build_log(*this, device) };
+	}
 }
 
 static auto create_kernel(const Program &program, const string &name) {
@@ -232,6 +250,15 @@ Event::Event(cl_event event) :
 
 Event::~Event() {
 	clReleaseEvent(event);
+}
+
+void Event::wait(const vector<cl_event> &wait_list) {
+	if (wait_list.empty()) {
+		return;
+	}
+	if (clWaitForEvents(wait_list.size(), &wait_list[0]) != CL_SUCCESS) {
+		throw Wait_failed { };
+	}
 }
 
 static auto make_queue(const Context &context, const Device &device, bool out_of_order_exec) {
@@ -328,6 +355,10 @@ const char *Equeue_read_failed::what() const noexcept {
 	return "socs::socket::Equeue_read_failed";
 }
 
+const char *Read_file_failed::what() const noexcept {
+	return "socs::socket::Read_file_failed";
+}
+
 const char *Create_program_with_source_failed::what() const noexcept {
 	return "socs::socket::Create_program_with_source_failed";
 }
@@ -336,8 +367,12 @@ const char *Create_program_with_binary_failed::what() const noexcept {
 	return "socs::socket::Create_program_with_binary_failed";
 }
 
+Build_program_failed::Build_program_failed(const string &log) :
+		log { "socs::socket::Build_program_failed\n"s + log } {
+}
+
 const char *Build_program_failed::what() const noexcept {
-	return "socs::socket::Build_program_failed";
+	return log.c_str();
 }
 
 const char *Create_kernel_failed::what() const noexcept {
@@ -350,6 +385,10 @@ const char *Set_kernel_arg_failed::what() const noexcept {
 
 const char *Enqueue_kernel_failed::what() const noexcept {
 	return "socs::socket::Enqueue_kernel_failed";
+}
+
+const char *Wait_failed::what() const noexcept {
+	return "socs::socket::Wait_failed";
 }
 
 } // namespace opencl

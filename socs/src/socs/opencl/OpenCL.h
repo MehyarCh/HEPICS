@@ -53,9 +53,22 @@ struct Buffer {
 	Buffer &operator=(const Buffer &&buffer) = delete;
 	~Buffer();
 
+	template<class T>
+	T *get_array() {
+		return reinterpret_cast<T *>(mem.array);
+	}
+
+	template<class T>
+	const T *get_array() const {
+		return reinterpret_cast<T *>(mem.array);
+	}
+
+	template<class T>
+	size_t get_array_length() const {
+		return mem.length / sizeof(T);
+	}
+
 	const cl_mem buffer;
-	const size_t size;
-	const cl_mem_flags flags;
 
 	Aligned_array<uint8_t> mem;
 };
@@ -68,6 +81,7 @@ struct Program {
 	Program &operator=(const Program &program) = delete;
 	Program &operator=(const Program &&program) = delete;
 	~Program();
+	void build(const Device &device) const;
 
 	const cl_program program;
 };
@@ -91,6 +105,7 @@ struct Event {
 	Event &operator=(const Event &event) = delete;
 	Event &operator=(const Event &&event) = delete;
 	~Event();
+	static void wait(const vector<cl_event> &wait_list);
 
 	const cl_event event;
 };
@@ -135,6 +150,11 @@ public:
 	const char *what() const noexcept override;
 };
 
+class Read_file_failed: public OpenCL_exception {
+public:
+	const char *what() const noexcept override;
+};
+
 class Create_program_with_source_failed: public OpenCL_exception {
 public:
 	const char *what() const noexcept override;
@@ -147,7 +167,10 @@ public:
 
 class Build_program_failed: public OpenCL_exception {
 public:
+	Build_program_failed(const string &log);
 	const char *what() const noexcept override;
+
+	const string log;
 };
 
 class Create_kernel_failed: public OpenCL_exception {
@@ -176,6 +199,11 @@ public:
 };
 
 class Enqueue_kernel_failed: public OpenCL_exception {
+public:
+	const char *what() const noexcept override;
+};
+
+class Wait_failed: public OpenCL_exception {
 public:
 	const char *what() const noexcept override;
 };
