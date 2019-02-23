@@ -16,11 +16,11 @@ using std::unique_ptr;
 
 class Layer {
 public:
-	/*Layer(const Layer &layer) = delete;
+	Layer() = default;
+	Layer(const Layer &layer) = delete;
 	Layer(const Layer &&layer) = delete;
 	const Layer &operator=(const Layer &layer) = delete;
 	const Layer &operator=(const Layer &&layer) = delete;
-	*/
 	virtual ~Layer()=default;
 	virtual unique_ptr<Image> forward_layer(const Image &input) = 0;
 };

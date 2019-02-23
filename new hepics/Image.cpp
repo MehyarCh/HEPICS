@@ -1,14 +1,10 @@
-/*
- * Image.cpp
- *
- *  Created on: Jan 22, 2019
- *      Author: ibrahim
- */
-
+#include <cassert>
 #include "Image.h"
 
 namespace hepics {
+
 int Image::IDcounter = 0;
+
 Image::Image(size_t width, size_t height, size_t channels) :
 		width { width }, height { height }, channels { channels }, id {
 				++IDcounter } {
@@ -16,10 +12,12 @@ Image::Image(size_t width, size_t height, size_t channels) :
 }
 
 const float &Image::at(size_t x, size_t y, size_t c) const {
+	assert(x < width && y < height && c < channels);
 	return data[x + y * width + c * height * width];
 }
 
 float &Image::at(size_t x, size_t y, size_t c) {
+	assert(x < width && y < height && c < channels);
 	return data[x + y * width + c * height * width];
 }
 
@@ -29,8 +27,8 @@ void Image::load_image(string path) {
 	QImage raw = QImage(convert);
 	QImage resized = raw.scaled(width, height, Qt::KeepAspectRatio,
 			Qt::SmoothTransformation);
-	for (int y = 0; y < width; ++y) {
-		for (int x = 0; x < height; ++x) {
+	for (size_t y = 0; y < width; ++y) {
+		for (size_t x = 0; x < height; ++x) {
 			at(x, y, 1) = resized.pixelColor(x, y).redF();
 			at(x, y, 2) = resized.pixelColor(x, y).greenF();
 			at(x, y, 3) = resized.pixelColor(x, y).blueF();
