@@ -9,14 +9,17 @@
 
 
 #include "Image.h"
-#include "Network.h"
-#include "DataSaver.h"
 #include <fstream>
 #include <exception>
 #include <errno.h>
+#include <memory>
+#include <iostream>
+#include <algorithm>
 
 
-namespace hepics {using std::cout;
+namespace hepics {
+using std::cout;
+
 using std::endl;
 using std::unique_ptr;
 using std::string;
@@ -28,7 +31,7 @@ private:
 	std::vector<unique_ptr<Image>> inputs;
 	std::string classNamesPath;
 	//Network net;
-	DataSaver dataBase;
+	//DataSaver dataBase;
 public:
 	Assistant(std::string path);
 	virtual ~Assistant();
@@ -36,8 +39,8 @@ public:
 	const std::string getClassNamesPath() const;
 	void setClassNamesPath(std::string classNamesPath);
 
-	const DataSaver getDataBase() const;
-	void setDataBase(DataSaver dataBase);
+	//const DataSaver getDataBase() const;
+	//void setDataBase(DataSaver dataBase);
 
 	std::vector<unique_ptr<Image>> &getInputs();
 

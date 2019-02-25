@@ -24,6 +24,8 @@ public:
 	Network(int number_of_layers, string name);
 
 	virtual ~Network();
+
+	std::vector<unique_ptr<Layer>> &get_layers();
 };
 } //namespace hepics
 

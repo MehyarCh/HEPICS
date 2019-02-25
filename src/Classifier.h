@@ -3,11 +3,13 @@
 #include "Assistant.h"
 #include "Network.h"
 #include "Scheduler.h"
+#include "DataSaver.h"
 
 namespace hepics{
 
 class Classifier {
 private:
+	unique_ptr<DataSaver> database;
 	unique_ptr<Network> network;
 	unique_ptr<Scheduler> scheduler;
 	unique_ptr<Assistant> assistant;
@@ -21,6 +23,8 @@ public:
 	void pause();
 	void resume();
 	void cancel();
+
+
 };
 } //namespace hepics
 

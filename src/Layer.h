@@ -23,6 +23,7 @@ public:
 	const Layer &operator=(const Layer &&layer) = delete;
 	virtual ~Layer()=default;
 	virtual unique_ptr<Image> forward_layer(const Image &input) = 0;
+	virtual string get_type();
 };
 
 } // namespace hepics

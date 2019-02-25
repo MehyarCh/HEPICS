@@ -7,12 +7,15 @@
 
 #include "Convolutional_layer.h"
 namespace hepics{
-Convolutional_layer::Convolutional_layer() {
+Convolutional_layer::Convolutional_layer() : type {"convolutional"}{
 	// TODO Auto-generated constructor stub
 
 }
 unique_ptr<Image> Convolutional_layer::forward_layer(const Image &input){
 	return 0;
+}
+string Convolutional_layer::get_type(){
+	return type;
 }
 }//namespace hepics
 

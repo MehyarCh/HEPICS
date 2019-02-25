@@ -100,20 +100,14 @@ void Scheduler::setMode(Mode mode){
 
 
 //only run if platform is available
-void Scheduler::next_cpu_workunit(Worker *worker){
-	if(use_platforms[0]){
-		worker->run();
-	}
+unique_ptr<Worker> &Scheduler::next_cpu_workunit(){
+	return workers[0];
 }
-void Scheduler::next_gpu_workunit(Worker *worker){
-	if(use_platforms[1]){
-		worker->run();
-	}
+unique_ptr<Worker> &Scheduler::next_gpu_workunit(){
+	return workers[1];
 }
-void Scheduler::next_fpga_workunit(Worker *worker){
-	if(use_platforms[2]){
-		worker->run();
-	}
+unique_ptr<Worker> &Scheduler::next_fpga_workunit(){
+	return workers[2];
 }
 
 /*

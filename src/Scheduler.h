@@ -1,7 +1,6 @@
 
 #pragma once
 #include <vector>
-#include "Worker.h"
 #include "Worker_cpu.h"
 #include "Worker_gpu.h"
 #include "Worker_fpga.h"
@@ -36,9 +35,9 @@ public:
 	void chooseMode(Mode mode);
 	void usePlatforms(bool use_cpu, bool use_gpu, bool use_fpga);
 
-	void next_cpu_workunit(Worker *unit);
-	void next_gpu_workunit(Worker *unit);
-	void next_fpga_workunit(Worker *unit);
+	unique_ptr<Worker> &next_cpu_workunit();
+	unique_ptr<Worker> &next_gpu_workunit();
+	unique_ptr<Worker> &next_fpga_workunit();
 
 	void defineHighPerformance();
 	void defineLowPower();

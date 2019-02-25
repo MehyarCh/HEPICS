@@ -2,7 +2,7 @@
 
 namespace hepics {
 
-Maxpool_layer::Maxpool_layer() {
+Maxpool_layer::Maxpool_layer(): type {"maxpool"} {
 	// TODO Auto-generated constructor stub
 
 }
@@ -12,6 +12,9 @@ Maxpool_layer::~Maxpool_layer() {
 }
 unique_ptr<Image> Maxpool_layer::forward_layer(hepics::Image const&){
 	return 0;
+}
+string Maxpool_layer::get_type(){
+	return type;
 }
 
 } // namespace hepics

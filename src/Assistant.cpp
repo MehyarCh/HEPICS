@@ -25,6 +25,10 @@ void Assistant::setClassNamesPath(std::string classNamesPath) {
 	this->classNamesPath = classNamesPath;
 }
 
+std::vector<unique_ptr<Image>> &Assistant::getInputs() {
+	return inputs;
+}
+/*
 const DataSaver Assistant::getDataBase() const {
 	return dataBase;
 }
@@ -33,12 +37,10 @@ void Assistant::setDataBase(DataSaver dataBase) {
 	this->dataBase = dataBase;
 }
 
-std::vector<unique_ptr<Image>> &Assistant::getInputs() {
-	return inputs;
-}
 
 
-/*const Network Assistant::getNetwork() const {
+
+const Network Assistant::getNetwork() const {
 	return net;
 }
 
@@ -70,7 +72,7 @@ void Assistant::loadClassNames() {
 //matches the add button
 void Assistant::addInputImage(string path) {
 	//Image input= Image::load_image(path, 0,0,3);
-	auto input = make_unique<Image>(227, 227, 3);
+	auto input = std::make_unique<Image>(227, 227, 3);
 	input->load_image(path);
 	//not willing to resize, values of length and width are to be set afterwards
 	this->inputs.push_back(move(input));

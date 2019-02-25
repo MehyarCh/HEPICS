@@ -15,4 +15,8 @@ Network::Network(int number_of_layers, string name) {
 Network::~Network() {
 	// TODO Auto-generated destructor stub
 }
+
+std::vector<unique_ptr<Layer>> &Network::get_layers(){
+	return layers;
+}
 }

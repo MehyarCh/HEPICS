@@ -5,7 +5,7 @@ namespace hepics {
 using namespace std;
 
 Fully_connected_layer::Fully_connected_layer(const vector<float> &weights) :
-		weights { weights } {
+		weights { weights }, type {"fully_connected"} {
 }
 
 unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
@@ -18,5 +18,7 @@ unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
 	// TODO the alexnet fully connected layer has 4096 neurons... find out how an image is mapped to that (check caffe code)
 	return output;
 }
-
+string Fully_connected_layer::get_type(){
+	return type;
+}
 } // namespace hepics
