@@ -10,9 +10,7 @@ public:
 	unique_ptr<Image> forward_layer(const Image &input) override;
 
 	const vector<float> weights;
-	string get_type() override;
-private:
-	string type;
+	Type get_type() override;
 };
 
 } // namespace hepics

@@ -12,8 +12,8 @@ unique_ptr<Image> Softmax_layer::forward_layer(const Image &input) {
 	// TODO fill output
 	return output;
 }
-string Softmax_layer::get_type(){
-	return this->type;
+Layer::Type Softmax_layer::get_type(){
+	return Type::softmax;
 }
 
 unique_ptr<Image> Relu_layer::forward_layer(const Image &input) {
@@ -24,8 +24,8 @@ unique_ptr<Image> Relu_layer::forward_layer(const Image &input) {
 	// TODO fill output
 	return output;
 }
-string Relu_layer::get_type(){
-	return this->type;
+Layer::Type Relu_layer::get_type(){
+	return Type::relu;
 }
 
 unique_ptr<Image> Sigmoid_layer::forward_layer(const Image &input) {
@@ -36,8 +36,8 @@ unique_ptr<Image> Sigmoid_layer::forward_layer(const Image &input) {
 	// TODO fill output
 	return output;
 }
-string Sigmoid_layer::get_type(){
-	return this->type;
+Layer::Type Sigmoid_layer::get_type(){
+	return Layer::Type::sigmoid;
 }
 
 unique_ptr<Image> Tanh_layer::forward_layer(const Image &input) {
@@ -48,8 +48,8 @@ unique_ptr<Image> Tanh_layer::forward_layer(const Image &input) {
 	// TODO fill output
 	return output;
 }
-string Tanh_layer::get_type(){
-	return this->type;
+Layer::Type Tanh_layer::get_type(){
+	return Layer::Type::tanh;
 }
 
 } // namespace hepics

@@ -16,9 +16,6 @@
 namespace hepics{
 Scheduler::Scheduler() {
 	this->mode= standard;
-	this->workers.push_back(std::make_unique<Worker_cpu>());
-	this->workers.push_back(std::make_unique<Worker_gpu>());
-	this->workers.push_back(std::make_unique<Worker_fpga>());
 }
 Scheduler::~Scheduler() {
 	// TODO Auto-generated destructor stub
@@ -98,17 +95,6 @@ void Scheduler::setMode(Mode mode){
 	this->mode=mode;
 }
 
-
-//only run if platform is available
-unique_ptr<Worker> &Scheduler::next_cpu_workunit(){
-	return workers[0];
-}
-unique_ptr<Worker> &Scheduler::next_gpu_workunit(){
-	return workers[1];
-}
-unique_ptr<Worker> &Scheduler::next_fpga_workunit(){
-	return workers[2];
-}
 
 /*
 void Scheduler::pause(){
@@ -207,8 +193,4 @@ void Scheduler::wait(){
 	setWaiting(true);
 }
 
-//worker works on chosen platform
-void Scheduler::work(Worker *worker){
-	worker->run();
-}
 }//namespace hepics

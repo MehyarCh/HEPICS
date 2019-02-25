@@ -16,7 +16,7 @@ public:
 
 	Image(size_t width, size_t height, size_t channels);
 
-	Image(const Image &image) = delete;
+	Image(const Image &image)=default;
 	Image(const Image &&image) = delete;
 	const Image &operator=(const Image &image) = delete;
 	const Image &operator=(const Image &&image) = delete;
@@ -44,27 +44,4 @@ private:
 };
 
 } // namespace hepics
-
-/*class Image {
-private:
-    int w;
-    int h;
-    int c;
-    float *data;
-public:
-    static int id;
-
-    Image(int w, int h, int c);
-    ~Image();
-    float get_pixel(int x, int y, int c);
-    void set_pixel(int x, int y, int c, float val);
-    void add_pixel(int x, int y, int c, float val);
-    void resize_image(int w, int h);
-    static Image load_image_stb(char *filename, int channels);
-    static Image load_image(char *filename, int w, int h, int c);
-    static Image load_image_color(char *filename, int w, int h);
-
-
-
-};*/
 

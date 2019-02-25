@@ -16,7 +16,7 @@ class Parser {
 public:
 	Parser();
 	virtual ~Parser();
-	Network parse_network();
+	Network& parse_network();
 	unique_ptr<Layer> parse_next_layer();
 };
 }//namespace hepics

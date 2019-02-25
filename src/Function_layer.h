@@ -7,35 +7,25 @@ namespace hepics {
 class Softmax_layer: public Layer {
 public:
 	unique_ptr<Image> forward_layer(const Image &input) override;
-	string get_type() override;
-private:
-	string type="softmax";
+	Type get_type() override;
 };
 
 class Relu_layer: public Layer {
 public:
 	unique_ptr<Image> forward_layer(const Image &input) override;
-	string get_type() override;
-private:
-	string type="relu";
-
+	Type get_type() override;
 };
 
 class Sigmoid_layer: public Layer {
 public:
 	unique_ptr<Image> forward_layer(const Image &input) override;
-	string get_type() override;
-private:
-	string type="sigmoid";
+	Type get_type() override;
 };
 
 class Tanh_layer: public Layer {
 public:
 	unique_ptr<Image> forward_layer(const Image &input) override;
-	string get_type() override;
-private:
-	string type="tanh";
-
+	Type get_type() override;
 };
 
 } // namespace hepics

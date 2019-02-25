@@ -15,15 +15,19 @@ Classifier::~Classifier() {
 	// TODO Auto-generated destructor stub
 }
 void Classifier::start() {
-	vector<unique_ptr<Layer>> layers = std::move(network->get_layers());
 	is_running = true;
-	while(is_running){
-		for (auto const& i: layers) {
-			if(scheduler->getUsedPlatforms()[3] && i->get_type().compare("convolutional")==0){
-				scheduler->next_fpga_workunit()->run();
-			}else{
-				scheduler->next_cpu_workunit()->run();
+	unique_ptr<Image> output = NULL;
+	while(!canceled){
+		for (auto const& input: assistant->getInputs()){
+			output=make_unique<Image>(*input);
+			for (auto const& l: network->get_layers()) {
+				if(scheduler->getUsedPlatforms()[3] && l->get_type() == Layer::Type::convolutional){
+					//run on fpga
+				}else{
+					output=l->forward_layer(*output);
+				}
 			}
+			datasaver->add_output(move(output));
 		}
 	}
 }

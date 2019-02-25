@@ -17,9 +17,7 @@ class Convolutional_layer : public Layer {
 public:
 	Convolutional_layer();
 	unique_ptr<Image> forward_layer(const Image &input) override;
-	string get_type() override;
-private:
-	string type;
+	Type get_type() override;
 };
 
 } //namespace hepics

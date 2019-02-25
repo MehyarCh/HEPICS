@@ -28,6 +28,12 @@ void DataSaver::writeResultInFile(Image input){
 	out << resultMap[input.id].toString();
 }
 
+void DataSaver::add_output(unique_ptr<Image> &&output){
+		this->outputs.push_back(move(output));
+}
+vector<unique_ptr<Image>> &DataSaver::getOutputs(){
+	return outputs;
+}
 bool cmp(const pair<string, float>  &p1, const pair<string, float> &p2){
     return p1.second < p2.second;
 }
