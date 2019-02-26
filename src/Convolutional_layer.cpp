@@ -6,7 +6,11 @@
  */
 
 #include "Convolutional_layer.h"
+
 namespace hepics{
+
+using std::unique_ptr;
+
 Convolutional_layer::Convolutional_layer() {
 	// TODO Auto-generated constructor stub
 

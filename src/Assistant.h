@@ -33,6 +33,7 @@ private:
 	//Network net;
 	//DataSaver dataBase;
 public:
+	Assistant();
 	Assistant(std::string path);
 	virtual ~Assistant();
 

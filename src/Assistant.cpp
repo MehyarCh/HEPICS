@@ -7,6 +7,9 @@
 
 #include "Assistant.h"
 namespace hepics {
+Assistant::Assistant(){
+
+}
 
 Assistant::Assistant(std::string path) {
 	//: net {8,"AlexNet"}

@@ -7,7 +7,7 @@ int Image::IDcounter = 0;
 
 Image::Image(size_t width, size_t height, size_t channels) :
 		width { width }, height { height }, channels { channels }, id {
-				++IDcounter } {
+				++IDcounter }, data(width * height * channels) {
 
 }
 
