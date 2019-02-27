@@ -49,7 +49,7 @@ TEST(fully_connected_layer, test_fully_connected_layer) {
 			fully_connected_layer->forward_layer(*inputImage);
 
 	for (int i = 0; i < 4; i++) {
-		cerr << outputFrom_Fully_connected_layer->at(0, i, 0);
+		//cerr << outputFrom_Fully_connected_layer->at(0, i, 0);
 		ASSERT_EQ(outputFrom_Fully_connected_layer->at(0, i, 0),
 				expectedOutput->at(0, i, 0));
 	}

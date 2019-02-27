@@ -12,20 +12,20 @@
 using namespace hepics;
 using namespace std;
 Assistant *assist= new Assistant("/home/mehyar/localRepository/hepics/HepicsModel/test/Classname/classnames.txt");
-Image *dog;
+Image *dog= new Image(277,277,3);
 
 void test_add_input(){
-	string s = "/home/mehyar/localRepository/hepics/new-hepics/test/Pictures/dog.jpeg";
-	assist->addInputImage("/home/mehyar/localRepository/hepics/new-hepics/test/Pictures/dog.jpeg");
+	string s = "/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg";
+	assist->addInputImage("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
 	//w= 275, h=183
 }
 void test_add_input2(){
-	assist->addInputImage("/home/mehyar/localRepository/hepics/HepicsModel/test/Pictures/lion.jpeg");
+	assist->addInputImage("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/lion.jpeg");
 	//w=282 , h=179
 }
 
 void test_delete_input(){
-	dog->load_image("/home/mehyar/localRepository/hepics/HepicsModel/test/Pictures/dog.jpeg");
+	dog->load_image("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
 	//assert(assist->getInputs().size()==2);
 	assist->deleteImage(*dog);
 }
@@ -52,7 +52,6 @@ TEST(delete_input, delete_second_image){
 	test_delete_input();
 	ASSERT_EQ(assist->getInputs().size(), 1);
 }
-
 
 TEST(reset_input, clear_image){
 	test_reset_input();

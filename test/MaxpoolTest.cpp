@@ -90,11 +90,10 @@ TEST(max_pool_layer2, test_max_pool2) {
 	for (int c = 0; c < 2; ++c) {
 		for (int y = 0; y < newOutput2->height; ++y) {
 			for (int x = 0; x < newOutput2->width; ++x) {
-				cerr << newOutput2->at(x, y, c) << "\n";
+				//cerr << newOutput2->at(x, y, c) << "\n";
 				ASSERT_EQ(newOutput2->at(x, y, c), expectedOutput2->at(x, y, c));
 			}
 		}
 	}
-
 }
 

@@ -22,19 +22,19 @@ unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
 
 	// we are working with the weights as a transformed matrix then we can change it in the constructor after understanding what is the 4d
 
-	for (int c = 0; c < input.channels; c++) {
-		for (int y = 0; y < input.height; y++) {
-			for (int x = 0; x < input.width; x++) {
+	for (size_t c = 0; c < input.channels; c++) {
+		for (size_t y = 0; y < input.height; y++) {
+			for (size_t x = 0; x < input.width; x++) {
 				inputAs1->at(0, counter, 0) = input.at(x, y, c);
 				counter++;
 			}
 		}
 	}
 
-	for (int x = 0; x < weights.width; x++) { //y
-		int counter2 = 0;
-		int sum = 0;
-		for (int y = 0; y < weights.height; y++) { //s
+	for (size_t x = 0; x < weights.width; x++) { //y
+		size_t counter2 = 0;
+		size_t sum = 0;
+		for (size_t y = 0; y < weights.height; y++) { //s
 
 			sum += weights.at(y, x, 0) * inputAs1->at(0, counter2, 0);
 			counter2++;

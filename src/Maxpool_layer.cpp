@@ -13,7 +13,6 @@ unique_ptr<Image> Maxpool_layer::forward_layer(const Image &input) {
 
 	int filter_size = 3;
 	int filter_stride = 2;
-	int filter_padding = 0;
 
 	auto x_size = (input.width - 1) / filter_stride + 1;
 	auto y_size = (input.height - 1) / filter_stride + 1;
