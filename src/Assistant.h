@@ -23,15 +23,13 @@ using std::cout;
 using std::endl;
 using std::unique_ptr;
 using std::string;
-using Ptr=unique_ptr<Image>;
 
 class Assistant {
 private:
-	std::vector<string> classnames;
-	std::vector<unique_ptr<Image>> inputs;
 	std::string classNamesPath;
-	//Network net;
-	//DataSaver dataBase;
+	std::vector<string> classnames;
+	std::map<string,unique_ptr<Image>> input_map;
+
 public:
 	Assistant();
 	Assistant(std::string path);
@@ -40,16 +38,13 @@ public:
 	const std::string getClassNamesPath() const;
 	void setClassNamesPath(std::string classNamesPath);
 
-	//const DataSaver getDataBase() const;
-	//void setDataBase(DataSaver dataBase);
-
-	std::vector<unique_ptr<Image>> &getInputs();
-
 	void loadClassNames();
 
-	void addInputImage(string path);
-	Ptr deleteImage(Image input);
-	void resetInputs();
+	void add_input_map(string path);
+	void delete_input_map(string path);
+	void reset_input_map();
+
+	std::map<string,unique_ptr<Image>> &get_input_map();
 
 	std::vector<string> getClassnames();
 };

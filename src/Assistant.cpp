@@ -12,7 +12,6 @@ Assistant::Assistant(){
 }
 
 Assistant::Assistant(std::string path) {
-	//: net {8,"AlexNet"}
 	this->classNamesPath = path;
 }
 
@@ -27,29 +26,6 @@ const std::string Assistant::getClassNamesPath() const {
 void Assistant::setClassNamesPath(std::string classNamesPath) {
 	this->classNamesPath = classNamesPath;
 }
-
-std::vector<unique_ptr<Image>> &Assistant::getInputs() {
-	return inputs;
-}
-/*
-const DataSaver Assistant::getDataBase() const {
-	return dataBase;
-}
-
-void Assistant::setDataBase(DataSaver dataBase) {
-	this->dataBase = dataBase;
-}
-
-
-
-
-const Network Assistant::getNetwork() const {
-	return net;
-}
-
-void Assistant::setNet(Network net) {
-	this->net = net;
-}*/
 
 //loads the classnames file into a list
 void Assistant::loadClassNames() {
@@ -73,40 +49,30 @@ void Assistant::loadClassNames() {
 }
 
 //matches the add button
-void Assistant::addInputImage(string path) {
-	//Image input= Image::load_image(path, 0,0,3);
+void Assistant::add_input_map(string path) {
 	auto input = std::make_unique<Image>(227, 227, 3);
-	input->load_image(path);
-	//not willing to resize, values of length and width are to be set afterwards
-	this->inputs.push_back(move(input));
+		input->load_image(path);
+	this->input_map.insert(std::pair<string,unique_ptr<Image>>(path,move(input)));
 }
 
 //matches the delete button
-Ptr Assistant::deleteImage(Image input) {
-	auto it =find_if(inputs.begin(), inputs.end(), [&](Ptr& obj){return obj->id== input.id;});
-	if(it!= inputs.end()){
-		auto retval = std::move(*it);
-		inputs.erase(it);
-		return std::move(retval);
-	}
-	return{};
+void Assistant::delete_input_map(string path) {
+	this->input_map.erase(path);
 }
 
-	/*for (auto it = inputs.begin(); it != inputs.end(); ++it) {
-		if((*it)->id==input.id){
-			this->inputs.erase(it);
-			break;
-		}
-	}*/
+//matches the reset button
+void Assistant::reset_input_map(){
+	this->input_map.clear();
+}
+
+std::map<string,unique_ptr<Image>> &Assistant::get_input_map(){
+	return this->input_map;
+}
 
 
 std::vector<string> Assistant::getClassnames() {
 	return classnames;
 }
 
-//matches the reset button
-void Assistant::resetInputs() {
-	this->inputs.clear();
-}
 } // namespace hepics
 

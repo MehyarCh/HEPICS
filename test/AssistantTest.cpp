@@ -4,6 +4,7 @@
  *  Created on: Feb 14, 2019
  *      Author: mehyar
  */
+#include "Paths.h"
 #include "Assistant.h"
 #include <gtest/gtest.h>
 #include <list>
@@ -11,28 +12,9 @@
 
 using namespace hepics;
 using namespace std;
+
 Assistant *assist= new Assistant("/home/mehyar/localRepository/hepics/HepicsModel/test/Classname/classnames.txt");
-Image *dog= new Image(277,277,3);
 
-void test_add_input(){
-	string s = "/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg";
-	assist->addInputImage("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
-	//w= 275, h=183
-}
-void test_add_input2(){
-	assist->addInputImage("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/lion.jpeg");
-	//w=282 , h=179
-}
-
-void test_delete_input(){
-	dog->load_image("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
-	//assert(assist->getInputs().size()==2);
-	assist->deleteImage(*dog);
-}
-
-void test_reset_input(){
-	assist->resetInputs();
-}
 
 void test_load_classnames(){
 	assist->loadClassNames();
@@ -40,22 +22,30 @@ void test_load_classnames(){
 	cout << size << "= size 1";*/
 }
 
-TEST(add_input, add_one_image){
-	test_add_input();
-	ASSERT_EQ(assist->getInputs().size(), 1);
-}
-TEST(add_input2, add_two_images){
-	test_add_input2();
-	ASSERT_EQ(assist->getInputs().size(), 2);
-}
-TEST(delete_input, delete_second_image){
-	test_delete_input();
-	ASSERT_EQ(assist->getInputs().size(), 1);
+void test_add_input_map(string path){
+	assist->add_input_map(path);
 }
 
-TEST(reset_input, clear_image){
-	test_reset_input();
-	ASSERT_EQ(assist->getInputs().size(), 0);
+void test_delete_input_map(string path){
+	assist->delete_input_map(path);
+}
+void test_reset_map(){
+	assist->reset_input_map();
+}
+
+
+TEST(test_add_map, add_input_map){
+	assist->add_input_map(path::dog);
+	assist->add_input_map(path::lion);
+	ASSERT_EQ(assist->get_input_map().size(),2);
+}
+TEST(test_delete_from_map, delete_input_map){
+	assist->delete_input_map(path::dog);
+	ASSERT_EQ(assist->get_input_map().size(),1);
+}
+TEST(test_reset_map, reset_input_map){
+	assist->reset_input_map();
+	ASSERT_EQ(assist->get_input_map().size(),0);
 }
 
 /*TEST(load_classnames, load_classnames){
