@@ -31,6 +31,7 @@ TEST(test_add_map, add_input_map){
 TEST(test_delete_from_map, delete_input_map){
 	auto assist = make_unique<Assistant>();
 	assist->add_input_map(path::dog);
+	assist->add_input_map(path::lion);
 	assist->delete_input_map(path::dog);
 	ASSERT_EQ(assist->get_input_map().size(),1);
 }
