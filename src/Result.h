@@ -1,34 +1,32 @@
-/*
- * Result.h
- *
- *  Created on: Jan 22, 2019
- *      Author: Mehyar
- */
+#pragma once
 
-#ifndef MODEL_RESULT_H_
-#define MODEL_RESULT_H_
 #include <string>
 #include <vector>
-#include <iostream>
 #include <map>
-using namespace std;
 
+
+namespace hepics{
+using std::vector;
+using std::string;
+using std::pair;
+using std::map;
 
 class Result {
 private:
 	int i;
 	map<string, float> percentage;
-	vector<string> classNames;
+	vector<pair<string, float>> results;
 public:
 	Result();
 	virtual ~Result();
 	string toString();
-	void saveResult(float percentage, string className);
+	void save_result(string className, float percentage);
+
 	//returns percentage at index in
 	float getPercentageOf(string className);
+
 	//returns index if true, -1 if false
 	int getClassNameAt(string className);
-	map<string, float> getPercentage();
+	map<string, float> &getPercentage();
 };
-
-#endif /* MODEL_RESULT_H_ */
+}

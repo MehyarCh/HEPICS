@@ -1,12 +1,4 @@
-/*
- * DataSaver.h
- *
- *  Created on: Jan 15, 2019
- *      Author: Mehyar
- */
-
-#ifndef DATASAVER_H_
-#define DATASAVER_H_
+#pragma once
 
 #include <list>
 #include <map>
@@ -31,9 +23,9 @@ private:
 public:
 	DataSaver();
 	virtual ~DataSaver();
-	void addResult(Image input, Result result);
-	void setResult(Image input, Result result);
-	void deleteResult(Image input);
+	void add_result(Image input, Result result);
+	void set_result(Image input, Result result);
+	void delete_result(Image input);
 	Result getResult(Image input);
 
 	void add_output(unique_ptr<Image>&& output);
@@ -46,4 +38,3 @@ public:
 	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
 };
 } // namespace hepics
-#endif /* DATASAVER_H_ */

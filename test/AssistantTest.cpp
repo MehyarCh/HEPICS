@@ -22,18 +22,6 @@ void test_load_classnames(){
 	cout << size << "= size 1";*/
 }
 
-void test_add_input_map(string path){
-	assist->add_input_map(path);
-}
-
-void test_delete_input_map(string path){
-	assist->delete_input_map(path);
-}
-void test_reset_map(){
-	assist->reset_input_map();
-}
-
-
 TEST(test_add_map, add_input_map){
 	assist->add_input_map(path::dog);
 	assist->add_input_map(path::lion);

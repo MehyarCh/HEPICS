@@ -1,10 +1,3 @@
-/*
- * DataSaver.cpp
- *
- *  Created on: Jan 15, 2019
- *      Author: Mehyar
- */
-
 #include "DataSaver.h"
 namespace hepics{
 DataSaver::DataSaver() {
@@ -14,10 +7,10 @@ DataSaver::DataSaver() {
 DataSaver::~DataSaver() {
 	// TODO Auto-generated destructor stub
 }
-void DataSaver::addResult(Image input, Result result){
+void DataSaver::add_result(Image input, Result result){
 	resultMap.insert(std::pair<int,Result>(input.id,result));
 }
-void DataSaver::setResult(Image input, Result result){
+void DataSaver::set_result(Image input, Result result){
 	resultMap.insert(std::pair<int,Result>(input.id,result));
 }
 Result DataSaver::getResult(Image input){
@@ -82,11 +75,11 @@ Result DataSaver::aggregate(list<Image> images){
 	std::vector<pair<std::string, float>> vector = convertToVector(global);
 	//std::vector<pair<std::string, float>>::iterator i;
 	for(int i =0; i != 4; ++i) {
-	    aggregationResult.saveResult(vector[i].second, vector[i].first);
+	    aggregationResult.save_result(vector[i].second, vector[i].first);
 	}
 	return aggregationResult;
 }
-void DataSaver::deleteResult(Image input){
+void DataSaver::delete_result(Image input){
 	this->resultMap.erase(input.id);
 }
 }

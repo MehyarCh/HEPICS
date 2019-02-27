@@ -10,16 +10,16 @@ namespace hepics{
 
 class Classifier {
 private:
-	unique_ptr<DataSaver> datasaver;
-	unique_ptr<Network> network;
-	unique_ptr<Scheduler> scheduler;
-	unique_ptr<Assistant> assistant;
-	vector<unique_ptr<Image>> outputs;
+	Scheduler& scheduler;
+	DataSaver& datasaver;
+	Network& network;
+
+	Assistant& assistant;
 
 	bool is_running;
 	bool canceled;
 public:
-	Classifier();
+	Classifier(Scheduler& scheduler, DataSaver& datasaver, Network& network, Assistant& assistant);
 	virtual ~Classifier();
 	void start();
 	void pause();

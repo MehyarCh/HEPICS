@@ -1,12 +1,6 @@
-/*
- * Result.cpp
- *
- *  Created on: Jan 22, 2019
- *      Author: Mehyar
- */
-// represents the results of a classified image
-
 #include "Result.h"
+
+namespace hepics{
 
 Result::Result() {
 	this->i=0;
@@ -23,7 +17,7 @@ string Result::toString(){
 			+", "+classNames[3]+":"+to_string(percentage[classNames[3]]);
 }
 
-void Result::saveResult(float percentage, string className){
+void Result::save_result(string className, float percentage){
 	this->percentage[className]=percentage;
 	classNames[i]=className;
 	i++;
@@ -49,4 +43,4 @@ int Result::getClassNameAt(string className){
 map<string, float> Result::getPercentage(){
 	return this->percentage;
 }
-
+} //namespace hepics

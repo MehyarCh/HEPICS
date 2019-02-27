@@ -7,8 +7,8 @@
 
 #include "Classifier.h"
 namespace hepics {
-Classifier::Classifier() :
-		is_running { false }, canceled { false } {
+Classifier::Classifier(Scheduler& scheduler, DataSaver& datasaver, Network& network, Assistant& assistant ) :
+		 scheduler {scheduler}, datasaver {datasaver}, network {network}, assistant { assistant }, is_running { false }, canceled { false } {
 }
 
 Classifier::~Classifier() {
@@ -18,16 +18,16 @@ void Classifier::start() {
 	is_running = true;
 	unique_ptr<Image> output = NULL;
 	while(!canceled){
-		for (auto const& input: assistant->get_input_map()){
+		for (auto const& input: assistant.get_input_map()){
 			output=make_unique<Image>(*(input.second));
-			for (auto const& l: network->get_layers()) {
-				if(scheduler->getUsedPlatforms()[3] && l->get_type() == Layer::Type::convolutional){
+			for (auto const& l: network.get_layers()) {
+				if(scheduler.getUsedPlatforms()[3] && l->get_type() == Layer::Type::convolutional){
 					//run on fpga
 				}else{
 					output=l->forward_layer(*output);
 				}
 			}
-			datasaver->add_output(move(output));
+			datasaver.add_output(move(output));
 		}
 	}
 }
