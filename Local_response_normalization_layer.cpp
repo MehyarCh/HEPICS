@@ -1,11 +1,11 @@
-/*]\
- * '''''''''''''''''''''''''''''''
+/*
  * Local_response_normalization_layer.cpp
  *
  *  Created on: Feb 27, 2019
  *      Author: Linjuan
  */
 #include "Local_response_normalization_layer.h"
+#include <cmath>
 
 namespace hepics {
 
@@ -34,10 +34,12 @@ unique_ptr<Image> Local_response_normalization_layer::forward_layer(const Image 
 				int to = (output_channels - 1 > c + local_size) ? c + local_size : output_channels - 1;
 
 				for (int i = from; i <= to; i++) {
-					product += (input.at(x, y, i)) ^ 2;
+					auto value = input.at(x, y, i);
+					product += value * value;
 				}
 
-			    output->at(x, y, c) = (output->at(x, y, c) / (alpha * product) ^ beta);
+				auto exp = pow(alpha * product, beta);
+			    output->at(x, y, c) = (output->at(x, y, c) / exp);
 			}
 		}
 	}
