@@ -27,13 +27,12 @@ void Image::load_image(string path) {
 	QString convert = conversion;
 
 	QImage raw = QImage(convert);
-	//std::cerr << raw.height() << std::endl;
-	//std::cerr << raw.width() << std::endl;
+	if (raw.height() == 0 || raw.width() == 0) {
+		throw No_image_loaded { };
+	}
 
 	QImage resized = raw.scaled(width, height, Qt::IgnoreAspectRatio,
 			Qt::SmoothTransformation);
-	//std::cerr << resized.height() << std::endl;
-	//std::cerr << resized.width();
 	for (size_t y = 0; y < width; ++y) {
 		for (size_t x = 0; x < height; ++x) {
 			at(x, y, 0) = resized.pixelColor(x, y).redF();
@@ -41,6 +40,10 @@ void Image::load_image(string path) {
 			at(x, y, 2) = resized.pixelColor(x, y).blueF();
 		}
 	}
+}
+
+const char *No_image_loaded::what() const noexcept {
+	return "hepics::No_image_loaded";
 }
 
 } // namespace hepics

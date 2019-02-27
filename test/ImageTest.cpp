@@ -12,7 +12,8 @@ void test_constructor(){
 
 void test_load_image(){
 	input_image= new Image(227,227,3);
-	input_image->load_image("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
+	input_image->load_image("/home/andres/git/hepics/test/Pictures/dog.jpeg");
+//	input_image->load_image("/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg");
 }
 
 
