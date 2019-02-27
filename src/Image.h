@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QString>
 
+#include "Exception.h"
 
 namespace hepics {
 
@@ -41,6 +42,11 @@ public:
 private:
 	vector<float> data;
 	static int IDcounter;
+};
+
+class No_image_loaded: public Exception {
+public:
+	const char *what() const noexcept override;
 };
 
 } // namespace hepics
