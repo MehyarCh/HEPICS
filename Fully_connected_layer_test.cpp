@@ -21,8 +21,8 @@ using std::unique_ptr;
 auto weights = make_unique<Image>(4, 4, 1);
 void setWeights() {
 	int counter = 1;
-	for (int y = 0; x < 4; x++) {
-		for (int x = 0; y < 4; y++) {
+	for (int y = 0; y < 4; y++) {
+		for (int x = 0; x < 4; x++) {
 			weights->at(x, y, 0) = counter;
 			counter++;
 		}
