@@ -31,6 +31,9 @@ public:
 	const float &at(size_t x, size_t y, size_t c, size_t n) const;
 	float &at(size_t x, size_t y, size_t c, size_t n);
 
+	float *ptr() {
+		return &data[0];
+	}
 
 	const size_t width;
 	const size_t height;
