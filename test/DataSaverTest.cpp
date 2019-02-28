@@ -11,9 +11,6 @@ DataSaver* save;
 void test_add_result(int i, unique_ptr<Result>& r){
 	save->add_result(i, move(r));
 }
-void test_delete_result(){
-
-}
 
 TEST(add_result, test_add_result){
 	Image* dog= new Image(227,227,3);

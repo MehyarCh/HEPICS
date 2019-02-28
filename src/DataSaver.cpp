@@ -7,7 +7,7 @@ DataSaver::~DataSaver() {
 	// TODO Auto-generated destructor stub
 }
 void DataSaver::add_result(int id, unique_ptr<Result> result){
-	resultMap.insert(std::make_pair(id,move(result)));
+	//resultMap.insert(std::make_pair(id,move(result)));
 	//resultMap[id] = std::make_unique<Result>();
 	resultMap.emplace(id, move(result));
 }
@@ -15,7 +15,7 @@ void DataSaver::delete_result(int id){
 	this->resultMap.erase(id);
 }
 void DataSaver::set_result(int id, unique_ptr<Result> result){
-	resultMap.insert(make_pair(id,result));
+	resultMap.insert(std::make_pair(id,move(result)));
 }
 unique_ptr<Result> &DataSaver::get_result(int id){
 	return resultMap[id];
