@@ -10,6 +10,7 @@
 #include <vector>
 #include "Layer.h"
 #include "Caffemodel.h"
+#include "Paths.h"
 
 namespace hepics{
 using std::string;
@@ -17,8 +18,8 @@ using PtrL=unique_ptr<Layer>;
 
 class Network {
 private:
-	static constexpr auto path = "/home/mehyar/localRepository/hepics/new_hepics/cfg/bvlc_alexnet.caffemodel";
 	vector<PtrL> layers;
+	//static constexpr auto path = "/home/mehyar/cfg/bvlc_alexnet.caffemodel";
 
 public:
 	Network();

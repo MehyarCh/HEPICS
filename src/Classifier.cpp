@@ -29,7 +29,6 @@ void Classifier::start() {
 					output=l->forward_layer(*output);
 				}
 			}
-			//datasaver.add_result(output->id,  r));
 			datasaver.process_output(move(output), input.second->id);
 		}
 	}

@@ -5,7 +5,7 @@ using namespace std;
 using namespace hepics::caffemodel;
 
 //constexpr auto alexnet_caffemodel_path = "/home/andres/Downloads/bvlc_alexnet.caffemodel";
-constexpr auto alexnet_caffemodel_path = "/home/mehyar/localRepository/hepics/new_hepics/cfg/bvlc_alexnet.caffemodel";
+constexpr auto alexnet_caffemodel_path = "/home/mehyar/cfg/bvlc_alexnet.caffemodel";
 
 TEST(caffemodel_test, open) {
 	auto model = Model::parse_layers(alexnet_caffemodel_path);

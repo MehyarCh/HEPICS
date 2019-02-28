@@ -76,6 +76,10 @@ void DataSaver::process_output(unique_ptr<Image> && output, int id) {
 	add_output(move(output));
 }
 
+map<int,unique_ptr<Result>> &DataSaver::get_map(){
+	return this->resultMap;
+}
+
 bool cmp(const pair<string, float> &p1, const pair<string, float> &p2) {
 	return p1.second > p2.second;
 }
@@ -117,8 +121,13 @@ Result DataSaver::aggregate() {
 		//divide by number of inputs
 	}
 	std::vector<pair<std::string, float>> vector = convertToVector(global);
+	int number_of_results=0;
 	for (auto x : vector) {
 		aggregationResult.save_result(x.first, x.second);
+		++number_of_results;
+		if(number_of_results>=4){
+			break;
+		}
 	}
 	return aggregationResult;
 }
