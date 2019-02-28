@@ -19,7 +19,7 @@ void Classifier::start() {
 	unique_ptr<Image> output = NULL;
 	while(!canceled){
 		for (auto const& input: assistant.get_input_map()){
-			output=make_unique<Image>(*(input.second));
+			output=std::make_unique<Image>(*(input.second));
 			for (auto const& l: network.get_layers()) {
 				if(scheduler.getUsedPlatforms()[3] && l->get_type() == Layer::Type::convolutional){
 					//run on fpga

@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <iostream>
 
 
 namespace hepics{
@@ -13,20 +15,18 @@ using std::map;
 
 class Result {
 private:
-	int i;
-	map<string, float> percentage;
 	vector<pair<string, float>> results;
 public:
 	Result();
 	virtual ~Result();
-	string toString();
+
 	void save_result(string className, float percentage);
+	void display_result();
 
-	//returns percentage at index in
-	float getPercentageOf(string className);
+	string toString();
 
-	//returns index if true, -1 if false
-	int getClassNameAt(string className);
-	map<string, float> &getPercentage();
+	vector<pair<string, float>> &get_results();
+
+	void sort_results();
 };
-}
+} //namespace hepics

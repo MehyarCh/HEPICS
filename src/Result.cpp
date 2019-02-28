@@ -3,44 +3,35 @@
 namespace hepics{
 
 Result::Result() {
-	this->i=0;
 }
 
 Result::~Result() {
-	// TODO Auto-generated destructor stub
-}
-//needs test
-string Result::toString(){
-	return classNames[0]+":"+ to_string(percentage[classNames[0]])
-			+", "+classNames[1]+":"+to_string(percentage[classNames[1]])
-			+", "+classNames[2]+":"+to_string(percentage[classNames[2]])
-			+", "+classNames[3]+":"+to_string(percentage[classNames[3]]);
 }
 
 void Result::save_result(string className, float percentage){
-	this->percentage[className]=percentage;
-	classNames[i]=className;
-	i++;
-	if(i==4){
-		cout << "results saved";
-	}
+	results.push_back(make_pair(className, percentage));
+	sort_results();
 }
 
-//returns percentage at index in
-float Result::getPercentageOf(string className){
-	return percentage[className];
-}
-
-//returns index if true, -1 if false
-int Result::getClassNameAt(string className){
-	for (int i=0; i<4; ++i){
-		if(classNames[i]==className){
-			return i;
-		}
+void Result::display_result(){
+	for( auto line : results ){
+		std::cout << line.first + ": " + std::to_string(line.second) << std::endl;
 	}
-	return -1;
 }
-map<string, float> Result::getPercentage(){
-	return this->percentage;
+string Result::toString(){
+	string result;
+	for( auto line : results ){
+		result += line.first + ": " + std::to_string(line.second)+ "\n";
+	}
+	return result;
+}
+vector<pair<string, float>> &Result::get_results(){
+	return this->results;
+}
+bool sortbysecdesc(const pair<string, float> &a, const pair<string,float> &b) {
+       return a.second>b.second;
+}
+void Result::sort_results(){
+	std::sort(results.begin(), results.end(), sortbysecdesc);
 }
 } //namespace hepics

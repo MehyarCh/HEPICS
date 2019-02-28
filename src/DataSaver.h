@@ -18,22 +18,22 @@ using std::unique_ptr;
 
 class DataSaver {
 private:
-	std::map<int,Result> resultMap;
-	std::vector<unique_ptr<Image>> outputs;
+	std::map<int,unique_ptr<Result>> resultMap;
+	vector<unique_ptr<Image>> outputs;
 public:
 	DataSaver();
 	virtual ~DataSaver();
-	void add_result(Image input, Result result);
-	void set_result(Image input, Result result);
-	void delete_result(Image input);
-	Result getResult(Image input);
+	void add_result(int id, unique_ptr<Result> result);
+	void delete_result(int id);
+	void set_result(int id, unique_ptr<Result> result);
+	unique_ptr<Result> &get_result(int id);
 
 	void add_output(unique_ptr<Image>&& output);
 	vector<unique_ptr<Image>> &getOutputs();
 
-	void writeResultInFile(Image input);
+	void write_result_in_file(int id);
 
-	Result aggregate(list<Image> images);
+	Result aggregate();
 
 	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
 };
