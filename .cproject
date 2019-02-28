@@ -316,6 +316,8 @@
                                     <listOptionValue builtIn="false" value="Qt5Core"/>
                                     									
                                     <listOptionValue builtIn="false" value="Qt5Gui"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="protobuf"/>
                                     								
                                 </option>
                                 								

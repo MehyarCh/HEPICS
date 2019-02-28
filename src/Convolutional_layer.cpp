@@ -12,8 +12,8 @@ Convolutional_layer::Convolutional_layer(const Image &filter, size_t filter_stri
 unique_ptr<Image> Convolutional_layer::forward_layer(const Image &input) {
 	float sum = 0;
 
-	auto out_width = (input.width - filter.width) / filter_stride + 1;
-	auto out_height = (input.height - filter.height) / filter_stride + 1;
+	auto out_width = (input.width - 2 * pad) / filter_stride;
+	auto out_height = (input.height - 2 * pad) / filter_stride;
 	auto out_channels = input.channels;
 	auto out_num = input.num;
 
@@ -36,13 +36,13 @@ unique_ptr<Image> Convolutional_layer::forward_layer(const Image &input) {
 					// Go through filter
 					for (size_t yf = 0; yf < filter_size; ++yf) {
 						for (size_t xf = 0; xf < filter_size; ++xf) {
-							curr_x = xo * filter_stride - filter_offset + xf;
-							curr_y = yo * filter_stride - filter_offset + yf;
+							curr_x = xo * filter_stride - filter_offset + xf + pad;
+							curr_y = yo * filter_stride - filter_offset + yf + pad;
 							curr_c = co;
 							curr_n = no;
+
 							// check if coordinates are within image
-							if (curr_x >= 0 && curr_y >= 0 && curr_x <= input.width
-									&& curr_y <= input.height)
+							if (curr_x < input.width && curr_y < input.height)
 								sum += input.at(curr_x, curr_y, curr_c, curr_n)
 										* (filter.at(xf, yf, co, no));
 						}

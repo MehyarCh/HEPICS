@@ -1,15 +1,9 @@
-/*
- * Network.cpp
- *
- *  Created on: Feb 20, 2019
- *      Author: mehyar
- */
 
 #include "Network.h"
+
 namespace hepics{
-Network::Network(int number_of_layers, string name) {
-	this->number_of_layers = number_of_layers;
-	this->name=name;
+using namespace caffemodel;
+Network::Network() : layers { Model::parse_layers(path) } {
 }
 
 Network::~Network() {

@@ -15,7 +15,7 @@
 #include "Fully_connected_layer.h"
 #include "Maxpool_layer.h"
 #include "Function_layer.h"
-
+#include "Local_response_normalization_layer.h"
 #include <iostream>
 
 namespace hepics {
@@ -85,9 +85,8 @@ static auto make_layer_factory() {
 		auto weights = make_image_from_blob(param.blobs(0));
 		return make_unique<Fully_connected_layer>(*weights);
 	};
-	// TODO local response normalization layer
 	factory["LRN"] = [](const LayerParameter & param) {
-		return unique_ptr<Layer>();
+		return make_unique<Local_response_normalization_layer>();
 	};
 	factory["Pooling"] = [](const LayerParameter & param) {
 		return make_unique<Maxpool_layer>();
