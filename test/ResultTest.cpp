@@ -6,7 +6,6 @@
 using namespace hepics;
 using namespace std;
 
-
 TEST(save_result, test_save_result){
 	Result* r = new Result();
 	r->save_result("dog", 90);

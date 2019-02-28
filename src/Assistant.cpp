@@ -50,7 +50,7 @@ void Assistant::loadClassNames() {
 
 //matches the add button
 void Assistant::add_input_map(string path) {
-	auto input = std::make_unique<Image>(227, 227, 3);
+	auto input = std::make_unique<Image>(227, 227, 3, 1);
 		input->load_image(path);
 	this->input_map.insert(std::pair<string,unique_ptr<Image>>(path,move(input)));
 }

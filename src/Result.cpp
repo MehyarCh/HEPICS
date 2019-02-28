@@ -18,6 +18,7 @@ void Result::display_result(){
 		std::cout << line.first + ": " + std::to_string(line.second) << std::endl;
 	}
 }
+
 string Result::toString(){
 	string result;
 	for( auto line : results ){
@@ -34,4 +35,5 @@ bool sortbysecdesc(const pair<string, float> &a, const pair<string,float> &b) {
 void Result::sort_results(){
 	std::sort(results.begin(), results.end(), sortbysecdesc);
 }
+
 } //namespace hepics

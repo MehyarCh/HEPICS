@@ -15,7 +15,7 @@ using std::string;
 class Image {
 public:
 
-	Image(size_t width, size_t height, size_t channels);
+	Image(size_t width, size_t height, size_t channels, size_t num);
 
 	Image(const Image &image)=default;
 	Image(const Image &&image) = delete;
@@ -24,14 +24,18 @@ public:
 
 	virtual ~Image() = default;
 
+	size_t size() const {
+		return data.size();
+	}
 
-	const float &at(size_t x, size_t y, size_t c) const;
-	float &at(size_t x, size_t y, size_t c);
+	const float &at(size_t x, size_t y, size_t c, size_t n) const;
+	float &at(size_t x, size_t y, size_t c, size_t n);
 
 
 	const size_t width;
 	const size_t height;
 	const size_t channels;
+	const size_t num;
 	const int id;
 
 	void load_image(string path);

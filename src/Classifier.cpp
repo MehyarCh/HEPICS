@@ -7,6 +7,7 @@
 
 #include "Classifier.h"
 namespace hepics {
+using namespace std;
 Classifier::Classifier(Scheduler& scheduler, DataSaver& datasaver, Network& network, Assistant& assistant ) :
 		 scheduler {scheduler}, datasaver {datasaver}, network {network}, assistant { assistant }, is_running { false }, canceled { false } {
 }

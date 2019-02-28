@@ -12,21 +12,24 @@ unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
 	auto output_width = 1; // TODO calculate width
 	auto output_height = weights.width; // TODO calculate height
 	auto output_channels = 1;
+	auto output_num = 1;
 	auto output = make_unique<Image>(output_width, output_height,
-			output_channels);
+			output_channels, output_num);
 
 	int counter = 0;
-	int s = input.height * input.width * input.channels; // s = size of the image data
+	int s = input.height * input.width * input.channels * input.num; // s = size of the image data
 
-	auto inputAs1 = make_unique<Image>(1, s, 1); // input image as a matrix with width 1
+	auto inputAs1 = make_unique<Image>(1, s, 1, 1); // input image as a matrix with width 1
 
 	// we are working with the weights as a transformed matrix then we can change it in the constructor after understanding what is the 4d
 
-	for (size_t c = 0; c < input.channels; c++) {
-		for (size_t y = 0; y < input.height; y++) {
-			for (size_t x = 0; x < input.width; x++) {
-				inputAs1->at(0, counter, 0) = input.at(x, y, c);
-				counter++;
+	for (size_t n = 0; n < input.num; n++) {
+		for (size_t c = 0; c < input.channels; c++) {
+			for (size_t y = 0; y < input.height; y++) {
+				for (size_t x = 0; x < input.width; x++) {
+					inputAs1->at(0, counter, 0, 0) = input.at(x, y, c, 0);
+					counter++;
+				}
 			}
 		}
 	}
@@ -36,10 +39,10 @@ unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
 		size_t sum = 0;
 		for (size_t y = 0; y < weights.height; y++) { //s
 
-			sum += weights.at(y, x, 0) * inputAs1->at(0, counter2, 0);
+			sum += weights.at(y, x, 0, 0) * inputAs1->at(0, counter2, 0, 0);
 			counter2++;
 		}
-		output->at(0, x, 0) = sum;
+		output->at(0, x, 0, 0) = sum;
 	}
 
 	// TODO fill output
@@ -47,7 +50,7 @@ unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
 	return output;
 }
 
-Layer::Type Fully_connected_layer::get_type(){
+Layer::Type Fully_connected_layer::get_type() {
 	return Type::fullyconnected;
 }
 } // namespace hepics
