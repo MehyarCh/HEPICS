@@ -33,6 +33,7 @@ Maxpool_layer::Maxpool_layer(int batch, int h, int w, int c, int size, int strid
 }
 
 void Maxpool_layer::forward_layer(Network *net) {
+	/*
     int b,i,j,k,m,n;
     int w_offset = -this->pad/2;
     int h_offset = -this->pad/2;
@@ -63,7 +64,7 @@ void Maxpool_layer::forward_layer(Network *net) {
                     this->indexes[out_index] = max_i;
                 }
             }
-        }
+        }*/
         printf("Greetings from forward Maxpool Layer\n");
 }
 

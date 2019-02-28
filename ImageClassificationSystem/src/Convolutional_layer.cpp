@@ -37,8 +37,8 @@ void Convolutional_layer::forward_layer(Network *net) {
 	int k = size * size * c;
 	int mul_out = this->out_w * this->out_h;
 	float *f = this->output;
-	im2col_cpu(im, this->c, this->h, this->w, this->size, this->stride, this->pad, b);
-	gemm(0, 0, this->n, mul_out, k, 1, this->weights, k, net->workspace, mul_out, 1, f, mul_out);
+	//im2col_cpu(im, this->c, this->h, this->w, this->size, this->stride, this->pad, b);
+	//gemm(0, 0, this->n, mul_out, k, 1, this->weights, k, net->workspace, mul_out, 1, f, mul_out);
 	//add_bias(this->output, this->biases, this->n, this->out_h * this->out_w);
 	Activation activator = Activation();
 	activator.activate_array(this->output, this->outputs, this->activation);
