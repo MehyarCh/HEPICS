@@ -28,10 +28,6 @@ public:
 		return data.size();
 	}
 
-	float *ptr() {
-		return &data[0];
-	}
-
 	const float *ptr() const {
 		return &data[0];
 	}

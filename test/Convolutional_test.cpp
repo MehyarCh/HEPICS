@@ -59,18 +59,9 @@ static unique_ptr<Image> set_expected_out() {
 
 }
 
-static unique_ptr<Image> set_filter() {
+static unique_ptr<Image> set_filter(vector<float> &data) {
 	/* Filter */
 	auto filter = make_unique<Image>(3, 3, 2, 1);
-	vector<float> data = vector<float> {
-		0.1, 0.2, 0.3,
-		0.4, 0.5, 0.6,
-		0.7, 0.8, 0.9,
-
-		0.9, 0.8, 0.7,
-		0.6, 0.5, 0.4,
-		0.3, 0.2, 0.1,
-};
 
 	/* Create filter */
 	copy_vector_to_image(*filter, data);
@@ -85,9 +76,23 @@ static unique_ptr<Convolutional_layer> set_layer(const Image &filter, size_t fil
 	return conv_layer;
 }
 
-TEST(conv_layer, conv_layer1) {
+/**
+ * filter: 3x3
+ * stride: 1
+ * pad: 1
+ */
+TEST(convolution_test, conv_1) {
+	vector<float> filter_data = vector<float> {
+		0.1, 0.2, 0.3,
+		0.4, 0.5, 0.6,
+		0.7, 0.8, 0.9,
+
+		0.9, 0.8, 0.7,
+		0.6, 0.5, 0.4,
+		0.3, 0.2, 0.1,
+};
 	/* Initialize parameters */
-	unique_ptr<Image> filter = set_filter();
+	unique_ptr<Image> filter = set_filter(filter_data);
 	size_t stride = 1;
 	size_t pad = 1;
 	auto input = set_input();
