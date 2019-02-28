@@ -19,14 +19,14 @@ using namespace hepics;
 using std::unique_ptr;
 
 auto lrn = make_unique<Local_response_normalization_layer>();
-auto inputImage = make_unique<Image>(2, 2, 2);
-auto expectOutput = make_unique<Image>(2, 2, 2);
+auto inputImage = make_unique<Image>(2, 2, 2, 1);
+auto expectOutput = make_unique<Image>(2, 2, 2, 1);
 
 void setData() {
 	for (int c = 0; c < 2; ++c) {
 		for (int y = 0; y < 2; ++y) {
 			for (int x = 0; x < 2; ++x) {
-				inputImage->at(x, y, c) = 50 * sqrt(2);
+				inputImage->at(x, y, c, 0) = 50 * sqrt(2);
 			}
 		}
 	}
@@ -34,7 +34,7 @@ void setData() {
 	for (int c = 0; c < 2; ++c) {
 			for (int y = 0; y < 2; ++y) {
 				for (int x = 0; x < 2; ++x) {
-					expectOutput->at(x, y, c) = 50 * sqrt(2);
+					expectOutput->at(x, y, c, 0) = 50 * sqrt(2);
 				}
 			}
 		}
@@ -46,8 +46,8 @@ TEST(local_response_normalization_layer, test_local_response_normalization_layer
 	for (int c = 0; c < 2; ++c) {
 		for (int y = 0; y < 2; ++y) {
 			for (int x = 0; x < 2; ++x) {
-				//cerr << output->at(x, y, c) << "\n";
-				ASSERT_EQ(output->at(x, y, c), expectOutput->at(x, y, c));
+				//cerr << output->at(x, y, c, 0) << "\n";
+				ASSERT_EQ(output->at(x, y, c, 0), expectOutput->at(x, y, c, 0));
 			}
 		}
 	}
