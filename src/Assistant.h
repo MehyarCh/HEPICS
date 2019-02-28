@@ -26,19 +26,12 @@ using std::string;
 
 class Assistant {
 private:
-	std::string classNamesPath;
-	std::vector<string> classnames;
 	std::map<string,unique_ptr<Image>> input_map;
 
 public:
 	Assistant();
 	Assistant(std::string path);
 	virtual ~Assistant();
-
-	const std::string getClassNamesPath() const;
-	void setClassNamesPath(std::string classNamesPath);
-
-	void loadClassNames();
 
 	void add_input_map(string path);
 	void delete_input_map(string path);

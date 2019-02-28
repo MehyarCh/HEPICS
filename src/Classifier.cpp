@@ -15,6 +15,7 @@ Classifier::Classifier(Scheduler& scheduler, DataSaver& datasaver, Network& netw
 Classifier::~Classifier() {
 	// TODO Auto-generated destructor stub
 }
+
 void Classifier::start() {
 	is_running = true;
 	unique_ptr<Image> output = NULL;
@@ -29,8 +30,7 @@ void Classifier::start() {
 				}
 			}
 			//datasaver.add_result(output->id,  r));
-			datasaver.add_output(move(output));
-
+			datasaver.process_output(move(output), input.second->id);
 		}
 	}
 }

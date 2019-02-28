@@ -28,6 +28,14 @@ public:
 		return data.size();
 	}
 
+	float *ptr() {
+		return &data[0];
+	}
+
+	const float *ptr() const {
+		return &data[0];
+	}
+
 	const float &at(size_t x, size_t y, size_t c, size_t n) const;
 	float &at(size_t x, size_t y, size_t c, size_t n);
 
