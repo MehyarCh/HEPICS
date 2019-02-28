@@ -13,7 +13,7 @@ void test_add_result(int i, unique_ptr<Result>& r){
 }
 
 TEST(add_result, test_add_result){
-	Image* dog= new Image(227,227,3);
+	Image* dog= new Image(227,227,3,1);
 	DataSaver* data = new DataSaver();
 	auto r = make_unique<Result>();
 	r->save_result("lion", 90.66);

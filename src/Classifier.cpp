@@ -28,7 +28,9 @@ void Classifier::start() {
 					output=l->forward_layer(*output);
 				}
 			}
+			//datasaver.add_result(output->id,  r));
 			datasaver.add_output(move(output));
+
 		}
 	}
 }

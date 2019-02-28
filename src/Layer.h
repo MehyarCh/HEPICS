@@ -16,7 +16,7 @@ using std::unique_ptr;
 
 class Layer {
 public:
-	enum class Type { convolutional, maxpool, softmax, fullyconnected, tanh, relu, sigmoid } ;
+	enum class Type { convolutional, maxpool, softmax, fullyconnected, tanh, relu, sigmoid, local_response_normalization } ;
 	Layer() = default;
 	Layer(const Layer &layer) = delete;
 	Layer(const Layer &&layer) = delete;

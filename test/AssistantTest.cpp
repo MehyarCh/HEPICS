@@ -1,9 +1,4 @@
-/*
- * AssistantTest.cpp
- *
- *  Created on: Feb 14, 2019
- *      Author: mehyar
- */
+
 #include "Paths.h"
 #include "Assistant.h"
 #include <gtest/gtest.h>
