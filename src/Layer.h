@@ -25,7 +25,12 @@ public:
 	virtual ~Layer()=default;
 	virtual unique_ptr<Image> forward_layer(const Image &input) = 0;
 	virtual Type get_type()=0;
+	const Image& getFilter() const;
+	void setFilter(const Image& filter);
+	size_t getFilterSize() const;
+	void setFilterSize(size_t filterSize);
+	size_t getFilterStride() const;
+	void setFilterStride(size_t filterStride);
 };
 
 } // namespace hepics
-

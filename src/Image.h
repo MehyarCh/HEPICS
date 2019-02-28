@@ -5,7 +5,6 @@
 #include <QImage>
 #include <QString>
 
-#include "Exception.h"
 
 namespace hepics {
 
@@ -17,7 +16,7 @@ public:
 
 	Image(size_t width, size_t height, size_t channels);
 
-	Image(const Image &image)=default;
+	Image(const Image &image) = default;
 	Image(const Image &&image) = delete;
 	const Image &operator=(const Image &image) = delete;
 	const Image &operator=(const Image &&image) = delete;
@@ -35,19 +34,14 @@ public:
 	const int id;
 
 	void load_image(string path);
+	const vector<float>& getData() const;
+	void setData(const vector<float>& data);
+
 	//Image load_image(char* path, int height ,int length ,int channels);
 
 
-
-private:
 	vector<float> data;
 	static int IDcounter;
 };
 
-class No_image_loaded: public Exception {
-public:
-	const char *what() const noexcept override;
-};
-
 } // namespace hepics
-
