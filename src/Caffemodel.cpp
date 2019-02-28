@@ -2,12 +2,21 @@
 #include <fcntl.h>
 #include <memory>
 #include <climits>
+#include <unordered_map>
+#include <functional>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/text_format.h>
 
 #include "caffe.pb.h"
 #include "Caffemodel.h"
+
+#include "Convolutional_layer.h"
+#include "Fully_connected_layer.h"
+#include "Maxpool_layer.h"
+#include "Function_layer.h"
+
+#include <iostream>
 
 namespace hepics {
 namespace caffemodel {
@@ -20,6 +29,8 @@ using google::protobuf::TextFormat;
 using google::protobuf::Message;
 using caffe::NetParameter;
 using caffe::FillerParameter;
+using caffe::LayerParameter;
+using caffe::BlobProto;
 
 struct File {
 	File(const string &path, int flags);
@@ -48,6 +59,57 @@ File::~File() {
 	close(fd);
 }
 
+static auto make_image_from_blob(const BlobProto &blob) {
+	auto image = make_unique<Image>(blob.width(), blob.height(), blob.channels(), blob.num());
+	if (image->size() != size_t(blob.data_size())) {
+		throw Invalid_blob_size { };
+	}
+	auto *a = &image->at(0, 0, 0, 0);
+	for (size_t i = 0; i < image->size(); ++i) {
+		a[i] = blob.data(i);
+	}
+	return image;
+}
+
+static auto make_layer_factory() {
+	auto factory = unordered_map<string, function<unique_ptr<Layer>(const LayerParameter &)>> { };
+	factory["Convolution"] = [](const LayerParameter & param) {
+		auto filter = make_image_from_blob(param.blobs(0));
+		auto &strides = param.convolution_param().stride();
+		auto stride = strides.size() > 0 ? strides.Get(0) : 1;
+		auto &pads = param.convolution_param().pad();
+		auto pad = pads.size() > 0 ? pads.Get(0) : 0;
+		return make_unique<Convolutional_layer>(*filter, stride, pad);
+	};
+	factory["InnerProduct"] = [](const LayerParameter & param) {
+		auto weights = make_image_from_blob(param.blobs(0));
+		return make_unique<Fully_connected_layer>(*weights);
+	};
+	// TODO local response normalization layer
+	factory["LRN"] = [](const LayerParameter & param) {
+		return unique_ptr<Layer>();
+	};
+	factory["Pooling"] = [](const LayerParameter & param) {
+		return make_unique<Maxpool_layer>();
+	};
+	factory["ReLU"] = [](const LayerParameter & param) {
+		return make_unique<Relu_layer>();
+	};
+	factory["SoftmaxWithLoss"] = [](const LayerParameter & param) {
+		return make_unique<Softmax_layer>();
+	};
+	return factory;
+}
+
+static auto make_hepics_layer(const LayerParameter &param) {
+	static const auto factory = make_layer_factory();
+	auto iter = factory.find(param.type());
+	if (iter == factory.end()) {
+		return unique_ptr<Layer>();
+	}
+	return iter->second(param);
+}
+
 static void read_message_from_file(Message &message, const string &path) {
 	auto file = make_unique<File>(path, O_RDONLY);
 	auto fis = make_unique<FileInputStream>(file->fd);
@@ -58,9 +120,17 @@ static void read_message_from_file(Message &message, const string &path) {
 	}
 }
 
-Model::Model(const string &path) {
+vector<unique_ptr<Layer>> Model::parse_layers(const string &path) {
+	auto layers = vector<unique_ptr<Layer>>();
 	auto net_parameter = NetParameter { };
 	read_message_from_file(net_parameter, path);
+	for (auto &param : net_parameter.layer()) {
+		auto hepics_layer = make_hepics_layer(param);
+		if (hepics_layer != nullptr) {
+			layers.push_back(move(hepics_layer));
+		}
+	}
+	return layers;
 }
 
 void Model::print_short_info(const string &path, ostream &os) {
@@ -131,6 +201,10 @@ const char *Parse_failed::what() const noexcept {
 
 const char *Write_text_failed::what() const noexcept {
 	return "hepics::Write_text_failed";
+}
+
+const char *Invalid_blob_size::what() const noexcept {
+	return "hepics::Invalid_blob_size";
 }
 
 } // namespace caffemodel

@@ -39,17 +39,18 @@ std::vector<pair<std::string, float> > DataSaver::convertToVector(std::map<std::
 	return toVector;
 }
 
-Result DataSaver::aggregate(list<Image> images){
+Result DataSaver::aggregate(vector<Image> images){
 	//1- each image has 4 class names, add these to one map (globalMap) on this class, total of 4* number of images class names
 	//2- if class name already exists in globalMap, add percentage of current image classification
 	//3- parse through whole globalMap and select 4 biggest percentages
 	//4- divide percentages by 4 and save aggregation as a new Result
 
 	map<string,float> global;
-	std::list<Image>::iterator it;
+	std::vector<Image>::iterator it;
 	for (it = images.begin() ; it != images.end(); ++it){
 		//iterate through images
-		std::map<std::string, float> currResult = resultMap[it->id].getPercentage();
+//		std::map<std::string, float> currResult = resultMap[it->id].getPercentage();
+		std::map<std::string, float> currResult;
 		std::map<std::string, float>::iterator it2 = currResult.begin();
 		while (it2 != currResult.end()){
 			//iterating through results of the image
@@ -75,7 +76,7 @@ Result DataSaver::aggregate(list<Image> images){
 	std::vector<pair<std::string, float>> vector = convertToVector(global);
 	//std::vector<pair<std::string, float>>::iterator i;
 	for(int i =0; i != 4; ++i) {
-	    aggregationResult.save_result(vector[i].second, vector[i].first);
+	    aggregationResult.save_result(vector[i].first, vector[i].second);
 	}
 	return aggregationResult;
 }

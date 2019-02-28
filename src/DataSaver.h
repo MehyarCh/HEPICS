@@ -1,6 +1,5 @@
 #pragma once
 
-#include <list>
 #include <map>
 
 #include "Image.h"
@@ -33,7 +32,7 @@ public:
 
 	void writeResultInFile(Image input);
 
-	Result aggregate(list<Image> images);
+	Result aggregate(vector<Image> images);
 
 	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
 };

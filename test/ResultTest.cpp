@@ -6,6 +6,6 @@
 using namespace hepics;
 using namespace std;
 
-void test_constructor(){
-	Result result= new Result();
-}
+//void test_constructor(){
+//	Result result= new Result();
+//}

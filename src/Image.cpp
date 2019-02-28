@@ -6,20 +6,19 @@ namespace hepics {
 
 int Image::IDcounter = 0;
 
-Image::Image(size_t width, size_t height, size_t channels) :
-		width { width }, height { height }, channels { channels }, id {
-				++IDcounter }, data(width * height * channels) {
-
+Image::Image(size_t width, size_t height, size_t channels, size_t num) :
+		width { width }, height { height }, channels { channels }, num { num }, id {
+				++IDcounter }, data(width * height * channels * num) {
 }
 
-const float &Image::at(size_t x, size_t y, size_t c) const {
-	assert(x < width && y < height && c < channels);
-	return data[x + y * width + c * height * width];
+const float &Image::at(size_t x, size_t y, size_t c, size_t n) const {
+	assert(x < width && y < height && c < channels && n < num);
+	return data[(((n * channels) + c) * height + y) * width + x];
 }
 
-float &Image::at(size_t x, size_t y, size_t c) {
-	assert(x < width && y < height && c < channels);
-	return data[x + y * width + c * height * width];
+float &Image::at(size_t x, size_t y, size_t c, size_t n) {
+	assert(x < width && y < height && c < channels && n < num);
+	return data[(((n * channels) + c) * height + y) * width + x];
 }
 
 void Image::load_image(string path) {
@@ -35,9 +34,9 @@ void Image::load_image(string path) {
 			Qt::SmoothTransformation);
 	for (size_t y = 0; y < width; ++y) {
 		for (size_t x = 0; x < height; ++x) {
-			at(x, y, 0) = resized.pixelColor(x, y).redF();
-			at(x, y, 1) = resized.pixelColor(x, y).greenF();
-			at(x, y, 2) = resized.pixelColor(x, y).blueF();
+			at(x, y, 0, 0) = resized.pixelColor(x, y).redF();
+			at(x, y, 1, 0) = resized.pixelColor(x, y).greenF();
+			at(x, y, 2, 0) = resized.pixelColor(x, y).blueF();
 		}
 	}
 }

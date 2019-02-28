@@ -7,11 +7,11 @@ using namespace hepics::caffemodel;
 constexpr auto alexnet_caffemodel_path = "/home/andres/Downloads/bvlc_alexnet.caffemodel";
 
 TEST(caffemodel_test, open) {
-	auto model = make_unique<Model>(alexnet_caffemodel_path);
+	auto model = Model::parse_layers(alexnet_caffemodel_path);
 }
 
 TEST(caffemodel_test, open_fails) {
-	ASSERT_THROW(make_unique<Model>(""), Open_failed);
+	ASSERT_THROW(Model::parse_layers(""), Open_failed);
 }
 
 //TEST(caffemodel_test, convert) {
