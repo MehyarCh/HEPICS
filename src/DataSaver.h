@@ -29,14 +29,13 @@ public:
 
 	void add_output(unique_ptr<Image>&& output);
 	vector<unique_ptr<Image>> &getOutputs();
-
 	void process_output(unique_ptr<Image>&& output, int id);
-
 	void write_result_in_file(int id);
-
 	Result aggregate();
 
 	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
+
+	map<int,unique_ptr<Result>> &get_map();
 };
 
 class Size_missmatch: public Exception {

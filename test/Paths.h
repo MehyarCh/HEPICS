@@ -9,6 +9,7 @@ constexpr auto lion= "/home/mehyar/localRepository/hepics/new_hepics/test/Pictur
 	//constexpr auto dog= "/home/andres/git/hepics/test/Pictures/dog.jpeg";
 	//constexpr auto lion= "/home/andres/git/hepics/test/Pictures/lion.jpeg";
 
+constexpr auto resultpath="ClassificationResults.txt";
 }
 }
 
