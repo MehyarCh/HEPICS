@@ -17,7 +17,6 @@ using PtrL=unique_ptr<Layer>;
 
 class Network {
 private:
-	static constexpr auto path = "/home/mehyar/localRepository/hepics/new_hepics/cfg/bvlc_alexnet.caffemodel";
 	vector<PtrL> layers;
 
 public:

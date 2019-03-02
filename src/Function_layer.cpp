@@ -102,7 +102,7 @@ float Activation::activate(float x, ACTIVATION a) {
 
 static auto get_image_max_value(const Image &image) {
 	auto *a = &image.at(0, 0, 0, 0);
-	float max_value = numeric_limits<float>().min();
+	float max_value = numeric_limits<float>().lowest();
 	for (size_t i = 0, n = image.size(); i < n; ++i) {
 		if (a[i] > max_value) {
 			max_value = a[i];

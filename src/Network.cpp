@@ -1,9 +1,10 @@
 
 #include "Network.h"
+#include "Paths.h"
 
 namespace hepics{
 using namespace caffemodel;
-Network::Network() : layers { Model::parse_layers(path) } {
+Network::Network() : layers { Model::parse_layers(Paths::caffemodel) } {
 }
 
 Network::~Network() {

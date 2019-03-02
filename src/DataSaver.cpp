@@ -37,7 +37,7 @@ DataSaver::~DataSaver() {
 void DataSaver::delete_result(int id) {
 	this->resultMap.erase(id);
 }
-void DataSaver::set_result(int id, unique_ptr<Result> &&result) {
+void DataSaver::set_result(int id, unique_ptr<Result> result) {
 	resultMap[id] = move(result);
 }
 unique_ptr<Result> &DataSaver::get_result(int id) {
@@ -48,7 +48,7 @@ void DataSaver::write_result_in_file(int id) {
 	out << resultMap[id]->toString();
 }
 
-void DataSaver::add_output(unique_ptr<Image> &&output) {
+void DataSaver::add_output(unique_ptr<Image> output) {
 	this->outputs.push_back(move(output));
 }
 vector<unique_ptr<Image>> &DataSaver::getOutputs() {
@@ -71,7 +71,7 @@ static auto make_result(const Image &output, const vector<string> &classnames) {
 	return result;
 }
 
-void DataSaver::process_output(unique_ptr<Image> && output, int id) {
+void DataSaver::process_output(unique_ptr<Image> output, int id) {
 	set_result(id, make_result(*output, classnames));
 	add_output(move(output));
 }

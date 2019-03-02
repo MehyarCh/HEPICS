@@ -10,20 +10,20 @@ Network network;
 Assistant assistant;
 Scheduler scheduler;
 DataSaver datasaver;
-Classifier classifier;
+Classifier classifier( scheduler,  datasaver, network, assistant);
 
 
 
 //unique_ptr<Network> network;
-Parser parser;
 int main(int argc, char **argv) {
-	classifier = Classifier( scheduler,  datasaver, network, assistant);
 	//network = parser.parse_network();
 	scheduler.choosePlatforms(true,false,false);
 	scheduler.chooseMode(high_performance);
-	assistant.add_input_map("./Pictures/dog.jpg");
+	constexpr auto p = "/home/andres/test_images/cat01.png";
+	assistant.add_input_map(p);
 	classifier.start();
-	Result result=datasaver.get_result(datasaver.getOutputs()[0]->id);
+	auto id = assistant.get_input_map()[p]->id;
+	auto &result = *datasaver.get_result(id);
 	result.display_result();
 
 	return 0;

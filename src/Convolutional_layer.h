@@ -1,27 +1,31 @@
-/*
- * Convolutional.h
- *
- *  Created on: Feb 20, 2019
- *      Author: mehyar
- */
-
 #pragma once
 
+#include <vector>
 #include "Layer.h"
+#include "Exception.h"
 
-namespace hepics{
+namespace hepics {
+
+using std::vector;
 
 class Convolutional_layer : public Layer {
 public:
-	Convolutional_layer(const Image &filter, size_t filter_stride, size_t pad);
+	Convolutional_layer(unique_ptr<Image> filters, vector<float> bias, size_t stride, size_t pad, size_t groups);
 	unique_ptr<Image> forward_layer(const Image &input) override;
 	Type get_type() override;
+
 private:
-	Image filter;
-	size_t filter_stride;
+	unique_ptr<Image> filters;
+	vector<float> bias;
+	size_t stride;
 	size_t pad;
+	size_t groups;
 };
 
-} //namespace hepics
+class Invalid_convolution_param: public Exception {
+public:
+	const char *what() const noexcept override;
+};
 
+} // namespace hepics
 

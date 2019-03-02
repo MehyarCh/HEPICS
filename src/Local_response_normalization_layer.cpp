@@ -26,14 +26,14 @@ unique_ptr<Image> Local_response_normalization_layer::forward_layer(const Image 
 	    for (int y = 0; y < output->height; y++) {
 		    for (int x = 0; x < output->width; x++) {
 			    for (int c = 0; c < output->channels; c++) {
-				    float product = 0;
+				    double product = 0;
 				    int from = fmax (c - local_size, 0);
 				    int to = fmin (input.channels - 1, c + local_size);
 				    for (int i = from; i <= to; i++) {
 					    float value = input.at(x, y, i, n);
 					    product += value * value;
 				    }
-					output->at(x, y, c, n) = input.at(x, y, c, n) / pow(alpha * product, beta);
+					output->at(x, y, c, n) = input.at(x, y, c, n) / (1 + pow(alpha / local_size * product, beta));
 			    }
 		     }
 	     }

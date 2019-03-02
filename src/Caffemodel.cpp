@@ -71,19 +71,30 @@ static auto make_image_from_blob(const BlobProto &blob) {
 	return image;
 }
 
+static auto make_vector_from_blob(const BlobProto &blob) {
+	auto out = vector<float>();
+	for(auto f : blob.data()) {
+		out.push_back(f);
+	}
+	return out;
+}
+
 static auto make_layer_factory() {
 	auto factory = unordered_map<string, function<unique_ptr<Layer>(const LayerParameter &)>> { };
 	factory["Convolution"] = [](const LayerParameter & param) {
-		auto filter = make_image_from_blob(param.blobs(0));
+		auto filters = make_image_from_blob(param.blobs(0));
+		auto bias = make_vector_from_blob(param.blobs(1));
 		auto &strides = param.convolution_param().stride();
 		auto stride = strides.size() > 0 ? strides.Get(0) : 1;
 		auto &pads = param.convolution_param().pad();
 		auto pad = pads.size() > 0 ? pads.Get(0) : 0;
-		return make_unique<Convolutional_layer>(*filter, stride, pad);
+		auto groups = param.convolution_param().group();
+		return make_unique<Convolutional_layer>(move(filters), move(bias), stride, pad, groups);
 	};
 	factory["InnerProduct"] = [](const LayerParameter & param) {
 		auto weights = make_image_from_blob(param.blobs(0));
-		return make_unique<Fully_connected_layer>(*weights);
+		auto bias = make_vector_from_blob(param.blobs(1));
+		return make_unique<Fully_connected_layer>(*weights, move(bias));
 	};
 	factory["LRN"] = [](const LayerParameter & param) {
 		return make_unique<Local_response_normalization_layer>();

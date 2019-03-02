@@ -24,13 +24,13 @@ public:
 	DataSaver();
 	virtual ~DataSaver();
 	void delete_result(int id);
-	void set_result(int id, unique_ptr<Result> &&result);
+	void set_result(int id, unique_ptr<Result> result);
 	unique_ptr<Result> &get_result(int id);
 
-	void add_output(unique_ptr<Image>&& output);
+	void add_output(unique_ptr<Image> output);
 	vector<unique_ptr<Image>> &getOutputs();
 
-	void process_output(unique_ptr<Image>&& output, int id);
+	void process_output(unique_ptr<Image> output, int id);
 
 	void write_result_in_file(int id);
 
