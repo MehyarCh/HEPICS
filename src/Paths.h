@@ -12,6 +12,11 @@ struct Paths {
 	static constexpr auto class_name_file = "";
 	static constexpr auto caffemodel = "/home/mehyar/localRepository/hepics/new_hepics/cfg/bvlc_alexnet.caffemodel";
 };
+#elif defined(USER_IBRAHIM)
+struct Paths {
+	static constexpr auto class_name_file = "/home/ibrahim/local_repo/hepics/data/synset_words.txt";
+	static constexpr auto caffemodel = "/home/ibrahim/local_repo/hepics/data/bvlc_alexnet.caffemodel";
+};
 #else
 #error unknown user
 #endif
