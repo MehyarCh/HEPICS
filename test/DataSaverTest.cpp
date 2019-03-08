@@ -9,7 +9,7 @@ using namespace std;
 DataSaver* save;
 
 void test_add_result(int i, unique_ptr<Result>& r){
-	save->add_result(i, move(r));
+	save->set_result(i, move(r));
 }
 
 TEST(add_result, test_add_result){
@@ -19,7 +19,7 @@ TEST(add_result, test_add_result){
 	r->save_result("lion", 90.66);
 	r->save_result("dog", 95.4);
 	r->save_result("cat", 92.00);
-	data->add_result(dog->id, r);
+	data->set_result(dog->id, move(r));
 }
 TEST(delete_result, test_delete_result){
 	ASSERT_EQ(0,0);

@@ -19,6 +19,11 @@ public:
 
 };
 
+struct Mean {
+	static unique_ptr<Image> parse_mean(const string &path);
+	static void binary_proto_to_text(const string &in_path, const string &out_path);
+};
+
 class Model_exception: public Exception {
 public:
 	const char *what() const noexcept override;

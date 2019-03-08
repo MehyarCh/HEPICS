@@ -8,39 +8,27 @@ Fully_connected_layer::Fully_connected_layer(const Image &weights, vector<float>
 		weights { weights }, bias { move(bias) } {
 }
 
-unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
-	auto output_width = 1;
-	auto output_height = weights.height;
-	auto output_channels = 1;
-	auto output_num = 1;
-	auto output = make_unique < Image > (output_width, output_height,
-			output_channels, output_num);
-
-	int counter = 0;
-	int s = input.height * input.width * input.channels * input.num; // s = size of the image data
-
-	auto inputAs1 = make_unique < Image > (1, s, 1, 1); // input image as a matrix with width 1
-
-	for (size_t n = 0; n < input.num; n++) {
-		for (size_t c = 0; c < input.channels; c++) {
-			for (size_t y = 0; y < input.height; y++) {
-				for (size_t x = 0; x < input.width; x++) {
-					inputAs1->at(0, counter, 0, 0) = input.at(x, y, c, n);
-					counter++;
-				}
-			}
-		}
+static void ensure_valid_input_size(const Image &input, const Image &weights) {
+	if (input.size() != weights.width) {
+		throw Invalid_fully_connected_param { };
 	}
+}
 
+unique_ptr<Image> Fully_connected_layer::forward_layer(const Image &input) {
+	ensure_valid_input_size(input, weights);
+	auto output_width = 1;
+	auto output_height = 1;
+	auto output_channels = weights.height;
+	auto output_num = 1;
+	auto output = make_unique<Image>(output_width, output_height, output_channels, output_num);
+
+	auto a = input.ptr();
 	for (size_t y = 0; y < weights.height; y++) {
-		size_t sum = 0;
+		auto sum = 0.0;
 		for (size_t x = 0; x < weights.width; x++) {
-			sum += weights.at(x, y, 0, 0) * inputAs1->at(0, x, 0, 0);
+			sum += weights.at(x, y, 0, 0) * a[x];
 		}
-//		if(sum!=0) {
-//			sum += 1;
-//		}
-		output->at(0, y, 0, 0) = sum + bias[y];
+		output->at(0, 0, y, 0) = sum + bias[y];
 	}
 	return output;
 }

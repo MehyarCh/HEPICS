@@ -25,9 +25,11 @@ auto setWeights() {
 }
 
 TEST(fully_connected_layer, test_fully_connected_layer) {
+	FAIL();
 	auto weights = setWeights();
+	auto bias = vector<float>(4);
 
-	auto fully_connected_layer = make_unique<Fully_connected_layer>(*weights);
+	auto fully_connected_layer = make_unique<Fully_connected_layer>(*weights, move(bias));
 	auto inputImage = make_unique<Image>(2, 2, 1, 1); //input s=....
 	inputImage->at(0, 0, 0, 0) = 1;
 	inputImage->at(1, 0, 0, 0) = 2;

@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 	//network = parser.parse_network();
 	scheduler.choosePlatforms(true,false,false);
 	scheduler.chooseMode(high_performance);
-	constexpr auto p = "/home/andres/test_images/cat01.png";
+	constexpr auto p = "/home/andres/test_data/images/256x256x3/soccer_ball01.png";
 	assistant.add_input_map(p);
 	classifier.start();
 	auto id = assistant.get_input_map()[p]->id;

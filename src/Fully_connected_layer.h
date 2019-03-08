@@ -1,11 +1,9 @@
 #pragma once
 
+#include "Image.h"
 #include "Layer.h"
-#include "Exception.h"
 
 namespace hepics {
-
-using std::unique_ptr;
 
 class Fully_connected_layer: public Layer {
 public:

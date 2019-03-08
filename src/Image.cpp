@@ -21,7 +21,7 @@ float &Image::at(size_t x, size_t y, size_t c, size_t n) {
 	return data[(((n * channels) + c) * height + y) * width + x];
 }
 
-void Image::load_image(string path) {
+void Image::load_image(string path, const vector<float> &mean_vector) {
 	const char *conversion = path.c_str();
 	QString convert = conversion;
 
@@ -30,13 +30,16 @@ void Image::load_image(string path) {
 		throw No_image_loaded { };
 	}
 
-	QImage resized = raw.scaled(width, height, Qt::IgnoreAspectRatio,
-			Qt::SmoothTransformation);
+	QImage resized = raw.scaled(width, height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	for (size_t y = 0; y < width; ++y) {
 		for (size_t x = 0; x < height; ++x) {
-			at(x, y, 0, 0) = resized.pixelColor(x, y).redF();
-			at(x, y, 1, 0) = resized.pixelColor(x, y).greenF();
-			at(x, y, 2, 0) = resized.pixelColor(x, y).blueF();
+			auto rgb = resized.pixel(x, y);
+			auto r = float(rgb >> 16 & 0xff);
+			auto g = float(rgb >> 8 & 0xff);
+			auto b = float(rgb & 0xff);
+			at(x, y, 0, 0) = b - mean_vector[0];
+			at(x, y, 1, 0) = g - mean_vector[1];
+			at(x, y, 2, 0) = r - mean_vector[2];
 		}
 	}
 }

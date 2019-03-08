@@ -11,6 +11,7 @@ Local_response_normalization_layer::Local_response_normalization_layer() {
 }
 
 unique_ptr<Image> Local_response_normalization_layer::forward_layer(const Image &input) {
+
 	auto output_width = input.width;
 	auto output_height = input.height;
 	auto output_channels = input.channels;
@@ -18,27 +19,29 @@ unique_ptr<Image> Local_response_normalization_layer::forward_layer(const Image 
 
 	auto output = make_unique<Image>(output_width, output_height, output_channels, output_num);
 
-    int local_size = 5;
-    float alpha = 0.0001;
-    float beta = 0.75;
+	constexpr auto radius = size_t { 2 };
+	constexpr auto local_size = size_t { radius + 1 + radius };
+	constexpr auto alpha = 0.0001f;
+	constexpr auto beta = 0.75f;
 
-    for (int n = 0; n < output->num; n++) {
-	    for (int y = 0; y < output->height; y++) {
-		    for (int x = 0; x < output->width; x++) {
-			    for (int c = 0; c < output->channels; c++) {
-				    double product = 0;
-				    int from = fmax (c - local_size, 0);
-				    int to = fmin (input.channels - 1, c + local_size);
-				    for (int i = from; i <= to; i++) {
-					    float value = input.at(x, y, i, n);
-					    product += value * value;
-				    }
-					output->at(x, y, c, n) = input.at(x, y, c, n) / (1 + pow(alpha / local_size * product, beta));
-			    }
-		     }
-	     }
-     }
-     return output;
+	for (size_t n = 0; n < output->num; n++) {
+		for (size_t y = 0; y < output->height; y++) {
+			for (size_t x = 0; x < output->width; x++) {
+				for (size_t c = 0; c < output->channels; c++) {
+					auto sum = 0.0;
+					for (size_t i = 0; i < local_size; ++i) {
+						auto pos = c - radius + i;
+						if(pos < output->channels) {
+							auto value = input.at(x, y, pos, n);
+							sum += value * value;
+						}
+					}
+					output->at(x, y, c, n) = input.at(x, y, c, n) / pow(1.0 + alpha / local_size * sum, beta);
+				}
+			}
+		}
+	}
+	return output;
 }
 Layer::Type Local_response_normalization_layer::get_type() {
 	return Type::local_response_normalization;
