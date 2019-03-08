@@ -6,8 +6,8 @@
 #include <memory>
 #include <assert.h>
 #include <cmath>
-#include "Image.h"
-#include "Maxpool_layer.h"
+#include "hepics/Image.h"
+#include "hepics/Maxpool_layer.h"
 using namespace std;
 using namespace hepics;
 using std::unique_ptr;
@@ -71,6 +71,7 @@ void setImageData2() {
 }
 
 TEST(max_pool_layer, test_max_pool) {
+	FAIL();
 	setImageData();
 	auto newOutput = mxp->forward_layer(*input);
 	for (int c = 0; c < 2; ++c) {
@@ -85,6 +86,7 @@ TEST(max_pool_layer, test_max_pool) {
 }
 
 TEST(max_pool_layer2, test_max_pool2) {
+	FAIL();
 	setImageData2();
 	auto newOutput2 = mxp->forward_layer(*input2);
 	for (int c = 0; c < 2; ++c) {

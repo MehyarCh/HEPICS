@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Image.h"
+#include "hepics/Image.h"
 #include <memory>
 
 namespace hepics {

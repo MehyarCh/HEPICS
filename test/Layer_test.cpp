@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Caffemodel.h"
+#include "hepics/Caffemodel.h"
 #include "Test_paths.h"
 #include "Image_test_util.h"
 
@@ -48,8 +48,11 @@ static auto make_layer_tests() {
 }
 
 TEST(layer_test, run_layers) {
+#ifndef INCLUDE_SLOW_TESTS
+	FAIL();
+#endif
 	if (Test_paths::alexnet_caffemodel == ""s || Test_paths::layer_dumps == ""s) {
-		return;
+		FAIL();
 	}
 	auto layer_tests = make_layer_tests();
 	auto model = Model::parse_layers(Test_paths::alexnet_caffemodel);

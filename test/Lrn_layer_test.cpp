@@ -6,8 +6,8 @@
 #include <memory>
 #include <assert.h>
 #include <cmath>
-#include "Image.h"
-#include "Local_response_normalization_layer.h"
+#include "hepics/Image.h"
+#include "hepics/Local_response_normalization_layer.h"
 using namespace std;
 using namespace hepics;
 using std::unique_ptr;
@@ -35,6 +35,7 @@ void setData() {
 }
 
 TEST(local_response_normalization_layer, test_local_response_normalization_layer) {
+	FAIL();
 	setData();
 	auto output = lrn->forward_layer(*inputImage);
 	for (int c = 0; c < 2; ++c) {

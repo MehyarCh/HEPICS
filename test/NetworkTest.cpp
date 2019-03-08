@@ -1,9 +1,11 @@
-#include "Paths.h"
-#include "Network.h"
+#include "hepics/Network.h"
 #include <gtest/gtest.h>
 using namespace hepics;
 
 TEST(constructor, test_constructor_network){
+#ifndef INCLUDE_SLOW_TESTS
+	FAIL();
+#endif
 	Network* net = new Network();
 	ASSERT_EQ(net->get_layers()[0]->get_type(),Layer::Type::convolutional);
 	ASSERT_EQ(net->get_layers()[1]->get_type(),Layer::Type::relu);

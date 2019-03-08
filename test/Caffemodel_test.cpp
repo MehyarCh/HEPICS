@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../src/Caffemodel.h"
+#include "hepics/Caffemodel.h"
 #include "Test_paths.h"
 
 using namespace std;
@@ -8,9 +8,11 @@ using namespace hepics::caffemodel;
 
 
 TEST(caffemodel_test, open) {
+#ifndef INCLUDE_SLOW_TESTS
 	FAIL();
+#endif
 	if (Test_paths::alexnet_caffemodel == ""s) {
-		return;
+		FAIL();
 	}
 	auto model = Model::parse_layers(Test_paths::alexnet_caffemodel);
 }

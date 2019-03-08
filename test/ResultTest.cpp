@@ -1,5 +1,4 @@
-#include "Paths.h"
-#include "Result.h"
+#include "hepics/Result.h"
 #include <gtest/gtest.h>
 #include <iostream>
 

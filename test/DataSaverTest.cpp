@@ -1,5 +1,5 @@
-#include "Paths.h"
-#include "DataSaver.h"
+#include "hepics/Paths.h"
+#include "hepics/DataSaver.h"
 #include <gtest/gtest.h>
 #include <iostream>
 

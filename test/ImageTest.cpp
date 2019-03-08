@@ -1,4 +1,4 @@
-#include "Image.h"
+#include "hepics/Image.h"
 #include <gtest/gtest.h>
 
 #include "Test_paths.h"

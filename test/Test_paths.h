@@ -21,17 +21,15 @@ struct Test_paths {
 	static constexpr auto mean_file = "";
 };
 #else
-#error unknown user
+struct Test_paths {
+	static constexpr auto socker_ball_image = "";
+	static constexpr auto socker_ball_image_dump = "";
+	static constexpr auto alexnet_caffemodel = "";
+	static constexpr auto dog = "";
+	static constexpr auto lion = "";
+	static constexpr auto layer_dumps = "";
+};
 #endif
 
-namespace path {
-//constexpr auto dog= "/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/dog.jpeg";
-//constexpr auto lion= "/home/mehyar/localRepository/hepics/new_hepics/test/Pictures/lion.jpeg";
-//constexpr auto classnames = "/home/mehyar/localRepository/hepics/HepicsModel/test/Classname/classnames.txt";
-
-//constexpr auto dog= "/home/andres/git/hepics/test/Pictures/dog.jpeg";
-//constexpr auto lion= "/home/andres/git/hepics/test/Pictures/lion.jpeg";
-
-}
 }
 

@@ -6,8 +6,8 @@
 #include <memory>
 #include <assert.h>
 #include <cmath>
-#include "Image.h"
-#include "Convolutional_layer.h"
+#include "hepics/Image.h"
+#include "hepics/Convolutional_layer.h"
 using namespace std;
 using namespace hepics;
 using std::unique_ptr;

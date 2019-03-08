@@ -1,5 +1,5 @@
 
-#include "Assistant.h"
+#include "hepics/Assistant.h"
 #include "Test_paths.h"
 #include <gtest/gtest.h>
 #include <list>
@@ -18,12 +18,18 @@ using namespace std;
 //}
 
 TEST(test_add_map, add_input_map){
+	if (Test_paths::dog == ""s || Test_paths::lion == ""s) {
+		FAIL();
+	}
 	auto assist = make_unique<Assistant>();
 	assist->add_input_map(Test_paths::dog);
 	assist->add_input_map(Test_paths::lion);
 	ASSERT_EQ(assist->get_input_map().size(),2);
 }
 TEST(test_delete_from_map, delete_input_map){
+	if (Test_paths::dog == ""s || Test_paths::lion == ""s) {
+		FAIL();
+	}
 	auto assist = make_unique<Assistant>();
 	assist->add_input_map(Test_paths::dog);
 	assist->add_input_map(Test_paths::lion);
@@ -31,6 +37,9 @@ TEST(test_delete_from_map, delete_input_map){
 	ASSERT_EQ(assist->get_input_map().size(),1);
 }
 TEST(test_reset_map, reset_input_map){
+	if (Test_paths::dog == ""s || Test_paths::lion == ""s) {
+		FAIL();
+	}
 	auto assist = make_unique<Assistant>();
 	assist->add_input_map(Test_paths::dog);
 	assist->reset_input_map();

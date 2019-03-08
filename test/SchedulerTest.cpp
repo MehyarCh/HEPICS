@@ -5,7 +5,7 @@
  *      Author: mehyar
  */
 #include <gtest/gtest.h>
-#include "Scheduler.h"
+#include "hepics/Scheduler.h"
 //#include <assert.h>
 #include <vector>
 
