@@ -16,6 +16,8 @@
 #include "Maxpool_layer.h"
 #include "Function_layer.h"
 #include "Local_response_normalization_layer.h"
+#include "Image.h"
+
 #include <iostream>
 
 namespace hepics {
@@ -73,7 +75,7 @@ static auto make_image_from_blob(const BlobProto &blob) {
 
 static auto make_vector_from_blob(const BlobProto &blob) {
 	auto out = vector<float>();
-	for(auto f : blob.data()) {
+	for (auto f : blob.data()) {
 		out.push_back(f);
 	}
 	return out;
@@ -195,6 +197,18 @@ void Model::binary_proto_to_slim_text(const string &in_path, const string &out_p
 	read_message_from_file(net_parameter, in_path);
 	remove_blobs(net_parameter);
 	write_message_to_json_file(net_parameter, out_path);
+}
+
+unique_ptr<Image> Mean::parse_mean(const string &path) {
+	auto blob = BlobProto { };
+	read_message_from_file(blob, path);
+	return make_image_from_blob(blob);
+}
+
+void Mean::binary_proto_to_text(const string &in_path, const string &out_path) {
+	auto blob = BlobProto { };
+	read_message_from_file(blob, in_path);
+	write_message_to_json_file(blob, out_path);
 }
 
 const char *Model_exception::what() const noexcept {

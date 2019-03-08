@@ -1,14 +1,7 @@
-/*
- * Layer.h
- *
- *  Created on: Feb 20, 2019
- *      Author: mehyar
- */
-
 #pragma once
 
-#include "Image.h"
 #include <memory>
+#include "Image.h"
 
 namespace hepics {
 

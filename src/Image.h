@@ -45,7 +45,7 @@ public:
 	const size_t num;
 	const int id;
 
-	void load_image(string path);
+	void load_image(string path, const vector<float> &mean_vector);
 	//Image load_image(char* path, int height ,int length ,int channels);
 
 

@@ -27,6 +27,7 @@ using std::string;
 class Assistant {
 private:
 	std::map<string,unique_ptr<Image>> input_map;
+	vector<float> mean_vector;
 
 public:
 	Assistant();

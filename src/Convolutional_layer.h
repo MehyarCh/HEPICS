@@ -1,11 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <memory>
+#include "Image.h"
 #include "Layer.h"
 #include "Exception.h"
 
 namespace hepics {
 
+using std::unique_ptr;
 using std::vector;
 
 class Convolutional_layer : public Layer {

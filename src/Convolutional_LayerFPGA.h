@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Image.h"
 #include "Layer.h"
 
 namespace hepics {
