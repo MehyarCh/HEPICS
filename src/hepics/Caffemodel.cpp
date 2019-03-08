@@ -145,70 +145,10 @@ vector<unique_ptr<Layer>> Model::parse_layers(const string &path) {
 	return layers;
 }
 
-void Model::print_short_info(const string &path, ostream &os) {
-	auto net_parameter = NetParameter { };
-	read_message_from_file(net_parameter, path);
-	os << "optional string name = " << net_parameter.name() << "\n";
-	os << "repeated LayerParameter layer.size = " << net_parameter.layer_size() << "\n";
-	for (int i1 = 0, n1 = net_parameter.layer_size(); i1 < n1; ++i1) {
-		auto &layer = net_parameter.layer(i1);
-		os << "\n";
-		os << "  repeated LayerParameter layer[" << i1 << "] = ...\n";
-		os << "    optional string name = " << layer.name() << "\n";
-		os << "    optional string type = " << layer.type() << "\n";
-		os << "    repeated string bottom.size = " << layer.bottom_size() << "\n";
-		for (int i2 = 0, n2 = layer.bottom_size(); i2 < n2; ++i2) {
-			os << "      repeated string bottom[" << i2 << "] = " << layer.bottom(i2) << "\n";
-		}
-		os << "    repeated string top.size = " << layer.top_size() << "\n";
-		for (int i2 = 0, n2 = layer.top_size(); i2 < n2; ++i2) {
-			os << "      repeated string top[" << i2 << "] = " << layer.top(i2) << "\n";
-		}
-		os << "    repeated BlobProto blobs.size = " << layer.blobs_size() << "\n";
-		for (int i2 = 0, n2 = layer.blobs_size(); i2 < n2; ++i2) {
-			auto &blob = layer.blobs(i2);
-			os << "      repeated BlobProto blobs[" << i2 << "] = ...\n";
-			os << "        repeated float data.size = " << blob.data_size() << "\n";
-			os << "        optional int32 num = " << blob.num() << "\n";
-			os << "        optional int32 channels = " << blob.channels() << "\n";
-			os << "        optional int32 height = " << blob.height() << "\n";
-			os << "        optional int32 width = " << blob.width() << "\n";
-		}
-	}
-}
-
-static void write_message_to_json_file(const Message &message, const string &path) {
-	auto file = make_unique<File>(path, O_WRONLY | O_CREAT | O_TRUNC);
-	auto fos = make_unique<FileOutputStream>(file->fd);
-	if (!TextFormat::Print(message, fos.get())) {
-		throw Write_text_failed { };
-	}
-}
-
-static void remove_blobs(NetParameter &net_parameter) {
-	auto layer = net_parameter.mutable_layer();
-	for (auto &param : *layer) {
-		param.clear_blobs();
-	}
-}
-
-void Model::binary_proto_to_slim_text(const string &in_path, const string &out_path) {
-	auto net_parameter = NetParameter { };
-	read_message_from_file(net_parameter, in_path);
-	remove_blobs(net_parameter);
-	write_message_to_json_file(net_parameter, out_path);
-}
-
 unique_ptr<Image> Mean::parse_mean(const string &path) {
 	auto blob = BlobProto { };
 	read_message_from_file(blob, path);
 	return make_image_from_blob(blob);
-}
-
-void Mean::binary_proto_to_text(const string &in_path, const string &out_path) {
-	auto blob = BlobProto { };
-	read_message_from_file(blob, in_path);
-	write_message_to_json_file(blob, out_path);
 }
 
 const char *Model_exception::what() const noexcept {
