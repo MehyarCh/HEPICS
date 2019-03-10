@@ -4,11 +4,11 @@
 
 namespace hepics {
 
-int Image::IDcounter = 0;
+atomic_int Image::IDcounter(0);
 
 Image::Image(size_t width, size_t height, size_t channels, size_t num) :
 		width { width }, height { height }, channels { channels }, num { num }, id {
-				++IDcounter }, data(width * height * channels * num) {
+				IDcounter++ }, data(width * height * channels * num) {
 }
 
 const float &Image::at(size_t x, size_t y, size_t c, size_t n) const {

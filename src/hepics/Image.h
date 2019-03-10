@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <QImage>
 #include <QString>
+#include <atomic>
 
 #include "Exception.h"
 
@@ -11,6 +12,7 @@ namespace hepics {
 
 using std::vector;
 using std::string;
+using std::atomic_int;
 
 class Image {
 public:
@@ -52,7 +54,7 @@ public:
 
 private:
 	vector<float> data;
-	static int IDcounter;
+	static atomic_int IDcounter;
 };
 
 class No_image_loaded: public Exception {

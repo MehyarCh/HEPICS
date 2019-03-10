@@ -6,8 +6,8 @@
 #include <memory>
 #include <assert.h>
 #include <cmath>
-#include "../hepics/Image.h"
-#include "../hepics/Maxpool_layer.h"
+#include "hepics/Image.h"
+#include "hepics/Maxpool_layer.h"
 using namespace std;
 using namespace hepics;
 using std::unique_ptr;
