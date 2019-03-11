@@ -37,6 +37,7 @@ public:
 	Result aggregate();
 
 	std::vector<pair<std::string, float> > convertToVector(std::map<std::string,float> map);
+	map<int,unique_ptr<Result>> &get_map();
 };
 
 class Size_missmatch: public Exception {

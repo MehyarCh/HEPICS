@@ -10,6 +10,7 @@ struct Test_paths {
 	static constexpr auto dog = "/home/andres/git/hepics/test/Pictures/dog.jpeg";
 	static constexpr auto lion = "/home/andres/git/hepics/test/Pictures/lion.jpeg";
 	static constexpr auto layer_dumps = "/home/andres/test_data/layer_dumps/";
+	static constexpr auto resultpath="ClassificationResults.txt";
 };
 #elif defined(USER_MEHYAR)
 struct Test_paths {
@@ -19,6 +20,7 @@ struct Test_paths {
 	static constexpr auto class_name_file = "";
 	static constexpr auto caffemodel = "/home/mehyar/localRepository/hepics/new_hepics/cfg/bvlc_alexnet.caffemodel";
 	static constexpr auto mean_file = "";
+	static constexpr auto resultpath="ClassificationResults.txt";
 };
 #else
 struct Test_paths {
@@ -28,6 +30,7 @@ struct Test_paths {
 	static constexpr auto dog = "";
 	static constexpr auto lion = "";
 	static constexpr auto layer_dumps = "";
+	static constexpr auto resultpath="ClassificationResults.txt";
 };
 #endif
 

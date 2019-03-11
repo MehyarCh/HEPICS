@@ -18,7 +18,7 @@ Classifier::~Classifier() {
 	// TODO Auto-generated destructor stub
 }
 
-void Classifier::start() {
+bool Classifier::start() {
 	is_running = true;
 	unique_ptr<Image> output = NULL;
 	while (!canceled) {
@@ -37,8 +37,9 @@ void Classifier::start() {
 			//datasaver.add_result(output->id,  r));
 			datasaver.process_output(move(output), input.second->id);
 		}
-		return;
+		break;
 	}
+	return false;
 }
 void Classifier::pause() {
 	is_running = false;

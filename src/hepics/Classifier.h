@@ -21,7 +21,7 @@ private:
 public:
 	Classifier(Scheduler& scheduler, DataSaver& datasaver, Network& network, Assistant& assistant);
 	virtual ~Classifier();
-	void start();
+	bool start();
 	void pause();
 	void resume();
 	void cancel();
