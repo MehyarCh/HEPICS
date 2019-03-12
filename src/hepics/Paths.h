@@ -20,6 +20,8 @@ struct Paths {
 struct Paths {
 	static constexpr auto class_name_file = "/home/ibrahim/local_repo/hepics/data/synset_words.txt";
 	static constexpr auto caffemodel = "/home/ibrahim/local_repo/hepics/data/bvlc_alexnet.caffemodel";
+	static constexpr auto mean_file = "/home/ibrahim/Downloads/imagenet_mean.binaryproto";
+	static constexpr auto welcome_image = "/home/ibrahim/local_repo2/hepics/test/Pictures/dog.jpeg";
 };
 #else
 #error unknown user

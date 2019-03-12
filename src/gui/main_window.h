@@ -5,10 +5,10 @@
 #include "image_section.h"
 #include "control_section.h"
 #include <QMainWindow>
-#include "hepics/Assistant.h"
-#include "hepics/DataSaver.h"
-#include "hepics/Classifier.h"
-#include "hepics/Scheduler.h"
+#include "../hepics/Assistant.h"
+#include "../hepics/DataSaver.h"
+#include "../hepics/Classifier.h"
+#include "../hepics/Scheduler.h"
 
 namespace Ui {
     class MainWindow;

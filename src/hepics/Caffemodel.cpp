@@ -8,7 +8,7 @@
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/text_format.h>
 
-#include "proto/caffe.pb.h"
+#include "../proto/caffe.pb.h"
 #include "Caffemodel.h"
 
 #include "Convolutional_layer.h"
