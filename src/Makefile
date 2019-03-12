@@ -5,7 +5,6 @@ INCPATH = \
 -I/usr/include/x86_64-linux-gnu/qt5/QtCore
 
 CPP = g++ # Compiler
-DEBUG = 1 # Debugger
 LIBS := -lQt5Core -lQt5Gui -lQt5Widgets -lprotobuf # Libraries
 SRC_HEPICS = ./hepics/
 SRC_GUI = ./gui/
@@ -59,11 +58,8 @@ DEPS_GUI = $(wildcard $(SRC_GUI)/*.h)
 # Get all header files from prot directory
 DEPS_PROTO = $(wildcard $(SRC_PROTO)/*.h)
 
-# Set debugger options
-ifeq ($(DEBUG), 1) 
-OPTS = -O0 -g3
+OPTS = -O3
 CFLAGS += $(OPTS)
-endif
 
 # All targets to build
 all: obj $(EXEC)
