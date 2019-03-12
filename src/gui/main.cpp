@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     Classifier classifier(scheduler, datasaver, network, assistant);
     //unique_ptr<Classifier> classifier= make_unique<Classifier>( &scheduler,  &datasaver, &network, &assistant);
     WelcomeWindow welcomeWindow(assistant, scheduler, datasaver, classifier);
-    welcomeWindow.showMaximized();
+    welcomeWindow.show();
 
     return app.exec();
 }

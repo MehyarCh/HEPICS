@@ -9,6 +9,8 @@
 
 using namespace std;
 
+class MainWindow;
+
 namespace Ui {
     class Platform_Mode_Section;
 }
@@ -17,12 +19,14 @@ class Platform_Mode_Section : public QWidget
 {
     Q_OBJECT
 public:
-	explicit Platform_Mode_Section(QMainWindow *parent);
+	explicit Platform_Mode_Section(MainWindow *parent);
 
 public slots:
     void enableModeComboBox(int);
     void setOperationMode();
 private:
+    MainWindow  *main_window;
+
     QLabel *text_platform;
     QLabel *text_operation_mode;
 
@@ -33,7 +37,6 @@ private:
 
     int counter_platform;
 
-    //Scheduler *scheduler;
 };
 
 #endif // PLATFORM_MODE_SECTION_H

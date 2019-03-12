@@ -1,6 +1,7 @@
 #include <QApplication>
 #include "main_window.h"
 #include "welcome_window.h"
+#include "hepics/Paths.h"
 
 WelcomeWindow::WelcomeWindow(Assistant& assistant, Scheduler& scheduler,
 		DataSaver& datasaver, Classifier& classifier)
@@ -26,7 +27,7 @@ WelcomeWindow::WelcomeWindow(Assistant& assistant, Scheduler& scheduler,
 
     // the label which contains the logo of tiger
     m_icon = new QLabel(this);
-    QPixmap pixmap("/home/mehyar/Pictures/welcome.jpg");
+    QPixmap pixmap(Paths::welcome_image);
     m_icon->setPixmap(pixmap);
     m_icon->setScaledContents(true);
     m_icon->setGeometry(125, 400, 480, 270);

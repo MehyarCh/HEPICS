@@ -39,3 +39,15 @@ Scheduler &MainWindow::getScheduler(){
 	return this->scheduler;
 }
 
+Platform_Mode_Section *MainWindow::get_pmsection() {
+	return pmsection;
+}
+
+ImageSection *MainWindow::get_isection() {
+	return isection;
+}
+
+ControlSection *MainWindow::get_csection() {
+	return csection;
+}
+

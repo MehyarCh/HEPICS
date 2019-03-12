@@ -28,7 +28,7 @@ static std::vector<string> loadClassNames(const std::string &classNamesPath) {
 }
 
 DataSaver::DataSaver() :
-		classnames { loadClassNames(Paths::class_name_file) } {
+		result_count{0}, classnames { loadClassNames(Paths::class_name_file) }  {
 }
 
 DataSaver::~DataSaver() {
@@ -36,23 +36,23 @@ DataSaver::~DataSaver() {
 }
 void DataSaver::delete_result(int id) {
 	this->resultMap.erase(id);
+	--result_count;
 }
 void DataSaver::set_result(int id, unique_ptr<Result> result) {
 	resultMap[id] = move(result);
+	++result_count;
 }
 unique_ptr<Result> &DataSaver::get_result(int id) {
 	return resultMap[id];
 }
+void DataSaver::clear() {
+	resultMap.clear();
+	result_count = 0;
+}
+
 void DataSaver::write_result_in_file(int id) {
 	std::ofstream out("ClassificationResults.txt");
 	out << resultMap[id]->toString();
-}
-
-void DataSaver::add_output(unique_ptr<Image> output) {
-	this->outputs.push_back(move(output));
-}
-vector<unique_ptr<Image>> &DataSaver::getOutputs() {
-	return outputs;
 }
 
 static void ensure_number_of_outputs_matches_classes(const Image &output, const vector<string> &classnames) {
@@ -73,11 +73,10 @@ static auto make_result(const Image &output, const vector<string> &classnames) {
 
 void DataSaver::process_output(unique_ptr<Image> output, int id) {
 	set_result(id, make_result(*output, classnames));
-	add_output(move(output));
 }
 
-map<int,unique_ptr<Result>> &DataSaver::get_map(){
-    return this->resultMap;
+map<int, unique_ptr<Result>> &DataSaver::get_map() {
+	return this->resultMap;
 }
 
 bool cmp(const pair<string, float> &p1, const pair<string, float> &p2) {
@@ -101,31 +100,34 @@ Result DataSaver::aggregate() {
 	std::map<int, unique_ptr<Result>>::iterator it;
 	for (it = resultMap.begin(); it != resultMap.end(); ++it) {
 		//iterate through images
-		for (auto x : resultMap[it->first]->get_results()) {
-			//iterating through results of the image
-			if (global.find(x.first) == global.end()) {
-				//if classname doesn't exist add it
-				global[x.first] = x.second;
-			} else {
-				//if classname exists, add the new value to it
-				global[x.first] += x.second;
+		auto &res = resultMap[it->first];
+		if (res != nullptr) {
+			for (auto x : res->get_results()) {
+				//iterating through results of the image
+				if (global.find(x.first) == global.end()) {
+					//if classname doesn't exist add it
+					global[x.first] = x.second;
+				} else {
+					//if classname exists, add the new value to it
+					global[x.first] += x.second;
+				}
+				// next classname of the results
 			}
-			// next classname of the results
 		}
 	}
 	// now global is filled with all the classnames, need to look for the biggest 4
 
 	Result aggregationResult;
 	for (auto x : global) {
-		global[x.first] = x.second / resultMap.size();
+		global[x.first] = x.second / result_count;
 		//divide by number of inputs
 	}
 	std::vector<pair<std::string, float>> vector = convertToVector(global);
-	int number_of_results=0;
+	int number_of_results = 0;
 	for (auto x : vector) {
 		aggregationResult.save_result(x.first, x.second);
 		++number_of_results;
-		if(number_of_results>=4){
+		if (number_of_results >= 4) {
 			break;
 		}
 	}

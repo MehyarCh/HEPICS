@@ -18,7 +18,7 @@ using std::unique_ptr;
 class DataSaver {
 private:
 	std::map<int,unique_ptr<Result>> resultMap;
-	vector<unique_ptr<Image>> outputs;
+	size_t result_count;
 	std::vector<string> classnames;
 public:
 	DataSaver();
@@ -26,6 +26,7 @@ public:
 	void delete_result(int id);
 	void set_result(int id, unique_ptr<Result> result);
 	unique_ptr<Result> &get_result(int id);
+	void clear();
 
 	void add_output(unique_ptr<Image> output);
 	vector<unique_ptr<Image>> &getOutputs();

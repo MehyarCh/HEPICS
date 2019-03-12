@@ -24,6 +24,9 @@ public:
     Classifier &getClassifier();
     DataSaver &getDataSaver();
     Scheduler &getScheduler();
+    Platform_Mode_Section *get_pmsection();
+    ImageSection *get_isection();
+    ControlSection *get_csection();
 
 private:
     Assistant& assistant;

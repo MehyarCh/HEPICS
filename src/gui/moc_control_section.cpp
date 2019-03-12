@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ControlSection_t {
     QByteArrayData data[6];
-    char stringdata0[81];
+    char stringdata0[86];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,12 +36,12 @@ QT_MOC_LITERAL(1, 15, 18), // "startCancelProcess"
 QT_MOC_LITERAL(2, 34, 0), // ""
 QT_MOC_LITERAL(3, 35, 18), // "pauseResumeProcess"
 QT_MOC_LITERAL(4, 54, 15), // "aggregateResult"
-QT_MOC_LITERAL(5, 70, 10) // "showResult"
+QT_MOC_LITERAL(5, 70, 15) // "update_progress"
 
     },
     "ControlSection\0startCancelProcess\0\0"
     "pauseResumeProcess\0aggregateResult\0"
-    "showResult"
+    "update_progress"
 };
 #undef QT_MOC_LITERAL
 
@@ -82,7 +82,7 @@ void ControlSection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 0: _t->startCancelProcess(); break;
         case 1: _t->pauseResumeProcess(); break;
         case 2: _t->aggregateResult(); break;
-        case 3: _t->showResult(); break;
+        case 3: _t->update_progress(); break;
         default: ;
         }
     }

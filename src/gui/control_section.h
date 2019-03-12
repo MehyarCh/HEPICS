@@ -5,24 +5,27 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QPushButton>
-#include "main_window.h"
+#include <QTimer>
 
 namespace Ui
 {
     class ControlSection;
 }
 
+class MainWindow;
+
 class ControlSection : public QWidget
 {
     Q_OBJECT
 public:
     explicit ControlSection(MainWindow *parent);
+    void set_result_id(int id);
 
 public slots:
     void startCancelProcess();
     void pauseResumeProcess();
     void aggregateResult();
-    void showResult();
+    void update_progress();
 
 private:
     QProgressBar*progressbar;
@@ -32,7 +35,7 @@ private:
     QPushButton *button_aggregate;
     QPushButton *button_pause_resume;
     QPushButton *button_start_cancel;
-
+    QTimer      *progress_timer;
 };
 
 #endif // CONTROLSECTION_H

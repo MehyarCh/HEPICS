@@ -1,7 +1,8 @@
 #include "platform_mode_section.h"
+#include "main_window.h"
 
-Platform_Mode_Section::Platform_Mode_Section(QMainWindow *parent) //
-    : QWidget (parent)
+Platform_Mode_Section::Platform_Mode_Section(MainWindow *parent) //
+    : QWidget (parent), main_window(parent)
 {
     // set the platform section
     text_platform = new QLabel(this);
@@ -34,10 +35,6 @@ Platform_Mode_Section::Platform_Mode_Section(QMainWindow *parent) //
     // initialize the number of selected platforms
     counter_platform = 0;
 
-    // initialize the scheduler
-    /*MainWindow *m_main_window = parent;
-    scheduler = m_main_window->getScheduler();*/
-
     /* when one of the three check-boxes' states is changed,
      * the combo box for selection of mode should be checked if it should be enabled now
      * and the selection of platforms should be informed to the back-end via scheduler
@@ -47,7 +44,7 @@ Platform_Mode_Section::Platform_Mode_Section(QMainWindow *parent) //
     connect(cbox_fpga, SIGNAL(stateChanged(int)), this, SLOT(enableModeComboBox(int)));
 
     // send the choice of mode to the back-end
-    //connect(box_operation_mode, SIGNAL(currentIndexChanged()), this, SLOT(setOperationMode()));
+    connect(box_operation_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(setOperationMode()));
 
 }
 
@@ -65,15 +62,15 @@ void Platform_Mode_Section::enableModeComboBox(int state)
 
     // send the choice to the scheduler
     if (cbox_cpu->isChecked()) {
-        //scheduler->activate(Platform(cpu));
+    	main_window->getScheduler().activate(Platform::cpu);
     }
 
     if (cbox_gpu->isChecked()) {
-		//scheduler->activate(Platform(gpu));
+    	main_window->getScheduler().activate(Platform::gpu);
     }
 
     if (cbox_fpga->isChecked()) {
-    	//scheduler->activate(Platform(fpga));
+    	main_window->getScheduler().activate(Platform::fpga);
     }
 }
 
@@ -81,13 +78,13 @@ void Platform_Mode_Section::setOperationMode() {
 	// send the choice to the scheduler
 	 switch (box_operation_mode->currentIndex()){
 		case 0:
-			//scheduler.chooseMode(Mode(high_performance));
+			main_window->getScheduler().chooseMode(Mode::high_performance);
 			break;
 		case 1:
-			//scheduler.chooseMode(Mode(low_power));
+			main_window->getScheduler().chooseMode(Mode::low_power);
 			break;
 		case 2:
-			//scheduler.chooseMode(Mode(energy_efficient));
+			main_window->getScheduler().chooseMode(Mode::energy_efficient);
 			break;
 	}
 }

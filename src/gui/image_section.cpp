@@ -1,108 +1,131 @@
 #include "image_section.h"
 #include "main_window.h"
 
-ImageSection::ImageSection(QMainWindow *parent)
-    : QWidget (parent)
+ImageSection::ImageSection(MainWindow *parent)
+:
+		QWidget(parent), main_window(parent)
 {
-    // set the image section
-    text_image = new QLabel(this);
-    text_image->setText("Choose Image");
-    text_image->setGeometry(100, 0, 325, 45);
-    box_image = new QComboBox(this);
-    box_image->setGeometry(100, 45, 325, 35);
-    box_image->setEditable(false);
+	// set the image section
+	text_image = new QLabel(this);
+	text_image->setText("Choose Image");
+	text_image->setGeometry(100, 0, 325, 45);
+	box_image = new QComboBox(this);
+	box_image->setGeometry(100, 45, 325, 35);
+	box_image->setEditable(false);
 
-    // set the control buttons for image section
-    button_add = new QPushButton("Add", this);
-    button_add->setGeometry(100, 105, 90, 30);
-    button_delete = new QPushButton("Delete", this);
-    button_delete->setGeometry(217, 105, 90, 30);
-    button_reset = new QPushButton("Reset", this);
-    button_reset->setGeometry(335, 105, 90, 30);
+	// set the control buttons for image section
+	button_add = new QPushButton("Add", this);
+	button_add->setGeometry(100, 105, 90, 30);
+	button_delete = new QPushButton("Delete", this);
+	button_delete->setGeometry(217, 105, 90, 30);
+	button_delete->setEnabled(false);
+	button_reset = new QPushButton("Reset", this);
+	button_reset->setGeometry(335, 105, 90, 30);
+	button_reset->setEnabled(false);
 
-    // set the thumbnails display label
-    thumbnail = new QLabel(this);
-    thumbnail->setGeometry(100, 175, 325, 325);
-    thumbnail->setStyleSheet("border: 1px solid black");
+	// set the thumbnails display label
+	thumbnail = new QLabel(this);
+	thumbnail->setGeometry(100, 175, 325, 325);
+	thumbnail->setStyleSheet("border: 1px solid black");
 
-    // initialize the file dialog
-    filedialog = new QFileDialog(this);
+	// initialize the file dialog
+	filedialog = new QFileDialog(this);
 
-    // initialize the list of file name of all the input images
-    file_name_list = new QStringList();
+	// initialize the list of file name of all the input images
+	file_name_list = new QStringList();
 
-    // initialize the assistant
-    //MainWindow *m_main_window = parent;
-    //assistant = m_main_window->getAssistant();
+	/*
+	 * when add (delete, reset) button is clicked, the operation of to add(delete, reset)
+	 * the item(s) of the combo box and back-end should be executed.
+	 */
+	connect(button_add, SIGNAL(clicked()), this, SLOT(addAnImageFile()));
+	connect(button_delete, SIGNAL(clicked()), this, SLOT(deleteAnItem()));
+	connect(button_reset, SIGNAL(clicked()), this, SLOT(clearAllItems()));
+	// when the current text of the combo list is changed, the thumbnail of current image should be displayed
+	connect(box_image, SIGNAL(currentIndexChanged(const QString)), this, SLOT(showThumbnail()));
 
-    /*
-     * when add (delete, reset) button is clicked, the operation of to add(delete, reset)
-     * the item(s) of the combo box and back-end should be executed.
-     */
-    connect(button_add, SIGNAL(clicked()), this, SLOT(addAnImageFile()));
-    connect(button_delete, SIGNAL(clicked()), this, SLOT(deleteAnItem()));
-    connect(button_reset,SIGNAL(clicked()), this, SLOT(clearAllItems()));
-    // when the current text of the combo list is changed, the thumbnail of current image should be displayed
-    connect(box_image, SIGNAL(currentIndexChanged(const QString)), this, SLOT(showThumbnail()));
+}
 
+int ImageSection::get_selected_id() const {
+	if (box_image->currentIndex() < file_name_list->size()) {
+		auto &map = main_window->getAssistant().get_input_map();
+		auto iter = map.find(file_name_list->at(box_image->currentIndex()).toStdString());
+		if (iter != map.end()) {
+			return iter->second->id;
+		}
+	}
+	return -1;
 }
 
 void ImageSection::addAnImageFile()
 {
-    filedialog->show();
+	filedialog->show();
 
-    // get the path of the image
-    QString fileName = QFileDialog::getOpenFileName(
-                this, tr("Open File"), "/home",
-                tr("Image Files (*.jpeg *.jpg *.jpe *.png *.xpm)"));
+	// get the path of the image
+	QString fileName = QFileDialog::getOpenFileName(
+			this, tr("Open File"), "/home",
+			tr("Image Files (*.jpeg *.jpg *.jpe *.png *.xpm)"));
 
-    QStringList list = fileName.split("/");
+	QStringList list = fileName.split("/");
 
-    // if choose a image file, add a new item into the list
-    if (!fileName.isNull()) {
-        file_name_list->append(fileName);
-        box_image->addItem(list.last());
-        box_image->setCurrentIndex(box_image->count() - 1);
-    }
+	// if choose a image file, add a new item into the list
+	if (!fileName.isNull()) {
+		file_name_list->append(fileName);
+		box_image->addItem(list.last());
+		box_image->setCurrentIndex(box_image->count() - 1);
 
-    // convert QString to char array
-    QByteArray ba = fileName.toLocal8Bit();
-    char *result = (char *)strdup(ba.constData());
+		// send the path of this image to the assistant
+		main_window->getAssistant().add_input_map(fileName.toStdString());
+		button_delete->setEnabled(true);
+		button_reset->setEnabled(true);
+	}
 
-    // send the path of this image to the assistant
-    //assistant->addInputImage(result);
-
-
-    filedialog->close();
+	filedialog->close();
 }
 
 void ImageSection::deleteAnItem()
 {
-    // remove this image from back-end database
+	// remove this image from back-end database
+	auto path = file_name_list->at(box_image->currentIndex()).toStdString();
+	auto &assistant = main_window->getAssistant();
+	auto &image = assistant.get_input_map()[path];
+	if(image != nullptr) {
+		main_window->getDataSaver().delete_result(image->id);
+	}
+	assistant.delete_input_map(path);
 
 	// remove its file name from the list and the item of the combo list
-    file_name_list->removeAt(box_image->currentIndex());
-    box_image->removeItem(box_image->currentIndex());
+	file_name_list->removeAt(box_image->currentIndex());
+	box_image->removeItem(box_image->currentIndex());
+	if (file_name_list->size() == 0) {
+		button_delete->setEnabled(false);
+		button_reset->setEnabled(false);
+	}
 }
 
 void ImageSection::clearAllItems()
 {
 	// clear all the items
-    file_name_list->clear();
-    box_image->clear();
-
+	main_window->getDataSaver().clear();
+	main_window->getAssistant().reset_input_map();
+	file_name_list->clear();
+	box_image->clear();
+	button_delete->setEnabled(false);
+	button_reset->setEnabled(false);
 }
 
 void ImageSection::showThumbnail()
 {
-    int index = (box_image->currentIndex());
+	int index = (box_image->currentIndex());
 
-    if (box_image->count() != 0 && index <= (file_name_list->count() - 1))  {
-        QString path = file_name_list->at(index);
-        QPixmap pixmap (path);
-        thumbnail->setPixmap(pixmap);
-        thumbnail->setScaledContents(true);
-    } else {
-        thumbnail->clear();
-    }
+	if (box_image->count() != 0 && index <= (file_name_list->count() - 1)) {
+		QString path = file_name_list->at(index);
+		QPixmap pixmap(path);
+		thumbnail->setPixmap(pixmap);
+		thumbnail->setScaledContents(true);
+	} else {
+		thumbnail->clear();
+	}
+
+	main_window->get_csection()->set_result_id(get_selected_id());
 }
