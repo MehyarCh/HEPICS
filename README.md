@@ -16,14 +16,16 @@ Overall the code style is standard.
 
 ___________________________________________________________________
 # Tech/Framework used :
-	## Frontend : The gui has been developed on the QtCreator tool. It has been later exported to eclipse to be joined with the backend.
-	## Backend : The project has been built on eclipse IDE on Ubuntu.
-	Caffe has been integrated to provide a parser for the config files.
-	The following libraries have been used and must be installed for the program to correctly run.
-	- Qt5Gui
-	- Qt5Widgets
-	- Qt5Core
-	- protobuf
+## Frontend : 
+The gui has been developed on the QtCreator tool. It has been later exported to eclipse to be joined with the backend.
+## Backend : 
+The project has been built on eclipse IDE on Ubuntu.
+Caffe has been integrated to provide a parser for the config files.
+The following libraries have been used and must be installed for the program to correctly run.
+- Qt5Gui
+- Qt5Widgets
+- Qt5Core
+- protobuf
 
 ___________________________________________________________________
 # Installation :
@@ -40,9 +42,9 @@ sudo apt-get install qt5-default
 5. run "HePICS" in the console
 ___________________________________________________________________
 # API Reference :
-- [QT5] (https://doc.qt.io/qt-5/classes.html)
-- [caffe] (http://caffe.berkeleyvision.org/)
-- [Googletest] (https://github.com/google/googletest)
+- [QT5](https://doc.qt.io/qt-5/classes.html)
+- [caffe](http://caffe.berkeleyvision.org/)
+- [Googletest](https://github.com/google/googletest)
 
 ___________________________________________________________________
 # How to use?
