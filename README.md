@@ -34,7 +34,7 @@ An Ubuntu version 16.04 environment is necessary.
 
 
 1. install the protobuf library through running the following command in the console
-- sudo apt-get install libprotobuf-dev
+- sudo apt-get install libprotobuf-dev protobuf-compiler
 2. install Qt5 libraries through running the following commands in the console
 - sudo apt-get install build-essential
 - sudo apt-get install qtcreator
