@@ -1,23 +1,23 @@
-#HePICS : Heterogeneous Platform for Image an Classification System
+# HePICS : Heterogeneous Platform for Image an Classification System
 An Image classification system deploys artificial intelligence, particularly artificial neural networks, in order to be able to process images and cite the objects that are displayed on it.
 
 ___________________________________________________________________
-#Motivation :
+# Motivation :
 In the frame of the software engineering practise at the Karlsruhe Institute Of Technology, we have been assigned the task of implementing an image classification system based on the AlexNet neural network model.
 
 ___________________________________________________________________
-#Build status :
+# Build status :
 The last step was the integration of the back- and frontend. The classification runs for the moment on the CPU, but can be extended to run on a GPU and an FPGA for an optimization.
 The program is in current stable status.
 
 ___________________________________________________________________
-#Code Style :
+# Code Style :
 Overall the code style is standard.
 
 ___________________________________________________________________
-#Tech/Framework used :
-	##Frontend : The gui has been developed on the QtCreator tool. It has been later exported to eclipse to be joined with the backend.
-	##Backend : The project has been built on eclipse IDE on Ubuntu.
+# Tech/Framework used :
+	## Frontend : The gui has been developed on the QtCreator tool. It has been later exported to eclipse to be joined with the backend.
+	## Backend : The project has been built on eclipse IDE on Ubuntu.
 	Caffe has been integrated to provide a parser for the config files.
 	The following libraries have been used and must be installed for the program to correctly run.
 	- Qt5Gui
@@ -26,7 +26,7 @@ ___________________________________________________________________
 	- protobuf
 
 ___________________________________________________________________
-#Installation :
+# Installation :
 This is a step-by-step installation to deploy the software on a user's machine.
 An Ubuntu version 16.04 environment is necessary.
 1. install the protoc library through running the following command in the console
@@ -39,13 +39,13 @@ sudo apt-get install qt5-default
 4. run "sudo make install"
 5. run "HePICS" in the console
 ___________________________________________________________________
-#API Reference :
-- QT : https://doc.qt.io/qt-5/classes.html
-- caffe : http://caffe.berkeleyvision.org/
-- Googletest : https://github.com/google/googletest
+# API Reference :
+- [QT5] (https://doc.qt.io/qt-5/classes.html)
+- [caffe] (http://caffe.berkeleyvision.org/)
+- [Googletest] (https://github.com/google/googletest)
 
 ___________________________________________________________________
-#How to use?
+# How to use?
 The GUI is user friendly. A normal classification runs as follows :
 1. run the software
 2. click on the start button on the welcome window
@@ -58,7 +58,7 @@ The GUI is user friendly. A normal classification runs as follows :
 9. click the aggregate button to calculate an aggregation of the classified images' results.
 
 ___________________________________________________________________
-#Credits :
+# Credits :
 Karlsruhe Institute of Technology, practise of software engineering.
 Andres Stober, Linjuan Fan, Baha Mhaagne, Ibrahim Bouriga, Mehyar Cherni
 under the supervision of Dennis Weller, Sarath Mohanachandran Nair.
