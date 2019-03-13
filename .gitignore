@@ -7,4 +7,11 @@ imagenet_mean.binaryproto
 src/hepics.exe
 synset_words.txt
 welcome_image.jpeg
+src/proto/caffe.pb.cc
+src/proto/caffe.pb.h
+src/gui/moc_control_section.cpp
+src/gui/moc_image_section.cpp
+src/gui/moc_main_window.cpp
+src/gui/moc_platform_mode_section.cpp
+src/gui/moc_welcome_window.cpp
 
