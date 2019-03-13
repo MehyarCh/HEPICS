@@ -18,14 +18,13 @@ using std::unique_ptr;
 class DataSaver {
 private:
 	std::map<int,unique_ptr<Result>> resultMap;
-	size_t result_count;
 	std::vector<string> classnames;
 public:
 	DataSaver();
 	virtual ~DataSaver();
 	void delete_result(int id);
 	void set_result(int id, unique_ptr<Result> result);
-	unique_ptr<Result> &get_result(int id);
+	Result *get_result(int id);
 	void clear();
 
 	void add_output(unique_ptr<Image> output);

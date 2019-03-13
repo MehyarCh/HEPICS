@@ -23,7 +23,7 @@ Classifier::~Classifier() {
 }
 
 bool Classifier::start() {
-	if (running) {
+	if (running || assistant.get_input_map().size() == 0) {
 		return false;
 	}
 	running = true;
@@ -33,7 +33,7 @@ bool Classifier::start() {
 	datasaver.clear();
 
 	auto input_vec = vector<unique_ptr<Image>> { };
-	for (auto const& input : assistant.get_input_map()) {
+	for (auto &input : assistant.get_input_map()) {
 		input_vec.push_back(make_unique<Image>(*input.second));
 	}
 

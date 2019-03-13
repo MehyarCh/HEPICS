@@ -53,8 +53,16 @@ void Assistant::reset_input_map() {
 	this->input_map.clear();
 }
 
-std::map<string, unique_ptr<Image>> &Assistant::get_input_map() {
-	return this->input_map;
+Image *Assistant::get_input_image(const string &path) {
+	auto iter = input_map.find(path);
+	if (iter != input_map.end()) {
+		return iter->second.get();
+	}
+	return nullptr;
+}
+
+const map<string, unique_ptr<Image>> &Assistant::get_input_map() const {
+	return input_map;
 }
 
 } // namespace hepics

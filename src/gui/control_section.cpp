@@ -55,7 +55,7 @@ static auto format_result(Result &res) {
 }
 
 void ControlSection::set_result_id(int id) {
-	auto &res = main_window->getDataSaver().get_result(id);
+	auto res = main_window->getDataSaver().get_result(id);
 	if (res != nullptr) {
 		result->setText(QString::fromStdString(format_result(*res)));
 		result->setAlignment(Qt::AlignLeft);
@@ -110,9 +110,7 @@ void ControlSection::update_progress() {
 	if (!classifier.is_running()) {
 		classifier.save_results();
 		set_result_id(main_window->get_isection()->get_selected_id());
-		if (classifier.is_canceled()) {
-			progressbar->setValue(0);
-		}
+		progressbar->setValue(classifier.is_canceled() ? 0 : 100);
 		button_start_cancel->setText("Start");
 		button_pause_resume->setEnabled(false);
 		progress_timer->stop();

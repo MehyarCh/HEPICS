@@ -46,15 +46,17 @@ ImageSection::ImageSection(MainWindow *parent)
 
 }
 
-int ImageSection::get_selected_id() const {
-	if (box_image->currentIndex() < file_name_list->size()) {
-		auto &map = main_window->getAssistant().get_input_map();
-		auto iter = map.find(file_name_list->at(box_image->currentIndex()).toStdString());
-		if (iter != map.end()) {
-			return iter->second->id;
-		}
+static auto get_current_path(QStringList &list, QComboBox &box) {
+	auto i = box.currentIndex();
+	if (i >= 0 && i < list.size()) {
+		return list.at(i).toStdString();
 	}
-	return -1;
+	return ""s;
+}
+
+int ImageSection::get_selected_id() const {
+	auto image = main_window->getAssistant().get_input_image(get_current_path(*file_name_list, *box_image));
+	return image != nullptr ? image->id : -1;
 }
 
 void ImageSection::addAnImageFile()
@@ -88,7 +90,7 @@ void ImageSection::deleteAnItem()
 	// remove this image from back-end database
 	auto path = file_name_list->at(box_image->currentIndex()).toStdString();
 	auto &assistant = main_window->getAssistant();
-	auto &image = assistant.get_input_map()[path];
+	auto image = assistant.get_input_image(path);
 	if(image != nullptr) {
 		main_window->getDataSaver().delete_result(image->id);
 	}

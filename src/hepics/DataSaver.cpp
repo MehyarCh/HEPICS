@@ -28,7 +28,7 @@ static std::vector<string> loadClassNames(const std::string &classNamesPath) {
 }
 
 DataSaver::DataSaver() :
-		result_count{0}, classnames { loadClassNames(Paths::class_name_file) }  {
+		classnames { loadClassNames(Paths::class_name_file) }  {
 }
 
 DataSaver::~DataSaver() {
@@ -36,18 +36,16 @@ DataSaver::~DataSaver() {
 }
 void DataSaver::delete_result(int id) {
 	this->resultMap.erase(id);
-	--result_count;
 }
 void DataSaver::set_result(int id, unique_ptr<Result> result) {
 	resultMap[id] = move(result);
-	++result_count;
 }
-unique_ptr<Result> &DataSaver::get_result(int id) {
-	return resultMap[id];
+Result *DataSaver::get_result(int id) {
+	auto iter = resultMap.find(id);
+	return iter != resultMap.end() ? iter->second.get() : nullptr;
 }
 void DataSaver::clear() {
 	resultMap.clear();
-	result_count = 0;
 }
 
 void DataSaver::write_result_in_file(int id) {
@@ -119,7 +117,7 @@ Result DataSaver::aggregate() {
 
 	Result aggregationResult;
 	for (auto x : global) {
-		global[x.first] = x.second / result_count;
+		global[x.first] = x.second / resultMap.size();
 		//divide by number of inputs
 	}
 	std::vector<pair<std::string, float>> vector = convertToVector(global);

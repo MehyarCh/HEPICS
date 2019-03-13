@@ -23,10 +23,11 @@ using std::cout;
 using std::endl;
 using std::unique_ptr;
 using std::string;
+using std::map;
 
 class Assistant {
 private:
-	std::map<string,unique_ptr<Image>> input_map;
+	map<string,unique_ptr<Image>> input_map;
 	vector<float> mean_vector;
 
 public:
@@ -37,8 +38,8 @@ public:
 	void add_input_map(string path);
 	void delete_input_map(string path);
 	void reset_input_map();
-
-	std::map<string,unique_ptr<Image>> &get_input_map();
+	Image *get_input_image(const string &path);
+	const map<string,unique_ptr<Image>> &get_input_map() const;
 
 	std::vector<string> getClassnames();
 };
