@@ -31,15 +31,20 @@ ___________________________________________________________________
 # Installation :
 This is a step-by-step installation to deploy the software on a user's machine.
 An Ubuntu version 16.04 environment is necessary.
+
+
 1. install the protoc library through running the following command in the console
-sudo apt-get install libprotobuf-dev
+- sudo apt-get install libprotobuf-dev
 2. install Qt5 libraries through running the following commands in the console
 - sudo apt-get install build-essential
 - sudo apt-get install qtcreator
 - sudo apt-get install qt5-default
-3. change the directory to the "HePICS" installation folder and run "make all" in the console
-4. run "sudo make install"
-5. run "HePICS" in the console
+3. change the directory to the "HePICS" installation folder and run
+- make all 
+4. run 
+- sudo make install
+5. run 
+- HePICS 
 ___________________________________________________________________
 # API Reference :
 - [QT5](https://doc.qt.io/qt-5/classes.html)
