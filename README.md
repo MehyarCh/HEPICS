@@ -67,5 +67,8 @@ The GUI is user friendly. A normal classification runs as follows :
 ___________________________________________________________________
 # Credits :
 Karlsruhe Institute of Technology, practise of software engineering.
-Andres Stober, Linjuan Fan, Baha Mhaagne, Ibrahim Bouriga, Mehyar Cherni
-under the supervision of Dennis Weller, Sarath Mohanachandran Nair.
+
+Andres Stober, Linjuan Fan, Baha Mhaagne, Ibrahim Bouriga, Mehyar Cherni.
+
+
+Under the supervision of Dennis Weller, Sarath Mohanachandran Nair.
