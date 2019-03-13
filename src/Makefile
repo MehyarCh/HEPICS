@@ -2,7 +2,8 @@ INCPATH = \
 -I/usr/include/x86_64-linux-gnu/qt5 \
 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets \
 -I/usr/include/x86_64-linux-gnu/qt5/QtGui \
--I/usr/include/x86_64-linux-gnu/qt5/QtCore
+-I/usr/include/x86_64-linux-gnu/qt5/QtCore \
+-I.
 
 CPP = g++ # Compiler
 LIBS := -lQt5Core -lQt5Gui -lQt5Widgets -lprotobuf # Libraries
@@ -61,20 +62,37 @@ DEPS_PROTO = $(wildcard $(SRC_PROTO)/*.h)
 OPTS = -O3
 CFLAGS += $(OPTS)
 
-# All targets to build
-all: proto/caffe.pb.cc obj $(EXEC)
+GEN_PROTO = \
+proto/caffe.pb.h \
+proto/caffe.pb.cc
 
-proto/caffe.pb.cc:
+GEN_MOC = \
+gui/moc_control_section.cpp \
+gui/moc_image_section.cpp \
+gui/moc_main_window.cpp \
+gui/moc_platform_mode_section.cpp \
+gui/moc_welcome_window.cpp
+
+# All targets to build
+all: obj $(GEN_PROTO) $(GEN_MOC) $(EXEC)
+
+$(GEN_PROTO): proto/caffe.proto
 	@echo 'Compiling protobuf definition'
-	cd proto && protoc caffe.proto --cpp_out .
+	protoc proto/caffe.proto --cpp_out .
 	@echo 'Protobuf definition compiled'
+	@echo ' '
+
+$(SRC_GUI)moc_%.cpp: $(SRC_GUI)%.h
+	@echo 'Precompiling file: $<'
+	moc '$<' > '$@'
+	@echo 'Finished building: $<'
 	@echo ' '
 
 # Linking
 $(EXEC): $(OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ $(LDFLAGS) -o "$@" $(OBJS) $(LIBS)
+	$(CPP) $(LDFLAGS) -o "$@" $(OBJS) $(LIBS)
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -109,11 +127,11 @@ obj:
 	@echo ' '
 
 # Clean project
-.PHONY: clean
+.PHONY: clean install precompile
 
 clean:
 	@echo 'Cleaning Project'
-	rm -rf $(OBJS) $(OBJDIR) $(EXEC) proto/caffe.pb.cc proto/caffe.pb.h
+	rm -rf $(OBJS) $(OBJDIR) $(EXEC) $(GEN_PROTO) $(GEN_MOC)
 	@echo ' '
 
 install:
@@ -131,3 +149,6 @@ install:
 	ln -fs /opt/hepics/hepics /usr/bin/
 	@echo 'Installed'
 	
+precompile: $(GEN_PROTO) $(GEN_MOC)
+
+
