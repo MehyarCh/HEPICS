@@ -24,7 +24,12 @@ struct Paths {
 	static constexpr auto welcome_image = "/home/ibrahim/Caffe/welcome_image.jpeg";
 };
 #else
-#error unknown user
+struct Paths {
+	static constexpr auto class_name_file = "/opt/hepics/synset_words.txt";
+	static constexpr auto caffemodel = "/opt/hepics/bvlc_alexnet.caffemodel";
+	static constexpr auto mean_file = "/opt/hepics/imagenet_mean.binaryproto";
+	static constexpr auto welcome_image = "/opt/hepics/welcome_image.jpeg";
+};
 #endif
 
 }

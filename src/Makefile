@@ -14,7 +14,7 @@ EXEC = hepics.exe # Executable
 CFLAGS = -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC # Display all warnings and errors
 LDFLAGS= -pthread # Informations passed through the linker
 OPTS := # Other options
-USER = -DUSER_IBRAHIM
+USER = 
 
 # List of Objects
 OBJ = \
@@ -110,3 +110,18 @@ clean:
 	rm -rf $(OBJS) $(OBJDIR) $(EXEC)
 	@echo ' '
 
+install:
+	@if ! [ "$(shell id -u -r)" -eq 0 ]; then \
+		echo "Please run as root user"; \
+		exit 1; \
+	fi
+	@echo 'Installing'
+	sudo mkdir -m 0755 -p /opt/hepics
+	cp hepics.exe /opt/hepics/hepics
+	cp ../bvlc_alexnet.caffemodel /opt/hepics/
+	cp ../synset_words.txt /opt/hepics/
+	cp ../welcome_image.jpeg /opt/hepics/
+	cp ../imagenet_mean.binaryproto /opt/hepics/
+	ln -fs /opt/hepics/hepics /usr/bin/
+	@echo 'Installed'
+	

@@ -1,3 +1,10 @@
 /Debug/
 /Test/
 /cfg/
+*.o
+bvlc_alexnet.caffemodel
+imagenet_mean.binaryproto
+src/hepics.exe
+synset_words.txt
+welcome_image.jpeg
+
