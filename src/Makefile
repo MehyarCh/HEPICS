@@ -11,7 +11,7 @@ SRC_GUI = ./gui/
 SRC_PROTO = ./proto/
 OBJDIR = ./obj/
 EXEC = hepics.exe # Executable
-CFLAGS = -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC # Display all warnings and errors
+CFLAGS = -std=c++1y -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC # Display all warnings and errors
 LDFLAGS= -pthread # Informations passed through the linker
 OPTS := # Other options
 USER = 
