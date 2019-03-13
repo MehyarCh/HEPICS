@@ -1,7 +1,7 @@
 #include <QApplication>
 #include "main_window.h"
 #include "welcome_window.h"
-#include "hepics/Paths.h"
+#include "../hepics/Paths.h"
 
 WelcomeWindow::WelcomeWindow(Assistant& assistant, Scheduler& scheduler,
 		DataSaver& datasaver, Classifier& classifier)

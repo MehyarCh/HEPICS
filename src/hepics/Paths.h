@@ -18,8 +18,10 @@ struct Paths {
 };
 #elif defined(USER_IBRAHIM)
 struct Paths {
-	static constexpr auto class_name_file = "/home/ibrahim/local_repo/hepics/data/synset_words.txt";
-	static constexpr auto caffemodel = "/home/ibrahim/local_repo/hepics/data/bvlc_alexnet.caffemodel";
+	static constexpr auto class_name_file = "/home/ibrahim/Caffe/synset_words.txt";
+	static constexpr auto caffemodel = "/home/ibrahim/Caffe/bvlc_alexnet.caffemodel";
+	static constexpr auto mean_file = "/home/ibrahim/Caffe/imagenet_mean.binaryproto";
+	static constexpr auto welcome_image = "/home/ibrahim/Caffe/welcome_image.jpeg";
 };
 #else
 #error unknown user
