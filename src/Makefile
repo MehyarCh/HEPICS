@@ -62,7 +62,13 @@ OPTS = -O3
 CFLAGS += $(OPTS)
 
 # All targets to build
-all: obj $(EXEC)
+all: proto/caffe.pb.cc obj $(EXEC)
+
+proto/caffe.pb.cc:
+	@echo 'Compiling protobuf definition'
+	cd proto && protoc caffe.proto --cpp_out .
+	@echo 'Protobuf definition compiled'
+	@echo ' '
 
 # Linking
 $(EXEC): $(OBJS)
@@ -107,7 +113,7 @@ obj:
 
 clean:
 	@echo 'Cleaning Project'
-	rm -rf $(OBJS) $(OBJDIR) $(EXEC)
+	rm -rf $(OBJS) $(OBJDIR) $(EXEC) proto/caffe.pb.cc proto/caffe.pb.h
 	@echo ' '
 
 install:
