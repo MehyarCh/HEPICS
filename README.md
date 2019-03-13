@@ -8,7 +8,7 @@ In the frame of the software engineering practise at the Karlsruhe Institute Of 
 ___________________________________________________________________
 # Build status :
 The last step was the integration of the back- and frontend. The classification runs for the moment on the CPU, but can be extended to run on a GPU and an FPGA for an optimization.
-The program is in current stable status.
+The program is currently in a stable status.
 
 ___________________________________________________________________
 # Code Style :
@@ -34,9 +34,9 @@ An Ubuntu version 16.04 environment is necessary.
 1. install the protoc library through running the following command in the console
 sudo apt-get install libprotobuf-dev
 2. install Qt5 libraries through running the following commands in the console
-sudo apt-get install build-essential
-sudo apt-get install qtcreator
-sudo apt-get install qt5-default
+- sudo apt-get install build-essential
+- sudo apt-get install qtcreator
+- sudo apt-get install qt5-default
 3. change the directory to the "HePICS" installation folder and run "make all" in the console
 4. run "sudo make install"
 5. run "HePICS" in the console
