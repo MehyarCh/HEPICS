@@ -1,0 +1,60 @@
+\documentclass[parskip=full]{scrartcl}
+\usepackage[utf8]{inputenc} % use utf8 file encoding for TeX sources
+\usepackage[T1]{fontenc}    % avoid garbled Unicode text in pdf
+\usepackage[english]{babel}  % english hyphenation, quotes, etc
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}       % detailed hyperlink/pdf configuration
+\usepackage{graphicx}       % provides commands for including figures
+\usepackage{csquotes}       % provides \enquote{} macro for "quotes"
+\usepackage{enumitem}
+\usepackage{multicol}
+\setlength{\columnsep}{4cm}
+%\usepackage{lscape}	% provides landscape portrait
+
+\usepackage{pdflscape}	% provides horizental landscape portrait
+
+
+\usepackage{pdfpages}	% add another pdf in  Latex
+
+\usepackage{tikz}
+
+
+\usepackage{verbatim}	% provides multi-line comments
+
+\usepackage{afterpage}
+\usepackage{ragged2e}
+\usepackage[export]{adjustbox}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+
+\title{\Huge \textbf{HePICS Test-Phase Document}}
+\date{\today \vspace{+10ex}}
+\author{Andres Stober \\
+	\and Mehyar Cherni \\
+	\and Ibrahim Bouriga \\ 
+	\and Linjuan Fan \\
+	\and Bahaa Mahjane \\ }
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture, overlay]
+  \node [anchor=north west, inner sep=0.5pt, yshift=-20pt,xshift=20pt]  at (current page.north west)
+     {\includegraphics[height=1.9cm]{Logo_KIT}};
+\end{tikzpicture}
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.45\textwidth, center]{boardimage}
+\end{figure}
+
+\pagebreak
+
+\tableofcontents
+\thispagestyle{empty}
+\pagebreak
+
+\section {Introduction}
+
+\end{document}
