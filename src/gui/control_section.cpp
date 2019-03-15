@@ -23,7 +23,7 @@ ControlSection::ControlSection(MainWindow *parent)
 	result->setGeometry(125, 120, 400, 400);
 
 	// set the control section
-	button_aggregate = new QPushButton("Aggregate", this);
+	button_aggregate = new QCheckBox("Aggregate", this);
 	button_start_cancel = new QPushButton("Start", this);
 	button_pause_resume = new QPushButton("Pause", this);
 
@@ -37,7 +37,7 @@ ControlSection::ControlSection(MainWindow *parent)
 	progress_timer = new QTimer(this);
 	progress_timer->setInterval(1000);
 
-	connect(button_aggregate, SIGNAL(clicked()), this, SLOT(aggregateResult()));
+	connect(button_aggregate, SIGNAL(clicked(bool)), this, SLOT(getResults(bool)));
 	connect(button_start_cancel, SIGNAL(clicked()), this, SLOT(startCancelProcess()));
 	connect(button_pause_resume, SIGNAL(clicked()), this, SLOT(pauseResumeProcess()));
 
@@ -61,6 +61,9 @@ void ControlSection::set_result_id(int id) {
 		result->setAlignment(Qt::AlignLeft);
 		result->setWordWrap(true);
 	}
+	else {
+		result->setText(""); // remove old results when a new image is opened
+	}
 }
 
 void ControlSection::startCancelProcess()
@@ -69,6 +72,8 @@ void ControlSection::startCancelProcess()
 			main_window->getClassifier().start()) {
 		button_start_cancel->setText("Cancel");
 		button_pause_resume->setEnabled(true);
+		button_aggregate->setEnabled(false);
+		result->setText("");
 		if (button_pause_resume->text() == "Resume") {
 			button_pause_resume->setText("Pause");
 		}
@@ -90,28 +95,39 @@ void ControlSection::pauseResumeProcess()
 	}
 }
 
-void ControlSection::aggregateResult()
+/**
+ * Get results of classification if checked is false, results of aggregation otherwise
+ */
+void ControlSection::getResults(bool checked)
 {
-	// aggregate the result
-	Result res = main_window->getDataSaver().aggregate();
+	if (checked) {
+		// aggregate the result
+		Result res = main_window->getDataSaver().aggregate();
 
-	// convert std::string to QString
-	QString str = QString::fromStdString(format_result(res));
+		// convert std::string to QString
+		QString str = QString::fromStdString(format_result(res));
 
-	// display the result with QLabel
-	result->setText(str);
-	result->setAlignment(Qt::AlignLeft);
-	result->setWordWrap(true);
+		// display the result with QLabel
+		result->setText(str);
+		result->setAlignment(Qt::AlignLeft);
+		result->setWordWrap(true);
+	} else {
+		// get classification of result image back
+		this->set_result_id(main_window->get_isection()->get_selected_id());
+	}
+
 }
+
 
 void ControlSection::update_progress() {
 	auto &classifier = main_window->getClassifier();
 	progressbar->setValue(round(classifier.get_progress() * 100.0f));
 	if (!classifier.is_running()) {
 		classifier.save_results();
-		set_result_id(main_window->get_isection()->get_selected_id());
+		getResults(button_aggregate->isChecked());
 		progressbar->setValue(classifier.is_canceled() ? 0 : 100);
 		button_start_cancel->setText("Start");
+		button_aggregate->setEnabled(true);
 		button_pause_resume->setEnabled(false);
 		progress_timer->stop();
 	}

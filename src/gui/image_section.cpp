@@ -64,23 +64,27 @@ void ImageSection::addAnImageFile()
 	filedialog->show();
 
 	// get the path of the image
-	QString fileName = QFileDialog::getOpenFileName(
+	QStringList fileNames = QFileDialog::getOpenFileNames(
 			this, tr("Open File"), "/home",
 			tr("Image Files (*.jpeg *.jpg *.jpe *.png *.xpm)"));
 
-	QStringList list = fileName.split("/");
+	for (QString fileName : fileNames) {
 
-	// if choose a image file, add a new item into the list
-	if (!fileName.isNull()) {
-		file_name_list->append(fileName);
-		box_image->addItem(list.last());
-		box_image->setCurrentIndex(box_image->count() - 1);
+		QStringList list = fileName.split("/");
 
-		// send the path of this image to the assistant
-		main_window->getAssistant().add_input_map(fileName.toStdString());
-		button_delete->setEnabled(true);
-		button_reset->setEnabled(true);
+		// if choose a image file, add a new item into the list
+		if (!fileName.isNull()) {
+			file_name_list->append(fileName);
+			box_image->addItem(list.last());
+			box_image->setCurrentIndex(box_image->count() - 1);
+
+			// send the path of this image to the assistant
+			main_window->getAssistant().add_input_map(fileName.toStdString());
+			button_delete->setEnabled(true);
+			button_reset->setEnabled(true);
+		}
 	}
+
 
 	filedialog->close();
 }
