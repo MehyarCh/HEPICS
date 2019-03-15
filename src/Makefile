@@ -59,7 +59,7 @@ DEPS_GUI = $(wildcard $(SRC_GUI)/*.h)
 # Get all header files from prot directory
 DEPS_PROTO = $(wildcard $(SRC_PROTO)/*.h)
 
-OPTS = -O3
+OPTS = -O3 -DNDEBUG
 CFLAGS += $(OPTS)
 
 GEN_PROTO = \
