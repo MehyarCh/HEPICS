@@ -5,7 +5,9 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QPushButton>
+#include <QCheckBox>
 #include <QTimer>
+#include "../hepics/Result.h"
 
 namespace Ui
 {
@@ -24,7 +26,7 @@ public:
 public slots:
     void startCancelProcess();
     void pauseResumeProcess();
-    void aggregateResult();
+    void getResults(bool checked);
     void update_progress();
 
 private:
@@ -32,10 +34,11 @@ private:
     QLabel *result;
 
     MainWindow  *main_window;
-    QPushButton *button_aggregate;
+    QCheckBox *button_aggregate;
     QPushButton *button_pause_resume;
     QPushButton *button_start_cancel;
     QTimer      *progress_timer;
+
 };
 
 #endif // CONTROLSECTION_H

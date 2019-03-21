@@ -16,6 +16,7 @@ CFLAGS = -std=c++1y -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors
 LDFLAGS= -pthread # Informations passed through the linker
 OPTS := # Other options
 USER = 
+DEBUG = 0 # If you want to debug with an ide, just set this flag
 
 # List of Objects
 OBJ = \
@@ -72,6 +73,11 @@ gui/moc_image_section.cpp \
 gui/moc_main_window.cpp \
 gui/moc_platform_mode_section.cpp \
 gui/moc_welcome_window.cpp
+
+ifeq ($(DEBUG), 1) 
+OPTS = -O0 -g3
+CFLAGS += $(OPTS)
+endif
 
 # All targets to build
 all: obj $(GEN_PROTO) $(GEN_MOC) $(EXEC)
