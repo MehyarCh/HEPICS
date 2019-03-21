@@ -21,7 +21,6 @@ TEST(socket_test, echo_test) {
 	auto ss = make_unique<Server_socket>(port);
 
 	auto src = vector<uint8_t> { 123, 21, 12, 32, 1 };
-	auto what = ""s;
 	auto worker = make_unique<thread>(echo, src.size());
 
 	auto s = ss->accept();

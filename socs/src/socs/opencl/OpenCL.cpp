@@ -244,6 +244,12 @@ void Kernel::set_arg(cl_uint index, const Buffer &buffer) const {
 	}
 }
 
+void Kernel::set_arg(cl_uint index, int i) const {
+	if (clSetKernelArg(kernel, index, sizeof(i), &i) != CL_SUCCESS) {
+		throw Set_kernel_arg_failed { };
+	}
+}
+
 Event::Event(cl_event event) :
 		event { event } {
 }
@@ -287,12 +293,13 @@ Command_queue::~Command_queue() {
 	clReleaseCommandQueue(queue);
 }
 
-unique_ptr<Event> Command_queue::queue_write(const Buffer &buffer, const vector<cl_event> &wait_list) const {
+unique_ptr<Event> Command_queue::queue_write(const Buffer &buffer, const vector<cl_event> &wait_list,
+		size_t limit) const {
 	auto ws = wait_list.size();
 	auto wl = ws != 0 ? &wait_list[0] : nullptr;
 	auto event = cl_event { nullptr };
 	if (clEnqueueWriteBuffer(queue, buffer.buffer, CL_FALSE,
-			0, buffer.mem.length, buffer.mem.array,
+			0, min(buffer.mem.length, limit), buffer.mem.array,
 			ws, wl, &event) != CL_SUCCESS) {
 		throw Equeue_write_failed { };
 	}
@@ -312,11 +319,14 @@ unique_ptr<Event> Command_queue::queue_read(const Buffer &buffer, const vector<c
 }
 
 unique_ptr<Event> Command_queue::queue_kernel(const Kernel &kernel, const vector<size_t> &work_size,
-		const vector<cl_event> &wait_list) const {
+		const vector<size_t> &local_size, const vector<cl_event> &wait_list) const {
+	if (work_size.size() != local_size.size()) {
+		throw Invalid_local_size { };
+	}
 	auto ws = wait_list.size();
 	auto wl = ws != 0 ? &wait_list[0] : nullptr;
 	auto event = cl_event { nullptr };
-	if (clEnqueueNDRangeKernel(queue, kernel.kernel, work_size.size(), nullptr, &work_size[0], nullptr, ws, wl,
+	if (clEnqueueNDRangeKernel(queue, kernel.kernel, work_size.size(), nullptr, &work_size[0], &local_size[0], ws, wl,
 			&event) != CL_SUCCESS) {
 		throw Enqueue_kernel_failed { };
 	}
@@ -389,6 +399,10 @@ const char *Enqueue_kernel_failed::what() const noexcept {
 
 const char *Wait_failed::what() const noexcept {
 	return "socs::socket::Wait_failed";
+}
+
+const char *Invalid_local_size::what() const noexcept {
+	return "socs::socket::Invalid_local_size";
 }
 
 } // namespace opencl

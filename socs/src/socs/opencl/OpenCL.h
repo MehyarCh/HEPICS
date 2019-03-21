@@ -94,6 +94,7 @@ struct Kernel {
 	Kernel &operator=(const Kernel &&kernel) = delete;
 	~Kernel();
 	void set_arg(cl_uint index, const Buffer &buffer) const;
+	void set_arg(cl_uint index, int i) const;
 
 	const cl_kernel kernel;
 };
@@ -117,10 +118,11 @@ struct Command_queue {
 	Command_queue &operator=(const Command_queue &queue) = delete;
 	Command_queue &operator=(const Command_queue &&queue) = delete;
 	~Command_queue();
-	unique_ptr<Event> queue_write(const Buffer &buffer, const vector<cl_event> &wait_list = vector<cl_event> { }) const;
+	unique_ptr<Event> queue_write(const Buffer &buffer, const vector<cl_event> &wait_list = vector<cl_event> { },
+			size_t limit = size_t(-1)) const;
 	unique_ptr<Event> queue_read(const Buffer &buffer, const vector<cl_event> &wait_list = vector<cl_event> { }) const;
 	unique_ptr<Event> queue_kernel(const Kernel &kernel, const vector<size_t> &work_size,
-			const vector<cl_event> &wait_list = vector<cl_event> { }) const;
+			const vector<size_t> &local_size, const vector<cl_event> &wait_list = vector<cl_event> { }) const;
 
 	const cl_command_queue queue;
 };
@@ -204,6 +206,11 @@ public:
 };
 
 class Wait_failed: public OpenCL_exception {
+public:
+	const char *what() const noexcept override;
+};
+
+class Invalid_local_size: public OpenCL_exception {
 public:
 	const char *what() const noexcept override;
 };

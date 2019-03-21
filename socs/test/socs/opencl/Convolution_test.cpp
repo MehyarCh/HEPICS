@@ -8,15 +8,7 @@ using namespace std;
 using namespace socs;
 using namespace socs::opencl;
 
-struct E: exception {
-	E(const string &s) :
-			s { s } {
-	}
-	const char *what() const noexcept override {
-		return s.c_str();
-	}
-	const string s;
-};
+#if 0
 
 static auto is_near_equal(float a, float b) {
 	constexpr float epsilon = 0.0001f;
@@ -197,3 +189,5 @@ TEST(convolution_test, run_3x3_stride_3) {
 		}
 	}
 }
+
+#endif
