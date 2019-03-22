@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "OpenCL.h"
+#include "../make_ptr.h"
 
 namespace socs {
 namespace opencl {
@@ -378,7 +379,7 @@ const char *Create_program_with_binary_failed::what() const noexcept {
 }
 
 Build_program_failed::Build_program_failed(const string &log) :
-		log { "socs::socket::Build_program_failed\n"s + log } {
+		log { string("socs::socket::Build_program_failed\n") + log } {
 }
 
 const char *Build_program_failed::what() const noexcept {

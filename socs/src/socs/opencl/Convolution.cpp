@@ -3,6 +3,8 @@
 #include <cstring>
 #include <fstream>
 
+#include "../make_ptr.h"
+
 namespace socs {
 namespace opencl {
 
@@ -18,29 +20,29 @@ static auto make_parameters() {
 	using Parameters = Convolution::Parameters;
 	return vector<shared_ptr<const Parameters>> {
 			make_shared<Parameters>(make_unique<Blob>(11, 11, 3, 96),
-					Paths::data_path + "convolutional_layer_0_weights"s,
+					Paths::data_path + string("convolutional_layer_0_weights"),
 					vector<float>(96),
-					Paths::data_path + "convolutional_layer_0_bias_vector"s,
+					Paths::data_path + string("convolutional_layer_0_bias_vector"),
 					4, 0, 1),
 			make_shared<Parameters>(make_unique<Blob>(5, 5, 48, 256),
-					Paths::data_path + "convolutional_layer_1_weights"s,
+					Paths::data_path + string("convolutional_layer_1_weights"),
 					vector<float>(256),
-					Paths::data_path + "convolutional_layer_1_bias_vector"s,
+					Paths::data_path + string("convolutional_layer_1_bias_vector"),
 					1, 2, 2),
 			make_shared<Parameters>(make_unique<Blob>(3, 3, 256, 384),
-					Paths::data_path + "convolutional_layer_2_weights"s,
+					Paths::data_path + string("convolutional_layer_2_weights"),
 					vector<float>(384),
-					Paths::data_path + "convolutional_layer_2_bias_vector"s,
+					Paths::data_path + string("convolutional_layer_2_bias_vector"),
 					1, 1, 1),
 			make_shared<Parameters>(make_unique<Blob>(3, 3, 192, 384),
-					Paths::data_path + "convolutional_layer_3_weights"s,
+					Paths::data_path + string("convolutional_layer_3_weights"),
 					vector<float>(384),
-					Paths::data_path + "convolutional_layer_3_bias_vector"s,
+					Paths::data_path + string("convolutional_layer_3_bias_vector"),
 					1, 1, 2),
 			make_shared<Parameters>(make_unique<Blob>(3, 3, 192, 256),
-					Paths::data_path + "convolutional_layer_4_weights"s,
+					Paths::data_path + string("convolutional_layer_4_weights"),
 					vector<float>(256),
-					Paths::data_path + "convolutional_layer_4_bias_vector"s,
+					Paths::data_path + string("convolutional_layer_4_bias_vector"),
 					1, 1, 2),
 	};
 }
@@ -76,7 +78,7 @@ static void ensure_valid_input(const Blob &input, const Blob &filters, size_t gr
 
 class Sliced_filters {
 public:
-	using Filter = vector<unique_ptr<Buffer>>;
+	using Filter = vector<shared_ptr<Buffer>>;
 
 	Sliced_filters(const Blob &filters, const Context &context, const Command_queue &queue);
 
@@ -125,7 +127,7 @@ static auto get_input_value(const Blob &input, size_t x, size_t y, size_t c) {
 
 class Data_sink {
 public:
-	using Buffer = vector<unique_ptr<opencl::Buffer>>;
+	using Buffer = vector<shared_ptr<opencl::Buffer>>;
 
 	Data_sink(size_t buf_vec_size, size_t num_dpd, const Sliced_filters &filters, const vector<float> &bias_vec,
 			const Kernel &kernel, const Command_queue &queue, const Context &context);
@@ -173,7 +175,7 @@ Data_sink::Data_sink(size_t buf_vec_size, size_t num_dpd, const Sliced_filters &
 		const Kernel &kernel, const Command_queue &queue, const Context &context) :
 		buf_vec(make_buf_vec(buf_vec_size, num_dpd, filters, context)), evt_vec(buf_vec_size),
 				num_dpd { num_dpd }, flt_idx { 0 }, buf_idx { 0 }, dpd_idx { 0 }, slc_idx { 0 }, val_idx { 0 },
-				filters { filters }, bias_vec { bias_vec }, kernel { kernel }, queue { queue }, context { context }, result { } {
+				filters { filters }, bias_vec { bias_vec }, kernel(kernel), queue(queue), context(context), result() {
 }
 
 static auto loop_inc(size_t idx, size_t size) {
@@ -187,7 +189,7 @@ void Data_sink::set_flt_idx(size_t flt_idx) {
 void Data_sink::write_value(float value) {
 	auto &buffer = buf_vec[buf_idx];
 	auto &slice = *buffer[slc_idx];
-	auto payload = min((filters.filter_size + (16-1)) / 16 * 16 - slc_idx * block_size, block_size);
+	auto payload = min((filters.filter_size + (16 - 1)) / 16 * 16 - slc_idx * block_size, block_size);
 	reinterpret_cast<float *>(slice.mem.array)[dpd_idx * payload + val_idx] = value;
 	val_idx = loop_inc(val_idx, payload);
 	if (val_idx == 0) {
@@ -246,14 +248,11 @@ void Data_sink::queue_data() {
 
 	for (size_t i = 0, n = buffer.size(); i < n; ++i) {
 		auto buf_slice = buffer[i].get();
-		auto payload = min((filters.filter_size + (16-1)) / 16 * 16 - i * block_size, block_size);
+		auto payload = min((filters.filter_size + (16 - 1)) / 16 * 16 - i * block_size, block_size);
 		auto dat_evt = queue.queue_write(*buf_slice, vector<cl_event> { }, dpd_count * payload * sizeof(float));
 
 		auto flt_slice = filter[i].get();
 		auto reduction_size = (payload + (16 - 1)) / 16;
-
-		auto x = (float *)buf_slice->mem.array;
-		auto y = (float *)flt_slice->mem.array;
 
 		kernel.set_arg(0, *buf_slice);
 		kernel.set_arg(1, *flt_slice);
@@ -268,7 +267,6 @@ void Data_sink::queue_data() {
 	}
 
 	evt_vec[buf_idx] = queue.queue_read(*conv_res, vector<cl_event> { event->event });
-	auto z = (float *)conv_res->mem.array;;
 	result.push_back(move(conv_res));
 }
 
@@ -276,7 +274,7 @@ unique_ptr<Blob> Data_sink::make_result_blob(size_t width, size_t height, size_t
 	auto out = make_unique<Blob>(width, height, channels, 1);
 	auto p = out->ptr();
 	auto s = out->size() * sizeof(float);
-	for(auto &res_block : result) {
+	for (auto &res_block : result) {
 		auto cs = min(s, res_block->mem.length);
 		memcpy(p, res_block->mem.array, cs);
 		p += cs / sizeof(float);

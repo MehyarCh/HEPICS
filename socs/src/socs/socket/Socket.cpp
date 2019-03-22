@@ -4,6 +4,7 @@
 #include <netdb.h>
 #include <cstring>
 #include "Socket.h"
+#include "../make_ptr.h"
 
 namespace socs {
 namespace socket {
