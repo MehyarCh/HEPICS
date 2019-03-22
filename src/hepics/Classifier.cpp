@@ -6,6 +6,7 @@
  */
 
 #include "Classifier.h"
+#include "Convolutional_layer.h"
 #include <iostream>
 #include <chrono>
 namespace hepics {
@@ -63,6 +64,7 @@ bool Classifier::start() {
 					this_thread::sleep_for(1s);
 				}
 				if (use_fpga && layer->get_type() == Layer::Type::convolutional) {
+					output = dynamic_cast<Convolutional_layer *>(layer.get())->forward_layer_fpga(*output);
 				} else {
 					output = layer->forward_layer(*output);
 				}
@@ -71,7 +73,7 @@ bool Classifier::start() {
 			output_vec.push_back(pair<unique_ptr<Image>, int>(move(output), id));
 		}
 		set_output_vec(move(output_vec));
-	}, move(input_vec), scheduler.getUsedPlatforms()[3]);
+	}, move(input_vec), scheduler.getUsedPlatforms()[2]);
 	return true;
 }
 void Classifier::pause() {

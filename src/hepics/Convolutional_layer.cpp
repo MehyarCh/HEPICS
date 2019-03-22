@@ -1,4 +1,5 @@
 #include "Convolutional_layer.h"
+#include "Socket.h"
 
 namespace hepics {
 
@@ -11,7 +12,7 @@ static void ensure_valid_filters(const Image &filters) {
 }
 
 static void ensure_filters_can_be_grouped(const Image &filters, size_t groups) {
-	if(filters.num % groups != 0) {
+	if (filters.num % groups != 0) {
 		throw Invalid_convolution_param { };
 	}
 }
@@ -23,8 +24,8 @@ static void ensure_filters_match_bias(const Image &filters, const vector<float> 
 }
 
 Convolutional_layer::Convolutional_layer(unique_ptr<Image> filters, vector<float> bias, size_t stride, size_t pad,
-		size_t groups) :
-		filters { move(filters) }, bias { move(bias) }, stride { stride }, pad { pad }, groups { groups } {
+		size_t groups, size_t index) :
+		filters { move(filters) }, bias { move(bias) }, stride { stride }, pad { pad }, groups { groups }, index { index } {
 	ensure_valid_filters(*this->filters);
 	ensure_filters_can_be_grouped(*this->filters, this->groups);
 	ensure_filters_match_bias(*this->filters, this->bias);
@@ -71,6 +72,31 @@ unique_ptr<Image> Convolutional_layer::forward_layer(const Image &input) {
 		}
 	}
 	return out;
+}
+
+static auto make_socket() {
+	auto sock = make_unique<Socket>("192.168.232.143", 1234);
+	sock->set_tcp_nodelay(true);
+	return move(sock);
+}
+
+unique_ptr<Image> Convolutional_layer::forward_layer_fpga(const Image &input) {
+	static auto sock = make_socket();
+	sock->send(reinterpret_cast<const uint8_t *>(&index), sizeof(index));
+	sock->send(reinterpret_cast<const uint8_t *>(&input.width), sizeof(input.width));
+	sock->send(reinterpret_cast<const uint8_t *>(&input.height), sizeof(input.height));
+	sock->send(reinterpret_cast<const uint8_t *>(&input.channels), sizeof(input.channels));
+	sock->send(reinterpret_cast<const uint8_t *>(input.ptr()), input.size() * sizeof(*input.ptr()));
+
+	size_t width = 0;
+	sock->receive(reinterpret_cast<uint8_t *>(&width), sizeof(width));
+	size_t height = 0;
+	sock->receive(reinterpret_cast<uint8_t *>(&height), sizeof(height));
+	size_t channels = 0;
+	sock->receive(reinterpret_cast<uint8_t *>(&channels), sizeof(channels));
+	auto output = make_unique<Image>(width, height, channels, 1);
+	sock->receive(reinterpret_cast<uint8_t *>(output->ptr()), output->size() * sizeof(*output->ptr()));
+	return output;
 }
 
 Layer::Type Convolutional_layer::get_type() {

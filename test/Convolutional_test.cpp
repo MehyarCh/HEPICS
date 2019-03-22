@@ -56,7 +56,7 @@ static unique_ptr<Image> set_filters(vector<float> &data) {
 }
 
 static unique_ptr<Convolutional_layer> set_layer(unique_ptr<Image> filters, vector<float> bias, size_t filter_stride, size_t pad) {
-	unique_ptr<Convolutional_layer> conv_layer = make_unique<Convolutional_layer>(move (filters), bias, filter_stride, pad, 1);
+	unique_ptr<Convolutional_layer> conv_layer = make_unique<Convolutional_layer>(move (filters), bias, filter_stride, pad, 1, 0);
 
 	return conv_layer;
 }

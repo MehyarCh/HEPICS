@@ -7,7 +7,7 @@ namespace hepics{
 using std::vector;
 using std::unique_ptr;
 
-enum Mode	{standard, high_performance, low_power, energy_efficient};
+enum Mode	{high_performance, low_power, energy_efficient};
 enum Platform	{cpu, gpu, fpga};
 
 class Scheduler {
@@ -20,8 +20,8 @@ private:
 public:
 	Scheduler();
 	virtual ~Scheduler();
-	vector<bool> getPlatforms();
-	vector<bool> getUsedPlatforms();
+	const vector<bool> &getPlatforms();
+	const vector<bool> &getUsedPlatforms();
 	Mode getMode();
 	void setMode(Mode mode);
 

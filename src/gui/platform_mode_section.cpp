@@ -51,7 +51,16 @@ Platform_Mode_Section::Platform_Mode_Section(MainWindow *parent) //
 void Platform_Mode_Section::enableModeComboBox(int state)
 {
 	// when check-box is checked, state = 2; unchecked state = 0
-    counter_platform += (state - 1);
+    counter_platform = 0;
+    if(cbox_cpu->isChecked()) {
+    	++counter_platform;
+    }
+    if(cbox_gpu->isChecked()) {
+    	++counter_platform;
+    }
+    if(cbox_fpga->isChecked()) {
+    	++counter_platform;
+    }
 
     // only if more than one platform are selected, the mode combo box will be enabled
     if (counter_platform >= 2) {
@@ -60,18 +69,7 @@ void Platform_Mode_Section::enableModeComboBox(int state)
         box_operation_mode->setEnabled(false);
     }
 
-    // send the choice to the scheduler
-    if (cbox_cpu->isChecked()) {
-    	main_window->getScheduler().activate(Platform::cpu);
-    }
-
-    if (cbox_gpu->isChecked()) {
-    	main_window->getScheduler().activate(Platform::gpu);
-    }
-
-    if (cbox_fpga->isChecked()) {
-    	main_window->getScheduler().activate(Platform::fpga);
-    }
+    main_window->getScheduler().choosePlatforms(cbox_cpu->isChecked(), cbox_gpu->isChecked(), cbox_fpga->isChecked());
 }
 
 void Platform_Mode_Section::setOperationMode() {

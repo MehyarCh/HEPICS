@@ -84,6 +84,7 @@ static auto make_vector_from_blob(const BlobProto &blob) {
 static auto make_layer_factory() {
 	auto factory = unordered_map<string, function<unique_ptr<Layer>(const LayerParameter &)>> { };
 	factory["Convolution"] = [](const LayerParameter & param) {
+		static size_t index = 0;
 		auto filters = make_image_from_blob(param.blobs(0));
 		auto bias = make_vector_from_blob(param.blobs(1));
 		auto &strides = param.convolution_param().stride();
@@ -91,7 +92,7 @@ static auto make_layer_factory() {
 		auto &pads = param.convolution_param().pad();
 		auto pad = pads.size() > 0 ? pads.Get(0) : 0;
 		auto groups = param.convolution_param().group();
-		return make_unique<Convolutional_layer>(move(filters), move(bias), stride, pad, groups);
+		return make_unique<Convolutional_layer>(move(filters), move(bias), stride, pad, groups, index++);
 	};
 	factory["InnerProduct"] = [](const LayerParameter & param) {
 		auto weights = make_image_from_blob(param.blobs(0));

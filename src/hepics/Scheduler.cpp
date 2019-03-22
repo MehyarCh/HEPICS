@@ -15,16 +15,16 @@
  */
 namespace hepics{
 Scheduler::Scheduler() {
-	this->mode= standard;
+	this->mode= high_performance;
 }
 Scheduler::~Scheduler() {
 	// TODO Auto-generated destructor stub
 }
 
-vector<bool> Scheduler::getPlatforms(){
+const vector<bool> &Scheduler::getPlatforms(){
 	return this->platforms;
 }
-vector<bool> Scheduler::getUsedPlatforms(){
+const vector<bool> &Scheduler::getUsedPlatforms(){
 	return this->use_platforms;
 }
 
@@ -38,6 +38,7 @@ void Scheduler::activate(Platform p){
 		case fpga: platforms[2]=true;
 		break;
 	}
+	chooseMode(mode);
 }
 
 //disables a platform
@@ -50,6 +51,7 @@ void Scheduler::deactivate(Platform p){
 		case fpga: platforms[2]=false;
 		break;
 	}
+	chooseMode(mode);
 }
 
 //enables platforms
@@ -85,7 +87,7 @@ void Scheduler::chooseMode(Mode mode){
 			defineEnergyEfficient();
 			break;
 		default :
-			setMode(standard);
+			break;
 	}
 }
 Mode Scheduler::getMode(){

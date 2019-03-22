@@ -35,6 +35,7 @@ Maxpool_layer.o \
 Network.o \
 Result.o \
 Scheduler.o \
+Socket.o \
 caffe.pb.o \
 control_section.o \
 image_section.o \
